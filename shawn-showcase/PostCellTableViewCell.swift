@@ -53,10 +53,12 @@ class PostCellTableViewCell: UITableViewCell {
         self.descriptionText.text = post.postDescription       //extracts like data from likes and sees if that post exists
         self.likesLbl.text = "\(post.likes)"
         self.usernameLbl.text = post.username
+        //if the imageurl is there then run this code, but if isn't then
         if post.imageUrl != nil {
             if img != nil {
                 self.showcaseImg.image = img
             } else {
+                //getting an image request then call the response
                 request = Alamofire.request(.GET, post.imageUrl!).validate(contentType: ["image/*"]).response(completionHandler: { request, response, data, err in
                 
                     if err == nil {
@@ -74,12 +76,12 @@ class PostCellTableViewCell: UITableViewCell {
             if ProfileImage != nil {
                 self.profileImg.image = ProfileImage
             } else {
-                request2 = Alamofire.request(.GET, post.profileImageUrl!).validate(contentType: ["image/*"]).response(completionHandler: { request, response, data, err in
+                request = Alamofire.request(.GET, post.profileImageUrl!).validate(contentType: ["image/*"]).response(completionHandler: { request, response, data, err in
                     
                     if err == nil {
                         if let ProfileImage = UIImage(data: data!) {
-                        self.profileImg.image = ProfileImage
-                        FeedVC.imageCache.setObject(ProfileImage, forKey: self.post.profileImageUrl!)
+                            self.profileImg.image = ProfileImage
+                            FeedVC.imageCache.setObject(ProfileImage, forKey: self.post.profileImageUrl!)
                         }
                     }
                 })
@@ -87,6 +89,8 @@ class PostCellTableViewCell: UITableViewCell {
         } else {
             self.profileImg.hidden = false
         }
+        
+       
      
 
         

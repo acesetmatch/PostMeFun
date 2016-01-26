@@ -16,3 +16,5 @@ let SEGUE_LOGGED_IN = "loggedIn"
 let API_Key = "BN8LZQD78ceabf24b6bb9d06b8a977de93a2ad4a"
 //Status Codes
 let STATUS_ACCOUNT_NONEXIST = -8
+let INCORRECT_PASSWORD = -6
+let INVALID_EMAIL = -5

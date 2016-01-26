@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		06BD9BEE8D78123EAC02C240 /* Pods_shawn_showcase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E9C7666EE47786522071A02 /* Pods_shawn_showcase.framework */; };
+		1958FD1A1C4F370300DAA53F /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1958FD191C4F370300DAA53F /* RegisterVC.swift */; };
 		1975DA781C4B2F650085F1FD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1975DA771C4B2F650085F1FD /* User.swift */; };
 		1975DA7A1C4D052B0085F1FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1975DA791C4D052B0085F1FD /* Main.storyboard */; };
 		1981C02D1C4722B9004F7F74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1981C02C1C4722B9004F7F74 /* AppDelegate.swift */; };
@@ -35,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		0E9C7666EE47786522071A02 /* Pods_shawn_showcase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_shawn_showcase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1958FD191C4F370300DAA53F /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		1975DA771C4B2F650085F1FD /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1975DA791C4D052B0085F1FD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1981C0291C4722B9004F7F74 /* shawn-showcase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "shawn-showcase.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +125,7 @@
 				1981C0681C48425D004F7F74 /* FeedVC.swift */,
 				1981C02E1C4722B9004F7F74 /* ViewController.swift */,
 				19D6AA721C4A0C2100BF77C2 /* UsernameVCViewController.swift */,
+				1958FD191C4F370300DAA53F /* RegisterVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				1981C0351C4722B9004F7F74 /* shawn_showcase.xcdatamodeld in Sources */,
 				1981C02D1C4722B9004F7F74 /* AppDelegate.swift in Sources */,
 				1981C0561C472751004F7F74 /* MaterialView.swift in Sources */,
+				1958FD1A1C4F370300DAA53F /* RegisterVC.swift in Sources */,
 				1981C05D1C472FCC004F7F74 /* MaterialTextField.swift in Sources */,
 				1981C0671C482019004F7F74 /* DataService.swift in Sources */,
 			);

@@ -30,13 +30,16 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidAppear(animated: Bool) {
+//        self.navigationController?.navigationBarHidden = false
+    }
+    
     
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         imagePickerUser.dismissViewControllerAnimated(true, completion: nil)
         ProfileImg.image = image
         addBtn.hidden = true
-        
     }
     
     @IBAction func addBtnPressed(sender: AnyObject!){
@@ -63,7 +66,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
                             //when upload is done
                             }) { encodingResult in
                                 switch encodingResult {
-                                case .Success(let upload, _, _): //.success is a closure, if it is success we want response JSON from server
+                                case .Success(let upload, _, _): //.success is a closure, if it is success we want to upload response JSON from server
                                     upload.responseJSON(completionHandler: { response in
                                         if let info = response.result.value as? Dictionary<String, AnyObject> { //returns JSON format of primary dictionary and (string, anyobject)
                                             if let links = info["links"] as? Dictionary<String, AnyObject> { //returns the secondary dictionary of links
@@ -95,15 +98,32 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         }
     }
     
-    @IBAction func logOut(sender: AnyObject?){
+    @IBAction func logOut(unwindSegue: UIStoryboardSegue){
         
-       self.displayAlertError("Logging Out", Message: "Are you sure you want to log out?")
-       self.navigationController!.popViewControllerAnimated(true)
-       DataService.ds.REF_USER_CURRENT.unauth()
+        let alertmessage = UIAlertController(title: "Are you sure you want to log out?", message: "Pressing ok will log you out!", preferredStyle: .Alert)
+        let okayAction = UIAlertAction(title: "Ok", style: .Default, handler: unAuthenticateUser)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+        alertmessage.addAction(okayAction)
+        alertmessage.addAction(cancelAction)
+
+        
+        presentViewController(alertmessage, animated: true, completion: nil)
+        
+//       self.performSegueWithIdentifier("loggingOut", sender: nil)
        
     }
     
+   
     
+    
+   
+    
+    func unAuthenticateUser(alert: UIAlertAction!) {
+        DataService.ds.REF_USER_CURRENT.unauth()
+//        NSUserDefaults.standardUserDefaults().removeObjectForKey(KEY_UID)
+        self.performSegueWithIdentifier("loggingOutofUsername", sender: self)
+        self.navigationController?.navigationBarHidden = true;
+    }
     
     func displayAlertError(Title: String, Message: String) {
         let alertmessage = UIAlertController(title: Title, message: Message, preferredStyle: .Alert)
@@ -112,6 +132,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         presentViewController(alertmessage, animated: true, completion: nil)
         
     }
+    
 
     func UpdateUserImageToFirebase(profileimgUrl: String?, Username: String) {
         
@@ -119,10 +140,9 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         firebaseUser.setValue(Username) //set post of new child autoid into firebase
         
         let firebaseProfile = DataService.ds.REF_USER_CURRENT//creates new database entry of autoid
-        let ProfileimgUrl: Dictionary < String, AnyObject > = ["Username": Username, "ProfileUrl":profileimgUrl!]
+        let ProfileimgUrl: Dictionary < String, AnyObject > = ["Username": Username, "profileUrl":profileimgUrl!]
         
         firebaseProfile.setValue(ProfileimgUrl) //set post of new child autoid into firebase
-        
     }
 
 }

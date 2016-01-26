@@ -81,6 +81,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             }
             let username = post.username
             cell.configureCell(post, img: img, ProfileImage: proImg, username:username )
+            
             return cell
         } else {
             return PostCellTableViewCell()
