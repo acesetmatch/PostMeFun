@@ -16,7 +16,7 @@ class RegisterVC: UIViewController {
     @IBOutlet weak var firstNameTextField: MaterialTextField!
     @IBOutlet weak var lastNameTextField: MaterialTextField!
     @IBOutlet weak var errorMessageLbl: UILabel!
-    
+    @IBOutlet weak var usernameLbl: MaterialTextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,7 +34,7 @@ class RegisterVC: UIViewController {
     
     
     @IBAction func registerOnPressed(segue: UIStoryboardSegue) {
-        if let email = emailTextField.text where email != "", let password = passwordTextField.text where password != "", let firstName = firstNameTextField.text where firstName != "", let lastName = lastNameTextField.text where lastName != ""{
+        if let username = usernameLbl.text where username != "", let email = emailTextField.text where email != "", let password = passwordTextField.text where password != "", let firstName = firstNameTextField.text where firstName != "", let lastName = lastNameTextField.text where lastName != ""{
             let existingEmail = DataService.ds.REF_USERS.childByAppendingPath("email")
             existingEmail.observeEventType(.Value, withBlock: { snapshot in
                 let theEmail = (snapshot.value)
@@ -60,7 +60,7 @@ class RegisterVC: UIViewController {
                                     DataService.ds.REF_BASE.authUser(email, password:password, withCompletionBlock: {err, authData in
                                         
                                         
-                                        let user = ["provider": authData.provider!, "First Name":firstName, "Last Name": lastName, "email": email] //swift dictionary
+                                        let user = ["provider": authData.provider!, "First Name":firstName, "Last Name": lastName, "email": email, "username": username] //swift dictionary
                                         DataService.ds.createFirebaseUser(authData.uid, user: user)
                                     })
                                     

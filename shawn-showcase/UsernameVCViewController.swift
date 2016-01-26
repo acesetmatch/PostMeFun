@@ -30,8 +30,9 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         // Do any additional setup after loading the view.
     }
     
-    override func viewDidAppear(animated: Bool) {
-//        self.navigationController?.navigationBarHidden = false
+    override func viewWillAppear(animated: Bool) {
+        
+        self.navigationController?.navigationBarHidden = false
     }
     
     
@@ -48,7 +49,6 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     @IBAction func StartPosting(sender: AnyObject!) {
-        if let username = UserTextField.text where username != "" {
             if let profileimage = ProfileImg.image where imageSelected == true {
                         let urlStr = "https://post.imageshack.us/upload_api.php" //imageshack api website endpoint
                         let url = NSURL(string:urlStr)!
@@ -71,7 +71,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
                                         if let info = response.result.value as? Dictionary<String, AnyObject> { //returns JSON format of primary dictionary and (string, anyobject)
                                             if let links = info["links"] as? Dictionary<String, AnyObject> { //returns the secondary dictionary of links
                                                 if let imgLink = links["image_link"] as? String {
-                                                    self.UpdateUserImageToFirebase(imgLink, Username: username)
+                                                    self.UpdateUserImageToFirebase(imgLink)
                                                     
                                                     
                                                     
@@ -83,19 +83,20 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
                                 case .Failure(let error):
                                     print(error)
                                 }
-                        }
-                    } else {
-                        self.UpdateUserImageToFirebase(nil, Username:username)
-                    }
-            
+                }
+                } else {
+                    self.UpdateUserImageToFirebase(nil)
+                }
+    
+    
             
             
             self.performSegueWithIdentifier("usernameSet", sender: nil)
         
 
-        } else {
-            self.displayAlertError("Cannot Post", Message: "Please enter a username and add an image")
-        }
+//        } else {
+//            self.displayAlertError("Cannot Post", Message: "Please add a Profile Image")
+//        }
     }
     
     @IBAction func logOut(unwindSegue: UIStoryboardSegue){
@@ -119,9 +120,9 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
    
     
     func unAuthenticateUser(alert: UIAlertAction!) {
-        DataService.ds.REF_USER_CURRENT.unauth()
+        DataService.ds.REF_USERS.unauth()
 //        NSUserDefaults.standardUserDefaults().removeObjectForKey(KEY_UID)
-        self.performSegueWithIdentifier("loggingOutofUsername", sender: self)
+        self.performSegueWithIdentifier("loggingOutofUsername", sender: nil)
         self.navigationController?.navigationBarHidden = true;
     }
     
@@ -134,15 +135,15 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
 
-    func UpdateUserImageToFirebase(profileimgUrl: String?, Username: String) {
+    func UpdateUserImageToFirebase(profileimgUrl: String?) {
         
-        let firebaseUser = DataService.ds.REF_USER_CURRENT //creates new database entry of autoiD
-        firebaseUser.setValue(Username) //set post of new child autoid into firebase
+//        let firebaseUser = DataService.ds.REF_USER_CURRENT //creates new database entry of autoiD
+//        firebaseUser.setValue(Username) //set post of new child autoid into firebase
         
         let firebaseProfile = DataService.ds.REF_USER_CURRENT//creates new database entry of autoid
-        let ProfileimgUrl: Dictionary < String, AnyObject > = ["Username": Username, "profileUrl":profileimgUrl!]
+        let ProfileimgUrl: Dictionary < String, AnyObject > = ["profileUrl":profileimgUrl!]
         
-        firebaseProfile.setValue(ProfileimgUrl) //set post of new child autoid into firebase
+        firebaseProfile.updateChildValues(ProfileimgUrl) //set post of new child autoid into firebase
     }
 
 }

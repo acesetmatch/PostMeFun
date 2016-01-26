@@ -77,7 +77,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                 img = FeedVC.imageCache.objectForKey(url) as? UIImage //passing iamge from the cache if it exists. Returns value of the key(url).
             }
             if let proUrl = post.profileImageUrl {
-                proImg = FeedVC.imageCache.objectForKey(proUrl) as? UIImage //passing iamge from the cache if it exists. Returns value of the key(url). FeedVC is single instance
+                proImg = FeedVC.imageCache.objectForKey(proUrl) as? UIImage //passing image from the cache if it exists. Returns value of the key(url). FeedVC is single instance
             }
             let username = post.username
             cell.configureCell(post, img: img, ProfileImage: proImg, username:username )
@@ -157,13 +157,13 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     
 
     func postToFirebase(imgUrl: String?) {
-        let User = DataService.ds.REF_USER_CURRENT.childByAppendingPath("Username")
-        User.observeEventType(.Value, withBlock: { snapshot in
-            let theUser = (snapshot.value)
+//        let User = DataService.ds.REF_USER_CURRENT.childByAppendingPath("username")
+//        User.observeEventType(.Value, withBlock: { snapshot in
+//            let theUser = (snapshot.value)
             let Uid = DataService.ds.REF_USERS
             Uid.observeEventType(.Value, withBlock: { snapshot in
                 let theUid = (snapshot.value)
-                var post: Dictionary < String, AnyObject >= ["Uid":theUid, "Username": theUser,
+                var post: Dictionary < String, AnyObject >= ["Uid":theUid,
                     "description" : self.postField.text!,
                     "likes": 0]
                 if imgUrl != nil {
@@ -179,10 +179,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                 }, withCancelBlock: {error in
                     print(error.description)
             })
-            
-                        }, withCancelBlock: {error in
-                print(error.description)
-        })
      
         
     }

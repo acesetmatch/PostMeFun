@@ -67,7 +67,7 @@ class Post {
             self._profileImageUrl = profileimgUrl
         }
         
-        if let userName = dictionary["Username"] as? String {
+        if let userName = dictionary["username"] as? String {
             self._username = userName
         }
         

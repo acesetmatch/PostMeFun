@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationController?.navigationBarHidden = true;
         
-//        DataService.ds.REF_BASE.observeAuthEventWithBlock({ authData in
+//        DataService.ds.REF_USERS.observeAuthEventWithBlock({ authData in
 //            if authData.uid != nil {
 //                let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
 //                let usernameVCViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UsernameVCViewController") as? UsernameVCViewController
@@ -35,12 +35,6 @@ class ViewController: UIViewController {
 //        })
     
 //        })
-//        if NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil {
-//            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-//                            let usernameVCViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UsernameVCViewController") as? UsernameVCViewController
-//            
-//                            self.navigationController?.pushViewController(usernameVCViewController!, animated: true) as? UIViewController
-//        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,6 +45,13 @@ class ViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationController?.navigationBarHidden = true;
+//        if NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil {
+//            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+//            let usernameVCViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UsernameVCViewController") as? UsernameVCViewController
+//            
+//            self.navigationController?.pushViewController(usernameVCViewController!, animated: true) as? UIViewController
+//        }
+
         
 //        self.navigationItem.setHidesBackButton(true, animated: false)
 //        let value = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID)
@@ -124,7 +125,7 @@ class ViewController: UIViewController {
                     } else {
                         
 //                        self.performSegueWithIdentifier(SEGUE_LOGGED_IN, sender: nil)
-                        self.navigationController?.navigationBarHidden = false;
+//                        self.navigationController?.navigationBarHidden = false;
                         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
                         let usernameVCViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UsernameVCViewController") as? UsernameVCViewController
 
