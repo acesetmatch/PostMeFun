@@ -11,13 +11,13 @@ import Firebase
 import Alamofire
 class Post {
     private var _postDescription: String! //exclamation is required
-    private var _imageUrl: String?
-    private var _likes: Int!
-    private var _username: String!
     private var _postKey: String!
     private var _postRef: Firebase!
+    private var _imageUrl: String?
+    private var _likes: Int!
+    private var _username: String?
     private var _profileImageUrl: String?
-    
+        
     var postDescription: String {
         return _postDescription
     }
@@ -30,7 +30,7 @@ class Post {
         return _likes
     }
     
-    var username: String {
+    var username: String? {
         return _username
     }
     
@@ -38,15 +38,17 @@ class Post {
         return _profileImageUrl
     }
     
+    var postRef: Firebase! {
+        return _postRef
+    }
+    
     var postKey: String {
         return _postKey
     }
     
-    init(description: String, imageUrl: String?, Username: String, ProfileImageUrl: String?) {
+    init(description: String, imageUrl: String?) {
         self._postDescription = description
         self._imageUrl = imageUrl
-        self._username = Username
-        self._profileImageUrl = ProfileImageUrl
     }
     
     init(postKey:String, dictionary: Dictionary<String, AnyObject>) {
@@ -63,14 +65,15 @@ class Post {
             self._postDescription = desc
         }
         
-        if let profileimgUrl = dictionary["profileUrl"] as? String {
+        if let user = dictionary["Uid"]!["username"] as? String {
+            self._username = user
+        }
+        
+        if let profileimgUrl = dictionary["Uid"]!["profileUrl"] as? String {
             self._profileImageUrl = profileimgUrl
         }
         
-        if let userName = dictionary["username"] as? String {
-            self._username = userName
-        }
-        
+               
         self._postRef = DataService.ds.REF_POSTS.childByAppendingPath(self._postKey!)
         
     
@@ -86,6 +89,8 @@ class Post {
         
         _postRef.childByAppendingPath("likes").setValue(_likes)
     }
+    
+    
     
     
     

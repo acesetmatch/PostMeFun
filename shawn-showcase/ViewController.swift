@@ -10,7 +10,7 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 
-var userGlobal = User()
+var currentUid: String =  ""
 class ViewController: UIViewController {
     
     @IBOutlet weak var emailField: UITextField!
@@ -40,6 +40,11 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
+        view.endEditing(true)
+        super.touchesBegan(touches, withEvent: event)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -123,9 +128,7 @@ class ViewController: UIViewController {
                           }
                         
                     } else {
-                        
-//                        self.performSegueWithIdentifier(SEGUE_LOGGED_IN, sender: nil)
-//                        self.navigationController?.navigationBarHidden = false;
+                        NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: KEY_UID)
                         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
                         let usernameVCViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UsernameVCViewController") as? UsernameVCViewController
 
@@ -162,7 +165,6 @@ class ViewController: UIViewController {
     
     
     
-
     func showErrorAlert(title: String, msg: String) {
             let alert = UIAlertController(title:title, message: msg, preferredStyle: .Alert)
             let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)

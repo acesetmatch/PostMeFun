@@ -31,7 +31,9 @@
 		1981C0691C48425D004F7F74 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1981C0681C48425D004F7F74 /* FeedVC.swift */; };
 		1981C06D1C4843E6004F7F74 /* PostCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1981C06C1C4843E6004F7F74 /* PostCellTableViewCell.swift */; };
 		1981C06F1C48D07A004F7F74 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1981C06E1C48D07A004F7F74 /* Post.swift */; };
+		199CD2331C597319007E05C1 /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199CD2321C597319007E05C1 /* RoundView.swift */; };
 		19D6AA731C4A0C2100BF77C2 /* UsernameVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6AA721C4A0C2100BF77C2 /* UsernameVCViewController.swift */; };
+		19E3084F1C614DD3009B16E8 /* MaterialTextField2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E3084E1C614DD3009B16E8 /* MaterialTextField2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,7 +63,9 @@
 		1981C0681C48425D004F7F74 /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		1981C06C1C4843E6004F7F74 /* PostCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCellTableViewCell.swift; sourceTree = "<group>"; };
 		1981C06E1C48D07A004F7F74 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		199CD2321C597319007E05C1 /* RoundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
 		19D6AA721C4A0C2100BF77C2 /* UsernameVCViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsernameVCViewController.swift; sourceTree = "<group>"; };
+		19E3084E1C614DD3009B16E8 /* MaterialTextField2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTextField2.swift; sourceTree = "<group>"; };
 		6DC01DE81737EA0F27F06826 /* Pods-shawn-showcase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shawn-showcase.release.xcconfig"; path = "Pods/Target Support Files/Pods-shawn-showcase/Pods-shawn-showcase.release.xcconfig"; sourceTree = "<group>"; };
 		8A737DD3DC0CEA995095FE0E /* Pods-shawn-showcase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shawn-showcase.debug.xcconfig"; path = "Pods/Target Support Files/Pods-shawn-showcase/Pods-shawn-showcase.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,6 +141,8 @@
 				1981C05A1C472B19004F7F74 /* MaterialButton.swift */,
 				1981C05C1C472FCC004F7F74 /* MaterialTextField.swift */,
 				1981C06C1C4843E6004F7F74 /* PostCellTableViewCell.swift */,
+				199CD2321C597319007E05C1 /* RoundView.swift */,
+				19E3084E1C614DD3009B16E8 /* MaterialTextField2.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -239,6 +245,7 @@
 				TargetAttributes = {
 					1981C0281C4722B9004F7F74 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = N8JR7J468N;
 					};
 				};
 			};
@@ -334,6 +341,7 @@
 				1981C0691C48425D004F7F74 /* FeedVC.swift in Sources */,
 				1981C06F1C48D07A004F7F74 /* Post.swift in Sources */,
 				1981C0591C472799004F7F74 /* Constants.swift in Sources */,
+				199CD2331C597319007E05C1 /* RoundView.swift in Sources */,
 				1981C02F1C4722B9004F7F74 /* ViewController.swift in Sources */,
 				1981C06D1C4843E6004F7F74 /* PostCellTableViewCell.swift in Sources */,
 				19D6AA731C4A0C2100BF77C2 /* UsernameVCViewController.swift in Sources */,
@@ -342,6 +350,7 @@
 				1981C02D1C4722B9004F7F74 /* AppDelegate.swift in Sources */,
 				1981C0561C472751004F7F74 /* MaterialView.swift in Sources */,
 				1958FD1A1C4F370300DAA53F /* RegisterVC.swift in Sources */,
+				19E3084F1C614DD3009B16E8 /* MaterialTextField2.swift in Sources */,
 				1981C05D1C472FCC004F7F74 /* MaterialTextField.swift in Sources */,
 				1981C0671C482019004F7F74 /* DataService.swift in Sources */,
 			);
@@ -449,6 +458,8 @@
 			baseConfigurationReference = 8A737DD3DC0CEA995095FE0E /* Pods-shawn-showcase.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -458,6 +469,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shawn.showcase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -466,6 +478,8 @@
 			baseConfigurationReference = 6DC01DE81737EA0F27F06826 /* Pods-shawn-showcase.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -475,6 +489,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shawn.showcase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

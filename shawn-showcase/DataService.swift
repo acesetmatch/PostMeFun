@@ -12,6 +12,7 @@ import Firebase
 let URL_BASE = "https://shawn-showcase.firebaseio.com/"
 
 class DataService {
+    
     static let ds = DataService() //static variable, one instance in memory so people don't destroy it.
     
     private var _REF_BASE = Firebase(url: "\(URL_BASE)") //reference to specific Firebase account

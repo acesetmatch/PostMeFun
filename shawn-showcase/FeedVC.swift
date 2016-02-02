@@ -19,7 +19,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     var posts = [Post]()
     var imageSelected = false
     var posted: Post!
-    var userGlobal: User!
+    var user: User!
     var imagePicker: UIImagePickerController!
     static var imageCache = NSCache()
     
@@ -29,15 +29,17 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.estimatedRowHeight = 363
+        tableView.estimatedRowHeight = 353
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
+        imageSelectorImage.layer.cornerRadius = 2.0
+        imageSelectorImage.clipsToBounds = true
         
         DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
             print(snapshot.value) //Prints value of snapshot
-            self.posts = []
             if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
-                
+                self.posts = []
+
                 for snap in snapshots {
                     print("SNAP: \(snap)")
                     
@@ -47,10 +49,12 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                         self.posts.append(post)
                     }
                 }
-            }
             
-            self.tableView.reloadData()
+                self.tableView.reloadData()
+            }
         })
+        
+       
 
         // Do any additional setup after loading the view.
     }
@@ -76,12 +80,24 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             if let url = post.imageUrl {
                 img = FeedVC.imageCache.objectForKey(url) as? UIImage //passing iamge from the cache if it exists. Returns value of the key(url).
             }
-            if let proUrl = post.profileImageUrl {
-                proImg = FeedVC.imageCache.objectForKey(proUrl) as? UIImage //passing image from the cache if it exists. Returns value of the key(url). FeedVC is single instance
-            }
-            let username = post.username
-            cell.configureCell(post, img: img, ProfileImage: proImg, username:username )
             
+//            DataService.ds.REF_USER_CURRENT.observeEventType(.Value, withBlock: { snapshot in
+//                print(snapshot.value) //Prints value of snapshot
+//                //            if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
+//                
+//                
+//                if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
+//                    let key = snapshot.key
+//                    let user = User(userKey: key, dictionary: userDict)
+//                    if let proUrl = user.profileImageUrl {
+//                        proImg = FeedVC.imageCache.objectForKey(proUrl) as? UIImage //passing image from the cache if it exists. Returns value of the key(url). FeedVC is single instance
+//                    }
+//                    let username = user.username 
+//        }
+            if let proUrl = post.profileImageUrl {
+                proImg = FeedVC.imageCache.objectForKey(proUrl) as? UIImage
+            }
+            cell.configureCell(post, img: img, ProfileImage: proImg)
             return cell
         } else {
             return PostCellTableViewCell()
@@ -111,7 +127,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     //When post is made, image is compressed on the server
     @IBAction func makePost(sender: AnyObject) {
         if let txt = postField.text where txt != "" {
-            if let img = imageSelectorImage.image where imageSelected == true{
+            if let img = imageSelectorImage.image where imageSelected == true {
                
                 let urlStr = "https://post.imageshack.us/upload_api.php" //imageshack api website endpoint
                 let url = NSURL(string:urlStr)!
@@ -121,7 +137,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                 let keyJSON = "json".dataUsingEncoding(NSUTF8StringEncoding)! //converts json to data , unwraps to eliminate errors
                 var imageLink = ""
                 //uploads on alamofire in correct imageshack parameter format
-                Alamofire.upload(.POST, url, multipartFormData: { multipartFormData in
+                Alamofire.upload(.POST, url, multipartFormData: { multipartFormData in //what special data to include in http post data.
                     
                     multipartFormData.appendBodyPart(data: imgData, name: "fileupload", fileName: "image", mimeType: "image/jpg") //Passing in the key and value of image for imageshack parameters
                     multipartFormData.appendBodyPart(data: keyData, name: "key") //name = key, data = keyData
@@ -155,13 +171,15 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         }
     }
     
+    
+    
 
     func postToFirebase(imgUrl: String?) {
 //        let User = DataService.ds.REF_USER_CURRENT.childByAppendingPath("username")
 //        User.observeEventType(.Value, withBlock: { snapshot in
 //            let theUser = (snapshot.value)
-            let Uid = DataService.ds.REF_USERS
-            Uid.observeEventType(.Value, withBlock: { snapshot in
+            let Uid = DataService.ds.REF_USER_CURRENT
+            Uid.observeSingleEventOfType(.Value, withBlock: { snapshot in
                 let theUid = (snapshot.value)
                 var post: Dictionary < String, AnyObject >= ["Uid":theUid,
                     "description" : self.postField.text!,

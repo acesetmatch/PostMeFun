@@ -10,22 +10,97 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import Alamofire
+import Firebase
 class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     
     @IBOutlet weak var ProfileImg: UIImageView!
     @IBOutlet weak var UserTextField: UITextField!
     @IBOutlet weak var addBtn: UIButton!
+    @IBOutlet weak var usernameTxtField: UITextField!
+    @IBOutlet weak var emailTxtField: UITextField!
+    @IBOutlet weak var firstNameTxtField: UITextField!
+    @IBOutlet weak var lastNameTxtField: UITextField!
+    @IBOutlet weak var backgroundImg: UIImageView!
+    
     var imagePickerUser: UIImagePickerController!
     var imageSelected = false
-    var postType: Post!
-    var userGlobal: User!
+    var user: User!
+    var proImg: UIImage?
+    var request: Request?
+    var post: Post! //store post
+//    var profRef:Firebase!
+    var posts = [Post]()
+
+
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        self.ProfileImg.layer.cornerRadius = (self.ProfileImg.frame.size.width) / 2
+//        self.ProfileImg.clipsToBounds = true
+        
         imagePickerUser = UIImagePickerController()
         imagePickerUser.delegate = self
+        var darkBlur = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        var blurView = UIVisualEffectView(effect: darkBlur)
+        blurView.frame = backgroundImg.bounds
+        blurView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        backgroundImg.addSubview(blurView)
+        
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+        
+        DataService.ds.REF_USER_CURRENT.observeEventType(.Value, withBlock: { snapshot in
+            print(snapshot.value) //Prints value of snapshot
+//            if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
+            
+                
+                   if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
+                        let key = snapshot.key
+                        let user = User(userKey: key, dictionary: userDict)
+                        print(user.firstName)
+                        print(user.lastName)
+                        print(user.email)
+                        print(user.username)
+                        self.firstNameTxtField.text = user.firstName
+                        self.lastNameTxtField.text = user.lastName
+                        self.emailTxtField.text = user.email
+                        self.usernameTxtField.text = user.username
+                        if let proUrl = user.profileImageUrl {
+                            self.proImg = FeedVC.imageCache.objectForKey(proUrl) as? UIImage //passing image from the cache if it exists. Returns value of the key(url). FeedVC is single instance
+                            if user.profileImageUrl != nil {
+                                if self.proImg != nil {
+                                    self.ProfileImg.image = self.proImg
+                                    self.backgroundImg.image = self.proImg
+                                } else {
+                                    self.request = Alamofire.request(.GET, user.profileImageUrl!).validate(contentType: ["image/*"]).response(completionHandler: { request, response, data, err in
+                                        
+                                        if err == nil {
+                                            if let ProfileImage = UIImage(data: data!) {
+                                                self.ProfileImg.image = ProfileImage
+                                                self.backgroundImg.image = ProfileImage
+                                                //                            FeedVC.imageCache.setObject(ProfileImage, forKey: self.user.profileImageUrl!)
+                                            }
+                                        }
+                                    })
+                                }
+                                
+                            } else {
+                                self.ProfileImg.hidden = false
+                            }
+                            
+                    }
+
+
+                    }
+            
+           
+                
+//            }
+            
+        })
         
         // Do any additional setup after loading the view.
     }
@@ -33,6 +108,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     override func viewWillAppear(animated: Bool) {
         
         self.navigationController?.navigationBarHidden = false
+        
     }
     
     
@@ -40,12 +116,15 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         imagePickerUser.dismissViewControllerAnimated(true, completion: nil)
         ProfileImg.image = image
-        addBtn.hidden = true
+        imageSelected = true
+        
+
     }
     
-    @IBAction func addBtnPressed(sender: AnyObject!){
-        presentViewController(imagePickerUser, animated: true, completion: nil)
-        imageSelected = true
+    @IBAction func addBtnPressed(sender: UIButton){
+//        presentViewController(imagePickerUser, animated: true, completion: nil)
+        self.performSegueWithIdentifier("returnToRegistration", sender: self)
+
     }
     
     @IBAction func StartPosting(sender: AnyObject!) {
@@ -139,11 +218,40 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         
 //        let firebaseUser = DataService.ds.REF_USER_CURRENT //creates new database entry of autoiD
 //        firebaseUser.setValue(Username) //set post of new child autoid into firebase
+//        if post.postRef != nil {
+//          let profRef = post.postRef.childByAppendingPath("Uid")
+        if profileimgUrl != nil {
+//            DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
+//                print(snapshot.value) //Prints value of snapshot
+//                if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
+//                    self.posts = []
+//                
+//                    for snap in snapshots {
+//                
+//                        if let postDict = snap.value as? Dictionary<String, AnyObject> {
+//                            let key = snap.key
+//                            let post = Post(postKey: key, dictionary: postDict)
+//                            let profRef = DataService.ds.REF_POSTS.childByAppendingPath(post.postKey).childByAppendingPath("Uid")
+////                            profRef.observeEventType(.ChildAdded, withBlock: { snapshot in
+////                                let newProfileImage = snapshot.value.objectForKey("profileUrl")
+////                                if newProfileImage != nil {
+                            let ProfileimgUrl: Dictionary < String, AnyObject > = ["profileUrl":profileimgUrl!]
+                            let firebaseProfile = DataService.ds.REF_USER_CURRENT//creates new database entry of autoid
+                            firebaseProfile.updateChildValues(ProfileimgUrl) //set post of new child autoid into firebase
+                    }
         
-        let firebaseProfile = DataService.ds.REF_USER_CURRENT//creates new database entry of autoid
-        let ProfileimgUrl: Dictionary < String, AnyObject > = ["profileUrl":profileimgUrl!]
+                }
+                
+    
         
-        firebaseProfile.updateChildValues(ProfileimgUrl) //set post of new child autoid into firebase
-    }
+    
 
-}
+        
+
+
+//        profRef.observeSingleEventOfType(.Value, withBlock: { snapshot in //check value only once
+//            if let doesNotExist = snapshot.value  { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
+            
+        
+        }
+

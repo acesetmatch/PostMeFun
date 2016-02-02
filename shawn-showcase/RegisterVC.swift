@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import Firebase
+import Alamofire
 
-class RegisterVC: UIViewController {
+class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     
     @IBOutlet weak var emailTextField: MaterialTextField!
@@ -17,8 +19,16 @@ class RegisterVC: UIViewController {
     @IBOutlet weak var lastNameTextField: MaterialTextField!
     @IBOutlet weak var errorMessageLbl: UILabel!
     @IBOutlet weak var usernameLbl: MaterialTextField!
+    @IBOutlet weak var ProfileImg: UIImageView!
+    @IBOutlet weak var addBtn: UIButton!
+    
+    var imagePickerUser: UIImagePickerController!
+    var imageSelected = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePickerUser = UIImagePickerController()
+        imagePickerUser.delegate = self
 
     }
     
@@ -59,9 +69,10 @@ class RegisterVC: UIViewController {
                                     
                                     DataService.ds.REF_BASE.authUser(email, password:password, withCompletionBlock: {err, authData in
                                         
-                                        
                                         let user = ["provider": authData.provider!, "First Name":firstName, "Last Name": lastName, "email": email, "username": username] //swift dictionary
                                         DataService.ds.createFirebaseUser(authData.uid, user: user)
+                                        self.SaveProfileImage()
+
                                     })
                                     
                                     self.performSegueWithIdentifier("returnToLogin", sender: nil)
@@ -76,11 +87,22 @@ class RegisterVC: UIViewController {
                         self.errorMessageLbl.text = "Email already exists"
                         
                 }
-    })
+            })
+        } else {
+            self.errorMessageLbl.hidden = false
+            self.errorMessageLbl.text = "Please fill in all fields"
         }
     }
     
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        imagePickerUser.dismissViewControllerAnimated(true, completion: nil)
+        ProfileImg.image = image
+        imageSelected = true
+    }
     
+    @IBAction func addBtnPressed(sender: AnyObject!){
+        presentViewController(imagePickerUser, animated: true, completion: nil)
+    }
     
     func showErrorAlert(title: String, msg: String) {
         let alert = UIAlertController(title:title, message: msg, preferredStyle: .Alert)
@@ -95,13 +117,77 @@ class RegisterVC: UIViewController {
     }
     
     
-
     
+    func UpdateUserImageToFirebase(profileimgUrl: String?) {
+        
+        //        let firebaseUser = DataService.ds.REF_USER_CURRENT //creates new database entry of autoiD
+        //        firebaseUser.setValue(Username) //set post of new child autoid into firebase
+        
+        let firebaseProfile = DataService.ds.REF_USER_CURRENT//creates new database entry of autoid
+        if profileimgUrl != nil {
+            let ProfileimgUrl: Dictionary < String, AnyObject > = ["profileUrl":profileimgUrl!]
+            firebaseProfile.updateChildValues(ProfileimgUrl) //set post of new child autoid into firebase
+        }
+    }
+    
+    func SaveProfileImage() {
+        if let profileimage = ProfileImg.image where imageSelected == true {
+            let urlStr = "https://post.imageshack.us/upload_api.php" //imageshack api website endpoint
+            let url = NSURL(string:urlStr)!
+            //Alamofire only takes in NSData
+            let imgData = UIImageJPEGRepresentation(profileimage, 0.2)! //0.2 is really compressed converted to jpeg
+            let keyData = API_Key.dataUsingEncoding(NSUTF8StringEncoding)! //converting string into data
+            let keyJSON = "json".dataUsingEncoding(NSUTF8StringEncoding)! //converts json to data , unwraps to eliminate errors
+            //uploads on alamofire in correct imageshack parameter format
+            Alamofire.upload(.POST, url, multipartFormData: { multipartFormData in
+                
+                multipartFormData.appendBodyPart(data: imgData, name: "fileupload", fileName: "image", mimeType: "image/jpg") //Passing in the key and value of image for imageshack parameters
+                multipartFormData.appendBodyPart(data: keyData, name: "key") //name = key, data = keyData
+                multipartFormData.appendBodyPart(data: keyJSON, name: "format")
+                
+                //when upload is done
+                }) { encodingResult in
+                    switch encodingResult {
+                    case .Success(let upload, _, _): //.success is a closure, if it is success we want to upload response JSON from server
+                        upload.responseJSON(completionHandler: { response in
+                            if let info = response.result.value as? Dictionary<String, AnyObject> { //returns JSON format of primary dictionary and (string, anyobject)
+                                if let links = info["links"] as? Dictionary<String, AnyObject> { //returns the secondary dictionary of links
+                                    if let imgLink = links["image_link"] as? String {
+                                        self.UpdateUserImageToFirebase(imgLink)
+                                        
+                                        
+                                        
+                                    }
+                                }
+                            }
+                        })
+                        
+                    case .Failure(let error):
+                        print(error)
+                    }
+            }
+        } else {
+            self.UpdateUserImageToFirebase(nil)
+        }
+        
+        //        } else {
+        //            self.displayAlertError("Cannot Post", Message: "Please add a Profile Image")
+        //        }
+    }
+
+    @IBAction func returnToRegistration(segue: UIStoryboardSegue) {
+        
+    }
+    
+
+    @IBAction func BacktoProfilePressed(sender: AnyObject!) {
+        self.performSegueWithIdentifier("BacktoProfile", sender: nil)
+    }
     
     
     
 }
-    
+
 
     /*
     // MARK: - Navigation

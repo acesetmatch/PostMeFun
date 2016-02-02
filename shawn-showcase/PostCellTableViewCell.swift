@@ -23,7 +23,7 @@ class PostCellTableViewCell: UITableViewCell {
     var request: Request? //Request is Firebase object
     var request2: Request?
     var likeRef:Firebase!
-    
+    var user: User!
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -47,11 +47,12 @@ class PostCellTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureCell(post: Post, img: UIImage?, ProfileImage: UIImage?, username:String) {
+    func configureCell(post: Post, img: UIImage?, ProfileImage: UIImage?) {
         self.post = post
         likeRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)
         self.descriptionText.text = post.postDescription       //extracts like data from likes and sees if that post exists
         self.likesLbl.text = "\(post.likes)"
+//        let usernameRef = DataService.ds.REF_USER_CURRENT
         self.usernameLbl.text = post.username
         //if the imageurl is there then run this code, but if isn't then
         if post.imageUrl != nil {
@@ -61,7 +62,8 @@ class PostCellTableViewCell: UITableViewCell {
                 //getting an image request then call the response
                 request = Alamofire.request(.GET, post.imageUrl!).validate(contentType: ["image/*"]).response(completionHandler: { request, response, data, err in
                 
-                    if err == nil {
+                    if err == nil
+                    {
                         let img = UIImage(data: data!)!
                         self.showcaseImg.image = img
                         FeedVC.imageCache.setObject(img, forKey: self.post.imageUrl!)
@@ -69,7 +71,7 @@ class PostCellTableViewCell: UITableViewCell {
                 })
             }
         } else {
-            self.showcaseImg.hidden = false
+            self.showcaseImg.hidden = true
         }
         
         if post.profileImageUrl != nil {
@@ -81,11 +83,12 @@ class PostCellTableViewCell: UITableViewCell {
                     if err == nil {
                         if let ProfileImage = UIImage(data: data!) {
                             self.profileImg.image = ProfileImage
-                            FeedVC.imageCache.setObject(ProfileImage, forKey: self.post.profileImageUrl!)
+//                            FeedVC.imageCache.setObject(ProfileImage, forKey: self.user.profileImageUrl!)
                         }
                     }
                 })
             }
+    
         } else {
             self.profileImg.hidden = false
         }
