@@ -88,9 +88,9 @@ class ViewController: UIViewController {
                         NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: KEY_UID)
                         if authData.uid != "" {
                             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                            let usernameVCViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UsernameVCViewController") as? UsernameVCViewController
+                            let feedVC = self.storyboard?.instantiateViewControllerWithIdentifier("FeedVC") as? FeedVC
                             
-                            self.navigationController?.pushViewController(usernameVCViewController!, animated: true) as? UIViewController
+                            self.navigationController?.pushViewController(feedVC!, animated: true) as? UIViewController
                             self.navigationController?.navigationBarHidden = false;
 
                         }

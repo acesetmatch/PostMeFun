@@ -21,23 +21,53 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     @IBOutlet weak var usernameLbl: MaterialTextField!
     @IBOutlet weak var ProfileImg: UIImageView!
     @IBOutlet weak var addBtn: UIButton!
-    
+    @IBOutlet var textFieldToBottomLayoutGuideConstraint: NSLayoutConstraint!
     var imagePickerUser: UIImagePickerController!
     var imageSelected = false
+   
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePickerUser = UIImagePickerController()
         imagePickerUser.delegate = self
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+        addBtn.hidden = false
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name:UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name:UIKeyboardWillHideNotification, object: nil);
+    }
 
+    func keyboardWillShow(sender: NSNotification) {
+        if let keyboardSize = (sender.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+            self.textFieldToBottomLayoutGuideConstraint?.constant += keyboardSize.height
+        }
     }
     
+    func keyboardWillHide(sender: NSNotification) {
+        if let keyboardSize = (sender.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+            self.textFieldToBottomLayoutGuideConstraint?.constant -= keyboardSize.height
+        }
+    }
+    
+   
+
+    
+
+
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         //        self.navigationController?.navigationBarHidden = true;
 
         //        self.navigationItem.setHidesBackButton(true, animated: false)
         
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
+        view.endEditing(true)
+        super.touchesBegan(touches, withEvent: event)
     }
 
     

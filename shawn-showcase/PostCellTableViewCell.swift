@@ -31,15 +31,15 @@ class PostCellTableViewCell: UITableViewCell {
         tap.numberOfTapsRequired = 1
         likeImage.addGestureRecognizer(tap)
         likeImage.userInteractionEnabled = true
-        
-    }
-    
-    override func drawRect(rect: CGRect) {
         profileImg.layer.cornerRadius = profileImg.frame.size.width/2
         profileImg.clipsToBounds = true
         
         showcaseImg.clipsToBounds = true
+        
     }
+    
+    
+    
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -83,7 +83,7 @@ class PostCellTableViewCell: UITableViewCell {
                     if err == nil {
                         if let ProfileImage = UIImage(data: data!) {
                             self.profileImg.image = ProfileImage
-//                            FeedVC.imageCache.setObject(ProfileImage, forKey: self.user.profileImageUrl!)
+                            FeedVC.imageCache.setObject(ProfileImage, forKey: self.post.profileImageUrl!)
                         }
                     }
                 })

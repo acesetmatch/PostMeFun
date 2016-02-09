@@ -29,7 +29,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.estimatedRowHeight = 353
+        tableView.estimatedRowHeight = 358
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imageSelectorImage.layer.cornerRadius = 2.0
@@ -50,8 +50,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                     }
                 }
             
-                self.tableView.reloadData()
             }
+            self.tableView.reloadData()
+
         })
         
        
@@ -69,33 +70,19 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
+        let post = self.posts[indexPath.row]
+
         if let cell = tableView.dequeueReusableCellWithIdentifier("PostCellTableViewCell") as? PostCellTableViewCell {
             cell.request?.cancel()
             
-            let post = self.posts[indexPath.row]
             var img: UIImage? //making an empty image
             var proImg: UIImage?
             
             if let url = post.imageUrl {
                 img = FeedVC.imageCache.objectForKey(url) as? UIImage //passing iamge from the cache if it exists. Returns value of the key(url).
             }
-            
-//            DataService.ds.REF_USER_CURRENT.observeEventType(.Value, withBlock: { snapshot in
-//                print(snapshot.value) //Prints value of snapshot
-//                //            if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
-//                
-//                
-//                if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
-//                    let key = snapshot.key
-//                    let user = User(userKey: key, dictionary: userDict)
-//                    if let proUrl = user.profileImageUrl {
-//                        proImg = FeedVC.imageCache.objectForKey(proUrl) as? UIImage //passing image from the cache if it exists. Returns value of the key(url). FeedVC is single instance
-//                    }
-//                    let username = user.username 
-//        }
             if let proUrl = post.profileImageUrl {
-                proImg = FeedVC.imageCache.objectForKey(proUrl) as? UIImage
+                proImg = FeedVC.imageCache.objectForKey(proUrl) as? UIImage //FeedVC is publicly available
             }
             cell.configureCell(post, img: img, ProfileImage: proImg)
             return cell
@@ -126,9 +113,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
    
     //When post is made, image is compressed on the server
     @IBAction func makePost(sender: AnyObject) {
-        if let txt = postField.text where txt != "" {
+        if let txt = postField.text where txt != ""{
             if let img = imageSelectorImage.image where imageSelected == true {
-               
                 let urlStr = "https://post.imageshack.us/upload_api.php" //imageshack api website endpoint
                 let url = NSURL(string:urlStr)!
                 //Alamofire only takes in NSData
@@ -165,9 +151,11 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                             print(error)
                         }
             }
-        } else {
-            self.postToFirebase(nil)
         }
+//        } else {
+////            self.postToFirebase(nil)
+//
+//        }
         }
     }
     
@@ -175,9 +163,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     
 
     func postToFirebase(imgUrl: String?) {
-//        let User = DataService.ds.REF_USER_CURRENT.childByAppendingPath("username")
-//        User.observeEventType(.Value, withBlock: { snapshot in
-//            let theUser = (snapshot.value)
             let Uid = DataService.ds.REF_USER_CURRENT
             Uid.observeSingleEventOfType(.Value, withBlock: { snapshot in
                 let theUid = (snapshot.value)
@@ -192,6 +177,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                 firebasePost.setValue(post)//set post of new child autoid into firebase
                 self.postField.text = ""
                 self.imageSelectorImage.image = UIImage(named: "camera 2")
+                self.imageSelected = false
                 self.tableView.reloadData()
 
                 }, withCancelBlock: {error in

@@ -31,6 +31,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     var post: Post! //store post
 //    var profRef:Firebase!
     var posts = [Post]()
+    var registerVC: RegisterVC!
 
 
 
@@ -40,6 +41,9 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         
 //        self.ProfileImg.layer.cornerRadius = (self.ProfileImg.frame.size.width) / 2
 //        self.ProfileImg.clipsToBounds = true
+        ProfileImg.layer.cornerRadius = ProfileImg.frame.size.width/2
+        ProfileImg.clipsToBounds = true
+        
         
         imagePickerUser = UIImagePickerController()
         imagePickerUser.delegate = self
@@ -123,7 +127,11 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     
     @IBAction func addBtnPressed(sender: UIButton){
 //        presentViewController(imagePickerUser, animated: true, completion: nil)
-        self.performSegueWithIdentifier("returnToRegistration", sender: self)
+//        self.performSegueWithIdentifier("returnToRegistration", sender: self)
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let registerVC = self.storyboard?.instantiateViewControllerWithIdentifier("RegisterVC") as? RegisterVC
+        
+        self.navigationController?.pushViewController(registerVC!, animated: true) as? UIViewController
 
     }
     
@@ -173,6 +181,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
             self.performSegueWithIdentifier("usernameSet", sender: nil)
         
 
+        
 //        } else {
 //            self.displayAlertError("Cannot Post", Message: "Please add a Profile Image")
 //        }
@@ -193,6 +202,9 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
        
     }
     
+    
+
+    
    
     
     
@@ -204,6 +216,8 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         self.performSegueWithIdentifier("loggingOutofUsername", sender: nil)
         self.navigationController?.navigationBarHidden = true;
     }
+    
+
     
     func displayAlertError(Title: String, Message: String) {
         let alertmessage = UIAlertController(title: Title, message: Message, preferredStyle: .Alert)
