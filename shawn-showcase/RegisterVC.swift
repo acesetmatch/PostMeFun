@@ -39,15 +39,27 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name:UIKeyboardWillHideNotification, object: nil);
     }
 
-    func keyboardWillShow(sender: NSNotification) {
-        if let keyboardSize = (sender.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-            self.textFieldToBottomLayoutGuideConstraint?.constant += keyboardSize.height
-        }
+    func keyboardWillHide(sender: NSNotification) {
+        let userInfo: [NSObject : AnyObject] = sender.userInfo!
+        let keyboardSize: CGSize = userInfo[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue.size
+        self.view.frame.origin.y += keyboardSize.height
     }
     
-    func keyboardWillHide(sender: NSNotification) {
-        if let keyboardSize = (sender.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-            self.textFieldToBottomLayoutGuideConstraint?.constant -= keyboardSize.height
+    
+    
+    func keyboardWillShow(sender: NSNotification) {
+        let userInfo: [NSObject : AnyObject] = sender.userInfo!
+        let keyboardSize: CGSize = userInfo[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue.size
+        let offset: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]!.CGRectValue.size
+        
+        if keyboardSize.height == offset.height {
+            UIView.animateWithDuration(0.1, animations: { () -> Void in
+                self.view.frame.origin.y -= keyboardSize.height
+            })
+        } else {
+            UIView.animateWithDuration(0.1, animations: { () -> Void in
+                self.view.frame.origin.y += keyboardSize.height - offset.height
+            })
         }
     }
     

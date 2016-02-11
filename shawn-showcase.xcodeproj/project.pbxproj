@@ -11,6 +11,7 @@
 		1958FD1A1C4F370300DAA53F /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1958FD191C4F370300DAA53F /* RegisterVC.swift */; };
 		1975DA781C4B2F650085F1FD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1975DA771C4B2F650085F1FD /* User.swift */; };
 		1975DA7A1C4D052B0085F1FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1975DA791C4D052B0085F1FD /* Main.storyboard */; };
+		197CB9881C6BB06D0020E37A /* PassTouchesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197CB9871C6BB06D0020E37A /* PassTouchesScrollView.swift */; };
 		1981C02D1C4722B9004F7F74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1981C02C1C4722B9004F7F74 /* AppDelegate.swift */; };
 		1981C02F1C4722B9004F7F74 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1981C02E1C4722B9004F7F74 /* ViewController.swift */; };
 		1981C0351C4722B9004F7F74 /* shawn_showcase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1981C0331C4722B9004F7F74 /* shawn_showcase.xcdatamodeld */; };
@@ -41,6 +42,7 @@
 		1958FD191C4F370300DAA53F /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		1975DA771C4B2F650085F1FD /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1975DA791C4D052B0085F1FD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		197CB9871C6BB06D0020E37A /* PassTouchesScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassTouchesScrollView.swift; sourceTree = "<group>"; };
 		1981C0291C4722B9004F7F74 /* shawn-showcase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "shawn-showcase.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1981C02C1C4722B9004F7F74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1981C02E1C4722B9004F7F74 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				1981C06C1C4843E6004F7F74 /* PostCellTableViewCell.swift */,
 				199CD2321C597319007E05C1 /* RoundView.swift */,
 				19E3084E1C614DD3009B16E8 /* MaterialTextField2.swift */,
+				197CB9871C6BB06D0020E37A /* PassTouchesScrollView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				1981C0691C48425D004F7F74 /* FeedVC.swift in Sources */,
 				1981C06F1C48D07A004F7F74 /* Post.swift in Sources */,
 				1981C0591C472799004F7F74 /* Constants.swift in Sources */,
+				197CB9881C6BB06D0020E37A /* PassTouchesScrollView.swift in Sources */,
 				199CD2331C597319007E05C1 /* RoundView.swift in Sources */,
 				1981C02F1C4722B9004F7F74 /* ViewController.swift in Sources */,
 				1981C06D1C4843E6004F7F74 /* PostCellTableViewCell.swift in Sources */,
@@ -470,6 +474,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shawn.showcase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -490,6 +495,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shawn.showcase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
