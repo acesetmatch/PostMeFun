@@ -15,8 +15,10 @@ class Post {
     private var _postRef: Firebase!
     private var _imageUrl: String?
     private var _likes: Int!
+    private var _flags: Int!
     private var _username: String?
     private var _profileImageUrl: String?
+    private var _Uid: String!
         
     var postDescription: String {
         return _postDescription
@@ -28,6 +30,10 @@ class Post {
     
     var likes: Int {
         return _likes
+    }
+    
+    var flags: Int {
+        return _flags
     }
     
     var username: String? {
@@ -46,6 +52,11 @@ class Post {
         return _postKey
     }
     
+    var Uid: String! {
+        return _Uid
+    }
+
+    
     init(description: String, imageUrl: String?) {
         self._postDescription = description
         self._imageUrl = imageUrl
@@ -57,6 +68,10 @@ class Post {
             self._likes = likes
         }
         
+        if let flags = dictionary["flags"] as? Int {
+            self._flags = flags
+        }
+        
         if let imgUrl = dictionary["imageUrl"] as? String {
             self._imageUrl = imgUrl
         }
@@ -65,13 +80,18 @@ class Post {
             self._postDescription = desc
         }
         
-        if let user = dictionary["Uid"]!["username"] as? String {
+        if let user = dictionary["UidDict"]!["username"] as? String {
             self._username = user
         }
         
-        if let profileimgUrl = dictionary["Uid"]!["profileUrl"] as? String {
+        if let profileimgUrl = dictionary["UidDict"]!["profileUrl"] as? String {
             self._profileImageUrl = profileimgUrl
         }
+        
+        if let uid = dictionary["Uid"] as? String {
+            self._Uid = uid
+        }
+
         
                
         self._postRef = DataService.ds.REF_POSTS.childByAppendingPath(self._postKey!)
@@ -90,12 +110,19 @@ class Post {
         _postRef.childByAppendingPath("likes").setValue(_likes)
     }
     
+    func adjustFlags(addFlag: Bool) {
+        
+        if addFlag {
+            _flags = _flags + 1
+        } else {
+            _flags = _flags - 1
+        }
+        
+        _postRef.childByAppendingPath("flags").setValue(_flags)
+    }
     
-    
-    
-    
-    
- 
+
+
 
     }
     

@@ -248,7 +248,7 @@
 				TargetAttributes = {
 					1981C0281C4722B9004F7F74 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = N8JR7J468N;
+						DevelopmentTeam = ZXS9ZP9K6N;
 					};
 				};
 			};
@@ -471,9 +471,9 @@
 				);
 				INFOPLIST_FILE = "shawn-showcase/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.shawn.showcase;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Post.Me.Fun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3d6c02a0-4107-45d3-b4a5-b2aca5224a3a";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -483,8 +483,8 @@
 			baseConfigurationReference = 6DC01DE81737EA0F27F06826 /* Pods-shawn-showcase.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shawn Hong (ZXS9ZP9K6N)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shawn Hong (ZXS9ZP9K6N)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -492,9 +492,9 @@
 				);
 				INFOPLIST_FILE = "shawn-showcase/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.shawn.showcase;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Post.Me.Fun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3d6c02a0-4107-45d3-b4a5-b2aca5224a3a";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

@@ -17,6 +17,7 @@ class User {
     private var _firstName: String!
     private var _lastName: String!
     private var _email: String!
+    private var _blacklist: Dictionary < Int, String >?
     
     var username: String {
         return _username
@@ -42,12 +43,17 @@ class User {
         return _userKey
     }
     
-    init(Username: String, FirstName: String, LastName: String, Email: String, ProfileImage: String) {
+    var blacklist: Dictionary < Int, String >? {
+        return _blacklist
+    }
+    
+    init(Username: String, FirstName: String, LastName: String, Email: String, ProfileImage: String, Blacklist: Dictionary < Int, String >) {
         self._username = Username
         self._firstName = FirstName
         self._lastName = LastName
         self._email = Email
         self._profileImageUrl = ProfileImage
+        self._blacklist = Blacklist
     }
 
     
@@ -73,6 +79,11 @@ class User {
         if let Email = dictionary["email"] as? String {
             self._email = Email
         }
+        
+        if let blackList = dictionary["blacklist"] as? Dictionary<Int, String> {
+            self._blacklist = blackList
+        }
+        
         
         self._userRef = DataService.ds.REF_USERS.childByAppendingPath(self._userKey!)
     }

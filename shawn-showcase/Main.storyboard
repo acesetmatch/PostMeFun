@@ -90,7 +90,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="2N9-MP-UhC"/>
                                             <constraint firstAttribute="height" constant="40" id="CJJ-r5-cbU"/>
-                                            <constraint firstAttribute="height" constant="40" id="KEr-SJ-VQi"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="KEr-SJ-VQi"/>
                                         </constraints>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
@@ -100,6 +100,9 @@
                                                 <exclude reference="2N9-MP-UhC"/>
                                                 <exclude reference="CJJ-r5-cbU"/>
                                             </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="20" y="166" width="320" height="40"/>
                                         </variation>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gEU-EH-rsB" customClass="MaterialTextField" customModule="shawn_showcase" customModuleProvider="target">
@@ -116,12 +119,18 @@
                                                 <exclude reference="JgD-JS-f3l"/>
                                             </mask>
                                         </variation>
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="20" y="211" width="320" height="40"/>
+                                        </variation>
                                     </textField>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dos-Ms-Oaj">
                                         <rect key="frame" x="93" y="298" width="375" height="21"/>
                                         <fontDescription key="fontDescription" name="NotoSans-Italic" family="Noto Sans" pointSize="14"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="163" y="256" width="34.5" height="16.5"/>
+                                        </variation>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8FW-3s-coA" customClass="MaterialButton" customModule="shawn_showcase" customModuleProvider="target">
                                         <rect key="frame" x="183" y="327" width="207" height="33"/>
@@ -130,7 +139,7 @@
                                             <constraint firstAttribute="width" constant="207" id="7t1-6g-TWz"/>
                                             <constraint firstAttribute="height" constant="33" id="H3h-7K-Hsl"/>
                                             <constraint firstAttribute="width" constant="207" id="Z6J-pe-IjZ"/>
-                                            <constraint firstAttribute="height" constant="40" id="sjK-Zp-lqt"/>
+                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="sjK-Zp-lqt"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="15"/>
                                         <state key="normal" title="Login">
@@ -141,6 +150,9 @@
                                                 <exclude reference="H3h-7K-Hsl"/>
                                                 <exclude reference="Z6J-pe-IjZ"/>
                                             </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="76.5" y="280.5" width="207" height="30"/>
                                         </variation>
                                         <connections>
                                             <action selector="attemptLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Clh-0o-uAp"/>
@@ -162,6 +174,9 @@
                                                 <exclude reference="stS-Hs-YsS"/>
                                                 <exclude reference="xsC-sh-Nd6"/>
                                             </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="76.5" y="317.5" width="207" height="30"/>
                                         </variation>
                                         <connections>
                                             <action selector="signUpOnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="s8t-KH-A7e"/>
@@ -198,8 +213,14 @@
                                                 <fontDescription key="fontDescription" name="NotoSans-BoldItalic" family="Noto Sans" pointSize="23"/>
                                                 <color key="textColor" red="1" green="0.27450980390000002" blue="0.039215686270000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                    <rect key="frame" x="36" y="119" width="121" height="32"/>
+                                                </variation>
                                             </label>
                                         </subviews>
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="84" y="0.0" width="192" height="151"/>
+                                        </variation>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -304,7 +325,7 @@
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6u-Bl-cBc" customClass="MaterialButton" customModule="shawn_showcase" customModuleProvider="target">
                                                 <rect key="frame" x="484" y="0.0" width="60" height="46"/>
-                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.22430465860000001" green="0.33091341460000001" blue="0.73923925339999996" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="3Eg-Cr-A2O"/>
                                                     <constraint firstAttribute="width" constant="60" id="YRU-uc-5IR"/>
@@ -356,38 +377,64 @@
                                                                                 <constraint firstAttribute="width" constant="50" id="aWB-ns-eky"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="DemonSlayer31" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="95J-n2-y7B">
-                                                                            <rect key="frame" x="65" y="0.0" width="150" height="50"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="DemonSlayer31" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="g79-li-m3a">
+                                                                            <rect key="frame" x="65" y="0.0" width="100" height="50"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="bqt-61-BTw"/>
+                                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="kT6-aH-LnV"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="17"/>
                                                                             <color key="textColor" red="1" green="0.040371172980000002" blue="0.053220982049999997" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
+                                                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FKK-0S-nBB">
+                                                                            <rect key="frame" x="180" y="0.0" width="40" height="50"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="30" id="9Z5-d1-kgU"/>
+                                                                                <constraint firstAttribute="height" constant="30" id="9ev-vd-JUa"/>
+                                                                                <constraint firstAttribute="width" constant="46" id="Yf7-68-hQ5"/>
+                                                                                <constraint firstAttribute="width" constant="40" id="dFP-6S-W6s"/>
+                                                                            </constraints>
+                                                                            <state key="normal" backgroundImage="noun_1330"/>
+                                                                            <variation key="default">
+                                                                                <mask key="constraints">
+                                                                                    <exclude reference="9Z5-d1-kgU"/>
+                                                                                    <exclude reference="9ev-vd-JUa"/>
+                                                                                    <exclude reference="Yf7-68-hQ5"/>
+                                                                                </mask>
+                                                                            </variation>
+                                                                            <connections>
+                                                                                <action selector="returnBtn:" destination="mib-Yz-46M" eventType="touchUpInside" id="AVS-sw-PAC"/>
+                                                                            </connections>
+                                                                        </button>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B9W-UW-agk">
-                                                                            <rect key="frame" x="230" y="0.0" width="90" height="50"/>
+                                                                            <rect key="frame" x="235" y="0.0" width="85" height="50"/>
                                                                             <subviews>
-                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="heart-empty" translatesAutoresizingMaskIntoConstraints="NO" id="98B-zC-gih">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="heart-empty" translatesAutoresizingMaskIntoConstraints="NO" id="wbB-K0-4wc">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="45" height="50"/>
                                                                                     <constraints>
-                                                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="NKI-xk-Lal"/>
+                                                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="agM-Zv-d12"/>
                                                                                     </constraints>
                                                                                 </imageView>
                                                                                 <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="TdN-RR-5oF">
-                                                                                    <rect key="frame" x="50" y="0.0" width="40" height="50"/>
+                                                                                    <rect key="frame" x="45" y="0.0" width="40" height="50"/>
                                                                                     <subviews>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="1444" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BwS-gX-T6A">
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1444" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BwS-gX-T6A">
                                                                                             <rect key="frame" x="1" y="0.0" width="39" height="24"/>
                                                                                             <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="17"/>
                                                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                                             <nil key="highlightedColor"/>
+                                                                                            <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
+                                                                                                <rect key="frame" x="1" y="0.0" width="39" height="27"/>
+                                                                                            </variation>
                                                                                         </label>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Likes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3zq-ou-EtF">
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Likes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3zq-ou-EtF">
                                                                                             <rect key="frame" x="0.0" y="24" width="40" height="27"/>
                                                                                             <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="17"/>
                                                                                             <color key="textColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
                                                                                             <nil key="highlightedColor"/>
+                                                                                            <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
+                                                                                                <rect key="frame" x="0.0" y="27" width="40" height="24"/>
+                                                                                            </variation>
                                                                                         </label>
                                                                                     </subviews>
                                                                                     <constraints>
@@ -445,15 +492,19 @@
                                                 <constraint firstItem="HoO-vT-kXt" firstAttribute="bottom" secondItem="Nud-cP-5gH" secondAttribute="bottomMargin" id="Tzx-cP-Z1t"/>
                                                 <constraint firstItem="HoO-vT-kXt" firstAttribute="leading" secondItem="Nud-cP-5gH" secondAttribute="leadingMargin" constant="-8" id="kiQ-Hj-083"/>
                                             </constraints>
+                                            <variation key="heightClass=regular-widthClass=compact" ambiguous="YES">
+                                                <rect key="frame" x="0.0" y="0.0" width="360" height="363"/>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.89932885910000004" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="descriptionText" destination="lK5-uv-7r5" id="W1c-G2-ci3"/>
-                                            <outlet property="likeImage" destination="98B-zC-gih" id="mYi-8T-kdG"/>
+                                            <outlet property="likeImage" destination="wbB-K0-4wc" id="UAh-b8-cAA"/>
                                             <outlet property="likesLbl" destination="BwS-gX-T6A" id="Z4e-gJ-pJC"/>
                                             <outlet property="profileImg" destination="3yu-Zk-WNv" id="tyM-gN-r9B"/>
+                                            <outlet property="returnButton" destination="FKK-0S-nBB" id="eKH-5l-Kow"/>
                                             <outlet property="showcaseImg" destination="2zO-Nn-XmA" id="TGD-Vs-f52"/>
-                                            <outlet property="usernameLbl" destination="95J-n2-y7B" id="veM-4N-46G"/>
+                                            <outlet property="usernameLbl" destination="g79-li-m3a" id="M6K-mq-t9n"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -505,68 +556,79 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qua-xb-1k4" customClass="MaterialView" customModule="shawn_showcase" customModuleProvider="target">
-                                <rect key="frame" x="20" y="23" width="560" height="505"/>
+                                <rect key="frame" x="20" y="23" width="560" height="493"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Sfu-Il-h98">
-                                        <rect key="frame" x="20" y="194" width="520" height="200"/>
+                                        <rect key="frame" x="20" y="194" width="520" height="145"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6IN-qB-lOZ" customClass="MaterialTextField" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="520" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="520" height="25"/>
                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="9ep-HX-yXM"/>
+                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="25" id="9ep-HX-yXM">
+                                                        <variation key="heightClass=regular-widthClass=compact" constant="50"/>
+                                                    </constraint>
                                                 </constraints>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bFY-24-KUC" customClass="MaterialTextField" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="45" width="520" height="35"/>
+                                                <rect key="frame" x="0.0" y="30" width="520" height="25"/>
                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="35" id="JiC-05-Nhc"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="JiC-05-Nhc"/>
                                                 </constraints>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sq0-do-ani" customClass="MaterialTextField" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="85" width="520" height="35"/>
+                                                <rect key="frame" x="0.0" y="60" width="520" height="25"/>
                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="35" id="nmG-lh-CyN"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="nmG-lh-CyN"/>
                                                 </constraints>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y9d-Ym-eTk" customClass="MaterialTextField" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="125" width="520" height="35"/>
+                                                <rect key="frame" x="0.0" y="90" width="520" height="25"/>
                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="35" id="28q-8T-Fh9"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="28q-8T-Fh9"/>
                                                 </constraints>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mOa-gR-k20" customClass="MaterialTextField" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="165" width="520" height="35"/>
+                                                <rect key="frame" x="0.0" y="120" width="520" height="25"/>
                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="35" id="ilS-BL-jrz"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="ilS-BL-jrz"/>
                                                 </constraints>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="y9d-Ym-eTk" firstAttribute="height" secondItem="6IN-qB-lOZ" secondAttribute="height" id="QEN-ap-bsW"/>
+                                            <constraint firstItem="mOa-gR-k20" firstAttribute="height" secondItem="6IN-qB-lOZ" secondAttribute="height" id="Zdr-MF-VaD"/>
+                                            <constraint firstItem="bFY-24-KUC" firstAttribute="height" secondItem="6IN-qB-lOZ" secondAttribute="height" id="e1g-gF-LMz"/>
+                                            <constraint firstItem="sq0-do-ani" firstAttribute="height" secondItem="6IN-qB-lOZ" secondAttribute="height" id="y7C-Vc-EhM"/>
+                                        </constraints>
                                     </stackView>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AKU-E9-Rp2">
                                         <rect key="frame" x="93" y="417" width="375" height="21"/>
                                         <fontDescription key="fontDescription" name="NotoSans-Italic" family="Noto Sans" pointSize="14"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="163" y="448" width="34.5" height="165"/>
+                                        </variation>
                                     </label>
                                     <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Blank Profile(1)" translatesAutoresizingMaskIntoConstraints="NO" id="DpB-4l-EDp">
                                         <rect key="frame" x="207" y="13" width="142" height="143"/>
@@ -619,7 +681,7 @@
                                     <constraint firstItem="DpB-4l-EDp" firstAttribute="width" secondItem="3qy-ot-BRf" secondAttribute="width" id="DbS-uc-5zK"/>
                                     <constraint firstItem="3qy-ot-BRf" firstAttribute="centerX" secondItem="qua-xb-1k4" secondAttribute="centerX" id="EqA-Fm-0E0"/>
                                     <constraint firstItem="bVp-8S-pZB" firstAttribute="top" secondItem="AKU-E9-Rp2" secondAttribute="bottom" constant="8" id="JGF-wU-W3A"/>
-                                    <constraint firstAttribute="bottom" secondItem="bVp-8S-pZB" secondAttribute="bottom" constant="20" id="Ncq-V2-oYF"/>
+                                    <constraint firstAttribute="bottom" secondItem="bVp-8S-pZB" secondAttribute="bottom" constant="40" id="Ncq-V2-oYF"/>
                                     <constraint firstAttribute="trailing" secondItem="Sfu-Il-h98" secondAttribute="trailing" constant="20" id="OSO-p3-pZm"/>
                                     <constraint firstItem="DpB-4l-EDp" firstAttribute="centerX" secondItem="qua-xb-1k4" secondAttribute="centerX" id="PUK-gV-paK"/>
                                     <constraint firstItem="DpB-4l-EDp" firstAttribute="top" secondItem="qua-xb-1k4" secondAttribute="top" constant="20" id="R9E-xX-iIm"/>
@@ -631,6 +693,7 @@
                                     <constraint firstItem="bVp-8S-pZB" firstAttribute="centerX" secondItem="qua-xb-1k4" secondAttribute="centerX" id="d3m-E7-qoo"/>
                                     <constraint firstItem="AKU-E9-Rp2" firstAttribute="top" secondItem="Sfu-Il-h98" secondAttribute="bottom" constant="5" id="eoE-XA-7Ey"/>
                                     <constraint firstItem="DpB-4l-EDp" firstAttribute="centerX" secondItem="3qy-ot-BRf" secondAttribute="centerX" id="goT-4x-3XW"/>
+                                    <constraint firstItem="bVp-8S-pZB" firstAttribute="top" secondItem="AKU-E9-Rp2" secondAttribute="bottom" constant="10" id="k9i-Pp-iUk"/>
                                     <constraint firstItem="DpB-4l-EDp" firstAttribute="centerY" secondItem="3qy-ot-BRf" secondAttribute="centerY" id="mN8-yF-oNI"/>
                                     <constraint firstItem="Sfu-Il-h98" firstAttribute="leading" secondItem="qua-xb-1k4" secondAttribute="leading" constant="20" id="nML-Gh-CZv"/>
                                     <constraint firstItem="Sfu-Il-h98" firstAttribute="top" secondItem="DpB-4l-EDp" secondAttribute="bottom" constant="10" id="ojy-Cv-uie"/>
@@ -642,12 +705,13 @@
                                         <exclude reference="DbS-uc-5zK"/>
                                         <exclude reference="Yte-mZ-td7"/>
                                         <exclude reference="Zna-ZO-vpv"/>
+                                        <exclude reference="JGF-wU-W3A"/>
                                         <exclude reference="btb-9N-aeh"/>
                                     </mask>
                                 </variation>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.89932885910000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="qua-xb-1k4" firstAttribute="top" secondItem="WLs-xb-bdX" secondAttribute="bottom" constant="20" id="3SL-Lk-ys7"/>
                             <constraint firstItem="qua-xb-1k4" firstAttribute="leading" secondItem="uXf-ag-IFh" secondAttribute="leadingMargin" id="8Yz-pp-goT"/>
@@ -689,9 +753,6 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="background_3" translatesAutoresizingMaskIntoConstraints="NO" id="ACt-qd-eOy">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="209"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="260" id="R80-jM-HAa"/>
-                                </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uab-UK-zI1" customClass="MaterialButton" customModule="shawn_showcase" customModuleProvider="target">
                                 <rect key="frame" x="239" y="458" width="123" height="51"/>
@@ -742,14 +803,14 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yBh-TX-YEh">
-                                <rect key="frame" x="0.0" y="238" width="600" height="178"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yBh-TX-YEh">
+                                <rect key="frame" x="0.0" y="238" width="600" height="200"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="xe7-dr-ORA">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="45"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="First Name" placeholder="First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wob-dU-az3" customClass="MaterialTextField2" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="200" height="45"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="200" id="JmV-JJ-qMj"/>
@@ -765,7 +826,7 @@
                                                 </variation>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dy1-EH-JSI" customClass="MaterialTextField2" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="200" y="0.0" width="400" height="45"/>
+                                                <rect key="frame" x="200" y="0.0" width="400" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="YiY-Ch-K5A"/>
@@ -780,10 +841,10 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8IB-lF-jyw">
-                                        <rect key="frame" x="0.0" y="45" width="600" height="45"/>
+                                        <rect key="frame" x="0.0" y="50" width="600" height="50"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Last Name" placeholder="Last Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Gz-oN-RES" customClass="MaterialTextField2" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="200" height="45"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="nod-wY-lGP"/>
@@ -798,7 +859,7 @@
                                                 </variation>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GxH-Od-eAX" customClass="MaterialTextField2" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="200" y="0.0" width="400" height="45"/>
+                                                <rect key="frame" x="200" y="0.0" width="400" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="KlM-Gf-ubN"/>
@@ -815,10 +876,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TjT-6T-smV">
-                                        <rect key="frame" x="0.0" y="89" width="600" height="45"/>
+                                        <rect key="frame" x="0.0" y="100" width="600" height="50"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Username" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N8q-Em-NZB" customClass="MaterialTextField2" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="200" height="45"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="ng3-AE-KE3"/>
@@ -833,7 +894,7 @@
                                                 </variation>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="clr-t2-Fu2" customClass="MaterialTextField2" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="200" y="0.0" width="400" height="45"/>
+                                                <rect key="frame" x="200" y="0.0" width="400" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="Mcq-f2-a0i"/>
@@ -850,10 +911,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qV9-5G-jTT">
-                                        <rect key="frame" x="0.0" y="134" width="600" height="45"/>
+                                        <rect key="frame" x="0.0" y="150" width="600" height="50"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Email" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uYY-H4-jf2" customClass="MaterialTextField2" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="200" height="45"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="pUU-lf-Wrf"/>
@@ -868,7 +929,7 @@
                                                 </variation>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wKe-Z4-U7w" customClass="MaterialTextField2" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="200" y="0.0" width="400" height="45"/>
+                                                <rect key="frame" x="200" y="0.0" width="400" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="QM3-ZK-GOV"/>
@@ -970,6 +1031,7 @@
         <image name="camera 2" width="50" height="50"/>
         <image name="heart-empty" width="150" height="147"/>
         <image name="iTunesArtwork-1" width="512" height="512"/>
+        <image name="noun_1330" width="1200" height="1200"/>
         <image name="screen" width="300" height="534"/>
     </resources>
 </document>

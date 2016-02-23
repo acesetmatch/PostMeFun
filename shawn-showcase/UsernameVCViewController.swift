@@ -11,6 +11,8 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import Alamofire
 import Firebase
+
+
 class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     
@@ -110,7 +112,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     override func viewWillAppear(animated: Bool) {
-        
+        self.navigationItem.setHidesBackButton(true, animated: true)
         self.navigationController?.navigationBarHidden = false
         
     }

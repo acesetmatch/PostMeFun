@@ -10,6 +10,12 @@ import UIKit
 import Alamofire
 import Firebase
 
+protocol PostCellTableViewCellDelegate{
+    func returnTapped()
+}
+
+
+
 class PostCellTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profileImg: UIImageView!
@@ -18,12 +24,18 @@ class PostCellTableViewCell: UITableViewCell {
     @IBOutlet weak var likesLbl: UILabel!
     @IBOutlet weak var likeImage: UIImageView!
     @IBOutlet weak var usernameLbl: UILabel!
+    @IBOutlet weak var returnImage: UIImageView!
+    @IBOutlet weak var returnButton: UIButton!
     
     var post: Post! //store post
     var request: Request? //Request is Firebase object
     var request2: Request?
     var likeRef:Firebase!
+    var flagRef:Firebase!
+    var blockRef: Firebase!
     var user: User!
+    var delegate: PostCellTableViewCellDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -31,6 +43,10 @@ class PostCellTableViewCell: UITableViewCell {
         tap.numberOfTapsRequired = 1
         likeImage.addGestureRecognizer(tap)
         likeImage.userInteractionEnabled = true
+        
+//        let tap1 = UITapGestureRecognizer(target: self, action: "returnTapped:") //colon passes tap gesture recognizer.
+//        tap1.numberOfTapsRequired = 1
+        
         profileImg.layer.cornerRadius = profileImg.frame.size.width/2
         profileImg.clipsToBounds = true
         
@@ -50,6 +66,8 @@ class PostCellTableViewCell: UITableViewCell {
     func configureCell(post: Post, img: UIImage?, ProfileImage: UIImage?) {
         self.post = post
         likeRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)
+        flagRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("flags").childByAppendingPath(post.postKey)
+//        blockRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("blacklist").childByAppendingPath(post.postKey)
         self.descriptionText.text = post.postDescription       //extracts like data from likes and sees if that post exists
         self.likesLbl.text = "\(post.likes)"
 //        let usernameRef = DataService.ds.REF_USER_CURRENT
@@ -93,16 +111,22 @@ class PostCellTableViewCell: UITableViewCell {
             self.profileImg.hidden = false
         }
         
-       
-     
-
-        
   
         likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in //check value only once
-            if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post. 
+            if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
                 self.likeImage.image = UIImage(named: "heart-empty")
             } else {
                 self.likeImage.image = UIImage(named: "heart-full")
+            }
+        })
+        
+        flagRef.observeSingleEventOfType(.Value, withBlock: { snapshot in //check value only once
+            if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
+                self.post.adjustFlags(true)
+                self.flagRef.setValue(true) //creates a like on life ref when set to true
+            } else {
+                self.post.adjustFlags(false)
+                self.flagRef.removeValue() //deletes entire key all together with reference
             }
         })
         
@@ -123,5 +147,55 @@ class PostCellTableViewCell: UITableViewCell {
             }
         })
     }
+    
+    func flagReference(alert: UIAlertAction!) {
+        
+        flagRef.observeSingleEventOfType(.Value, withBlock: { snapshot in //check value only once
+            if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
+                self.post.adjustFlags(true)
+                self.flagRef.setValue(true) //creates a like on life ref when set to true
+            } else {
+                self.post.adjustFlags(false)
+                self.flagRef.removeValue() //deletes entire key all together with reference
+            }
+        })
+    }
+    
+    @IBAction func returnBtn(sender:AnyObject?) {
+        self.delegate?.returnTapped()
+    }
+    
+    
+    
+    
+    
+//    func returnTapped() {
+//        let alertController = UIAlertController(title: "Inappropriate Content", message: "Select an option", preferredStyle: .Alert)
+//        let blockUser = UIAlertAction(title: "Block User", style: .Default, handler:nil)
+//        let Report = UIAlertAction(title: "Report Inappropriate", style: .Default, handler:nil)
+//        alertController.addAction(blockUser)
+//        alertController.addAction(Report)
+//        self.presentViewController(alertController, animated: true, completion: nil)
+//
+//        flagRef.observeSingleEventOfType(.Value, withBlock: { snapshot in //check value only once
+//            if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
+//                self.post.adjustFlags(true)
+//                self.flagRef.setValue(true) //creates a like on life ref when set to true
+//            } else {
+//                self.post.adjustFlags(false)
+//                self.flagRef.removeValue() //deletes entire key all together with reference
+//            }
+//        })
+//        let alertmessage = UIAlertController(title: "Are you sure you want to flag the post?", message: "Pressing ok will flag the post!", preferredStyle: .Alert)
+//        let okayAction = UIAlertAction(title: "Ok", style: .Default, handler: markFlagged)
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+//        alertmessage.addAction(okayAction)
+//        alertmessage.addAction(cancelAction)
+//        presentViewController(alertmessage, animated: true, completion: nil)
+
+    
 
 }
+    
+    
+

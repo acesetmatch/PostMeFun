@@ -10,10 +10,10 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 
-var currentUid: String =  ""
+
 class ViewController: UIViewController {
     
-    @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var emailField: MaterialTextField!
     @IBOutlet weak var passwordField: MaterialTextField!
     @IBOutlet weak var errorLbl: UILabel!
 
@@ -24,16 +24,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.navigationController?.navigationBarHidden = true;
+      
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
+  
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
         view.endEditing(true)
         super.touchesBegan(touches, withEvent: event)
-         self.passwordField.userInteractionEnabled = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -42,8 +40,6 @@ class ViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
-
-        
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -69,63 +65,12 @@ class ViewController: UIViewController {
         let animationDuration: Double = userInfo[UIKeyboardAnimationDurationUserInfoKey]!.doubleValue
         
         UIView.animateWithDuration(animationDuration, animations: { () -> Void in
-            self.view.frame.origin.y = -endSize.height
+            self.view.frame.origin.y = -endSize.height/2
         })
 
     }
     
-    func textFieldShouldReturn(userText: UITextField!) -> Bool {
-        userText.resignFirstResponder()
-        return true;
-    }
-    
-   
-    
-    
 
-    
-//    @IBAction func fbBtnPressed(sender: UIButton!) {
-//        let facebookLogin = FBSDKLoginManager()
-//    
-//        
-//        facebookLogin.logInWithReadPermissions(["email"]) { (facebookResult: FBSDKLoginManagerLoginResult!, facebookError: NSError!) -> Void in
-//            if facebookError != nil {
-//                print("Facebook login failed. Error \(facebookError)")
-//            } else {
-//                let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
-//                print("Successfully logged in with Facebook. \(accessToken)")
-//                
-//                DataService.ds.REF_BASE.authWithOAuthProvider("facebook", token: accessToken, withCompletionBlock: { error, authData in
-////                    userGlobal.uid = authData.uid
-////                    userGlobal.isFacebook = true
-//                    if error != nil {
-//                        print("Login Failed")
-//                    } else {
-//                        print("Logged In \(authData)")
-//                       
-//                        
-//                        let user = ["provider": authData.provider!] //swift dictionary
-//                        DataService.ds.createFirebaseUser(authData.uid, user: user)
-//                        NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: KEY_UID)
-//                        if authData.uid != "" {
-//                            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-//                            let feedVC = self.storyboard?.instantiateViewControllerWithIdentifier("FeedVC") as? FeedVC
-//                            
-//                            self.navigationController?.pushViewController(feedVC!, animated: true) as? UIViewController
-//                            self.navigationController?.navigationBarHidden = false;
-//
-//                        }
-//                        
-//                        else {
-//                            print("Please login")
-//                        }
-//
-//                    }
-//                })
-//        }
-//        
-//    }
-//    }
     
 
     @IBAction func attemptLogin(sender:UIButton!) {
@@ -181,7 +126,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func loggingOutofUsername(segue: UIStoryboardSegue) {
-        
+       
     }
     
     

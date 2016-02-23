@@ -10,17 +10,20 @@ import UIKit
 import Firebase
 import Alamofire
 
-class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var postField: MaterialTextField!
     @IBOutlet weak var imageSelectorImage: UIImageView!
-   
     var posts = [Post]()
     var imageSelected = false
-    var posted: Post!
+    var post: Post!
+    
     var user: User!
     var imagePicker: UIImagePickerController!
+//    var flagRef: Firebase!
+    var postCellTableView: PostCellTableViewCell!
+    
     static var imageCache = NSCache()
     
     override func viewDidLoad() {
@@ -35,29 +38,39 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         imageSelectorImage.layer.cornerRadius = 2.0
         imageSelectorImage.clipsToBounds = true
         
-        DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
+     
+        DataService.ds.REF_USER_CURRENT.observeEventType(.Value, withBlock: { snapshot in
             print(snapshot.value) //Prints value of snapshot
-            if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
-                self.posts = []
-
-                for snap in snapshots {
-                    print("SNAP: \(snap)")
-                    
-                    if let postDict = snap.value as? Dictionary<String, AnyObject> {
-                        let key = snap.key
-                        let post = Post(postKey: key, dictionary: postDict)
-                        self.posts.append(post)
-                    }
-                }
+            //            if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
             
+            
+            if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
+                let key = snapshot.key
+                let user = User(userKey: key, dictionary: userDict)
+                let blacklistuser = user.blacklist
+                DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
+                    print(snapshot.value) //Prints value of snapshot
+                    if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
+                        self.posts = []
+                        
+                        for snap in snapshots {
+                            print("SNAP: \(snap)")
+                            
+                            if let postDict = snap.value as? Dictionary<String, AnyObject> {
+                                let key = snap.key
+                                let post = Post(postKey: key, dictionary: postDict)
+//                                if post.Uid = user.blacklist
+                                self.posts.append(post)
+                            }
+                        }
+                        
+                    }
+                    self.tableView.reloadData()
+                    
+                })
             }
-            self.tableView.reloadData()
-
         })
-        
-       
 
-        // Do any additional setup after loading the view.
     }
     
     
@@ -72,8 +85,10 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let post = self.posts[indexPath.row]
 
-        if let cell = tableView.dequeueReusableCellWithIdentifier("PostCellTableViewCell") as? PostCellTableViewCell {
+        if let cell = tableView.dequeueReusableCellWithIdentifier("PostCellTableViewCell", forIndexPath: indexPath) as? PostCellTableViewCell {
             cell.request?.cancel()
+            cell.returnButton.tag = indexPath.row
+            cell.returnButton.addTarget(self, action: "returnTapped:", forControlEvents: UIControlEvents.TouchUpInside)
             
             var img: UIImage? //making an empty image
             var proImg: UIImage?
@@ -90,6 +105,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             return PostCellTableViewCell()
         }
     }
+
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let post = posts[indexPath.row]
@@ -151,24 +167,44 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                             print(error)
                         }
             }
-        }
-//        } else {
-////            self.postToFirebase(nil)
-//
-//        }
+            } else {
+                showErrorAlert("Image Required", msg: "You must select an image")
+            }
+        } else {
+            showErrorAlert("Description Required", msg: "You must enter a description")
         }
     }
     
+    func returnTapped(sender:UIButton!) {
+        let alertController = UIAlertController(title: "Inappropriate Content", message: "Select an option", preferredStyle: .Alert)
+        let blockUser = UIAlertAction(title: "Block User", style: .Default, handler:nil)
+        let Report = UIAlertAction(title: "Report Inappropriate", style: .Default, handler: postCellTableView.flagReference)
+        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler:nil)
+        alertController.addAction(blockUser)
+        alertController.addAction(Report)
+        alertController.addAction(cancel)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
     
+   
     
 
+    
+    func showErrorAlert(title: String, msg: String) {
+        let alert = UIAlertController(title:title, message: msg, preferredStyle: .Alert)
+        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+        alert.addAction(action)
+        presentViewController(alert, animated: true, completion: nil)
+    }
+
     func postToFirebase(imgUrl: String?) {
-            let Uid = DataService.ds.REF_USER_CURRENT
-            Uid.observeSingleEventOfType(.Value, withBlock: { snapshot in
-                let theUid = (snapshot.value)
-                var post: Dictionary < String, AnyObject >= ["Uid":theUid,
+        let theUid = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) as! String
+        let Uid = DataService.ds.REF_USER_CURRENT
+        Uid.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                let UIDdict = (snapshot.value)
+                var post: Dictionary < String, AnyObject >= ["Uid":theUid, "UidDict": UIDdict,
                     "description" : self.postField.text!,
-                    "likes": 0]
+                    "likes": 0, "flags": 0]
                 if imgUrl != nil {
                     post["imageUrl"] = imgUrl!
                 }

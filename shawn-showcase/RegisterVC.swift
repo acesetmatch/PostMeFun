@@ -34,34 +34,46 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         addBtn.hidden = false
-        
+//        self.navigationController?.navigationBarHidden = true;
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name:UIKeyboardWillShowNotification, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name:UIKeyboardWillHideNotification, object: nil);
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+
     }
 
     func keyboardWillHide(sender: NSNotification) {
         let userInfo: [NSObject : AnyObject] = sender.userInfo!
+        let endSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]!.CGRectValue.size
+
         let keyboardSize: CGSize = userInfo[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue.size
-        self.view.frame.origin.y += keyboardSize.height
+        let animationDuration: Double = userInfo[UIKeyboardAnimationDurationUserInfoKey]!.doubleValue
+        UIView.animateWithDuration(animationDuration, animations: { () -> Void in
+            self.view.frame.origin.y = 0+endSize.height/4
+        })
+        
     }
     
     
     
     func keyboardWillShow(sender: NSNotification) {
-        let userInfo: [NSObject : AnyObject] = sender.userInfo!
-        let keyboardSize: CGSize = userInfo[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue.size
-        let offset: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]!.CGRectValue.size
         
-        if keyboardSize.height == offset.height {
-            UIView.animateWithDuration(0.1, animations: { () -> Void in
-                self.view.frame.origin.y -= keyboardSize.height
-            })
-        } else {
-            UIView.animateWithDuration(0.1, animations: { () -> Void in
-                self.view.frame.origin.y += keyboardSize.height - offset.height
-            })
-        }
+        let userInfo: [NSObject : AnyObject] = sender.userInfo!
+        let endSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]!.CGRectValue.size
+        let keyboardSize: CGSize = userInfo[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue.size
+
+        let animationDuration: Double = userInfo[UIKeyboardAnimationDurationUserInfoKey]!.doubleValue
+        UIView.animateWithDuration(animationDuration, animations: { () -> Void in
+            self.view.frame.origin.y = -endSize.height/2 
+        })
+        
     }
+    
+
     
    
 
@@ -71,6 +83,7 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
         //        self.navigationController?.navigationBarHidden = true;
 
         //        self.navigationItem.setHidesBackButton(true, animated: false)
@@ -212,9 +225,6 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
             self.UpdateUserImageToFirebase(nil)
         }
         
-        //        } else {
-        //            self.displayAlertError("Cannot Post", Message: "Please add a Profile Image")
-        //        }
     }
 
     @IBAction func returnToRegistration(segue: UIStoryboardSegue) {
