@@ -16,15 +16,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var emailField: MaterialTextField!
     @IBOutlet weak var passwordField: MaterialTextField!
     @IBOutlet weak var errorLbl: UILabel!
-
+    @IBOutlet weak var signUpBtn: UIButton!
     
     var usernameVC: UsernameVCViewController!
-
+    let borderAlpha: CGFloat = 1.0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.navigationController?.navigationBarHidden = true;
-      
+        signUpBtn.layer.borderWidth = 1.0
+        signUpBtn.layer.borderColor = UIColor(red: 70.0/255.0, green: 90.0/255.0, blue: 255.0, alpha: borderAlpha).CGColor
     }
 
   
@@ -99,9 +100,6 @@ class ViewController: UIViewController {
                         let usernameVCViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UsernameVCViewController") as? UsernameVCViewController
 
                         self.navigationController?.pushViewController(usernameVCViewController!, animated: true) as? UIViewController
-                        
-                        
-
 
                     }
                 })
@@ -128,7 +126,6 @@ class ViewController: UIViewController {
     @IBAction func loggingOutofUsername(segue: UIStoryboardSegue) {
        
     }
-    
     
     
     func showErrorAlert(title: String, msg: String) {

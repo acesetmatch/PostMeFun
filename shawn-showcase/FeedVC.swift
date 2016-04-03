@@ -10,19 +10,26 @@ import UIKit
 import Firebase
 import Alamofire
 
+
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var postField: MaterialTextField!
     @IBOutlet weak var imageSelectorImage: UIImageView!
     var posts = [Post]()
+    var users = [User]()
+    var flagRef:Firebase!
+    var blockRef: Firebase!
+    var blacklistRef: Firebase!
+    var postRef: Firebase!
     var imageSelected = false
     var post: Post!
-    
+//    var flagRef:Firebase!
     var user: User!
+    var blacklistUser: User!
+    var Uid: String!
     var imagePicker: UIImagePickerController!
-//    var flagRef: Firebase!
-    var postCellTableView: PostCellTableViewCell!
+    var postCellTableView: PostCellTableViewCell = PostCellTableViewCell()
     
     static var imageCache = NSCache()
     
@@ -43,11 +50,14 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             print(snapshot.value) //Prints value of snapshot
             //            if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
             
-            
+            self.tableView.reloadData()
+
             if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
                 let key = snapshot.key
                 let user = User(userKey: key, dictionary: userDict)
-                let blacklistuser = user.blacklist
+                self.user = user
+//                let blacklistuser = user.blacklist
+                self.users.append(user)
                 DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
                     print(snapshot.value) //Prints value of snapshot
                     if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
@@ -59,18 +69,42 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                             if let postDict = snap.value as? Dictionary<String, AnyObject> {
                                 let key = snap.key
                                 let post = Post(postKey: key, dictionary: postDict)
-//                                if post.Uid = user.blacklist
+                                self.postRef = DataService.ds.REF_POSTS.childByAppendingPath(post.postKey)
+                                self.blacklistRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("blacklist")
                                 self.posts.append(post)
+                                for post in self.posts {
+                                    self.blacklistRef.observeSingleEventOfType(.Value, withBlock: { snapshot in //check value only once
+                                        //   `                                 if let doesNotExist = snapshot.value as? NSNull {
+                                        if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
+                                            for snap in snapshots {
+                                                if let blacklistDict = snap.value as? String {
+                                                    let blacklistPost = post.Uid
+                                                    if blacklistDict == blacklistPost {
+                                                        self.posts = self.posts.filter({$0.Uid != blacklistDict})
+                                                        self.tableView.reloadData()
+                                                    } else {
+                                                        self.tableView.reloadData()
+                                                        
+                                                    }
+                                                
+                                                }
+                                            }
+                                            }
+                                        })
+                                        
+                                    }
+                                }
+                                
                             }
+                        self.tableView.reloadData()
+
                         }
                         
-                    }
-                    self.tableView.reloadData()
-                    
-                })
+                    })
             }
         })
-
+        
+    
     }
     
     
@@ -84,12 +118,11 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let post = self.posts[indexPath.row]
-
+        self.post = post
         if let cell = tableView.dequeueReusableCellWithIdentifier("PostCellTableViewCell", forIndexPath: indexPath) as? PostCellTableViewCell {
             cell.request?.cancel()
             cell.returnButton.tag = indexPath.row
             cell.returnButton.addTarget(self, action: "returnTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-            
             var img: UIImage? //making an empty image
             var proImg: UIImage?
             
@@ -99,7 +132,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             if let proUrl = post.profileImageUrl {
                 proImg = FeedVC.imageCache.objectForKey(proUrl) as? UIImage //FeedVC is publicly available
             }
+//            returntapped(post)
             cell.configureCell(post, img: img, ProfileImage: proImg)
+            
             return cell
         } else {
             return PostCellTableViewCell()
@@ -176,17 +211,93 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     }
     
     func returnTapped(sender:UIButton!) {
-        let alertController = UIAlertController(title: "Inappropriate Content", message: "Select an option", preferredStyle: .Alert)
-        let blockUser = UIAlertAction(title: "Block User", style: .Default, handler:nil)
-        let Report = UIAlertAction(title: "Report Inappropriate", style: .Default, handler: postCellTableView.flagReference)
+        self.post = self.posts[sender.tag]
+        self.Uid = self.post.Uid
+        let alertController = UIAlertController(title: "Inappropriate Content", message: "Select an option", preferredStyle: .ActionSheet)
+        let blockUser = UIAlertAction(title: "Block User", style: .Default, handler:confirmingBlockUser)
+        let Report = UIAlertAction(title: "Report Inappropriate", style: .Default, handler: confirmingReport)
         let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler:nil)
         alertController.addAction(blockUser)
         alertController.addAction(Report)
         alertController.addAction(cancel)
+        
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     
-   
+    func confirmingReport(alert: UIAlertAction!) {
+        let secondAlertController = UIAlertController(title: "Report Post", message: "Are you sure you want to report this post?", preferredStyle: .Alert)
+        let confirm = UIAlertAction(title: "Yes", style: .Default, handler:reportConfirmed)
+        let cancel = UIAlertAction(title: "No", style: .Cancel, handler: nil)
+        secondAlertController.addAction(confirm)
+        secondAlertController.addAction(cancel)
+        self.presentViewController(secondAlertController, animated: true, completion: nil)
+    }
+    
+    func reportConfirmed(alert:UIAlertAction!) {
+        let thirdAlertController = UIAlertController(title: "Post Report", message: "This post has been flagged as inappropriate", preferredStyle: .Alert)
+        let okay = UIAlertAction(title: "Okay", style: .Cancel, handler: flagReference)
+        thirdAlertController.addAction(okay)
+        self.presentViewController(thirdAlertController, animated: true, completion: nil)
+    }
+    
+    func flagReference(alert: UIAlertAction!) {
+        flagRef = DataService.ds.REF_POSTS.childByAppendingPath(post.postKey).childByAppendingPath("flags").childByAppendingPath(user.userKey)
+        flagRef.observeSingleEventOfType(.Value, withBlock: { snapshot in //check value only once
+            if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
+                self.flagRef.setValue(true)
+            } else {
+                self.flagRef.removeValue()
+            }
+        })
+    }
+    
+    
+    
+    func confirmingBlockUser(alert: UIAlertAction!) {
+        let secondAlertController = UIAlertController(title: "Block User", message: "Are you sure you want to block this user?", preferredStyle: .Alert)
+        let confirm = UIAlertAction(title: "Yes", style: .Default, handler:blockUserConfirmed)
+        let cancel = UIAlertAction(title: "No", style: .Cancel, handler: nil)
+        secondAlertController.addAction(confirm)
+        secondAlertController.addAction(cancel)
+        self.presentViewController(secondAlertController, animated: true, completion: nil)
+    }
+    
+    func blockUserConfirmed(alert:UIAlertAction!) {
+        let thirdAlertController = UIAlertController(title: "User Blocked", message: "You have blocked this user", preferredStyle: .Alert)
+        let userAlreadyBlockedController = UIAlertController(title: "Cannot Block", message: "You have already blocked this user", preferredStyle: .Alert)
+        let okay = UIAlertAction(title: "Okay", style: .Cancel, handler: blockReference)
+        thirdAlertController.addAction(okay)
+//        userAlreadyBlockedController.addAction(okay)
+//        blockRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("blacklist")
+//        self.blockRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+//            if self.Uid == snapshot.value as? String {
+//                self.presentViewController(userAlreadyBlockedController,animated:true,completion:nil)
+        
+//            } else {
+        self.presentViewController(thirdAlertController, animated: true, completion: nil)
+//            }
+//        })
+    }
+    
+    func blockReference(alert: UIAlertAction!) {
+        blockRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("blacklist")
+            
+//        blockRef.observeSingleEventOfType(.Value, withBlock: { snapshot in //check value only once
+////            if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
+////                for snap in snapshots {
+////                    if let blacklistDict = snap.value as? String {
+//            
+//            if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
+                var blacklistUid: Dictionary <String,String> = ["1": self.Uid]
+                self.blockRef.updateChildValues(blacklistUid)
+//            } else {
+//                self.blockRef.removeValue()
+//            }
+//        })
+        
+    }
+
+
     
 
     
@@ -201,24 +312,33 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         let theUid = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) as! String
         let Uid = DataService.ds.REF_USER_CURRENT
         Uid.observeSingleEventOfType(.Value, withBlock: { snapshot in
-                let UIDdict = (snapshot.value)
-                var post: Dictionary < String, AnyObject >= ["Uid":theUid, "UidDict": UIDdict,
+            if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
+                let key = snapshot.key
+                let user = User(userKey: key, dictionary: userDict)
+                let userProfileImg = user.profileImageUrl
+                let userUsername = user.username
+                var post: Dictionary < String, AnyObject >= ["Uid":theUid, "username": userUsername,
                     "description" : self.postField.text!,
-                    "likes": 0, "flags": 0]
+                    "likes": 0]
                 if imgUrl != nil {
                     post["imageUrl"] = imgUrl!
                 }
                 
+                if userProfileImg != nil {
+                    post["profileUrl"] = userProfileImg!
+                }
+            
                 let firebasePost = DataService.ds.REF_POSTS.childByAutoId() //creates new database entry of autoid
                 firebasePost.setValue(post)//set post of new child autoid into firebase
                 self.postField.text = ""
                 self.imageSelectorImage.image = UIImage(named: "camera 2")
                 self.imageSelected = false
                 self.tableView.reloadData()
+            }
 
-                }, withCancelBlock: {error in
-                    print(error.description)
-            })
+            }, withCancelBlock: {error in
+                print(error.description)
+        })
      
         
     }

@@ -12,7 +12,9 @@ import Firebase
 class User {
     private var _username: String!
     private var _userKey: String!
+    private var _blacklistUserKey: String!
     private var _userRef: Firebase!
+    private var _userblacklistRef: Firebase!
     private var _profileImageUrl: String?
     private var _firstName: String!
     private var _lastName: String!
@@ -43,6 +45,11 @@ class User {
         return _userKey
     }
     
+    var blacklistUserKey: String? {
+        return _blacklistUserKey
+    }
+
+
     var blacklist: Dictionary < Int, String >? {
         return _blacklist
     }
@@ -86,5 +93,6 @@ class User {
         
         
         self._userRef = DataService.ds.REF_USERS.childByAppendingPath(self._userKey!)
+//        self._userblacklistRef = DataService.ds.REF_USERS.childByAppendingPath(self._userKey!).childByAppendingPath(self._blacklistUserKey!)
     }
 }

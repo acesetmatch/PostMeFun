@@ -10,11 +10,32 @@ import UIKit
 import Alamofire
 import Firebase
 
-protocol PostCellTableViewCellDelegate{
+protocol PostCellTableViewDelegate {
     func returnTapped()
 }
 
-
+//protocol MyAlert {
+//    func returnTapped()
+//    func reportConfirmed(alert:UIAlertAction!)
+//    func confirmingReport(alert: UIAlertAction!)
+//    
+//}
+//
+//extension MyAlert where Self: FeedVC {
+//    func returnTapped() {
+//        let alertController = UIAlertController(title: "Inappropriate Content", message: "Select an option", preferredStyle: .ActionSheet)
+//        let blockUser = UIAlertAction(title: "Block User", style: .Default, handler:nil)
+//        let Report = UIAlertAction(title: "Report Inappropriate", style: .Default, handler: nil)
+//        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler:nil)
+//        alertController.addAction(blockUser)
+//        alertController.addAction(Report)
+//        alertController.addAction(cancel)
+//        
+//        self.presentViewController(alertController, animated: true, completion: nil)
+//    }
+//    
+//  
+//}
 
 class PostCellTableViewCell: UITableViewCell {
 
@@ -34,18 +55,15 @@ class PostCellTableViewCell: UITableViewCell {
     var flagRef:Firebase!
     var blockRef: Firebase!
     var user: User!
-    var delegate: PostCellTableViewCellDelegate?
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        let tap = UITapGestureRecognizer(target: self, action: "likeTapped:") //colon passes tap gesture recognizer. 
+        let tap = UITapGestureRecognizer(target: self, action: "likeTapped:") //colon passes tap gesture recognizer.
         tap.numberOfTapsRequired = 1
         likeImage.addGestureRecognizer(tap)
         likeImage.userInteractionEnabled = true
         
-//        let tap1 = UITapGestureRecognizer(target: self, action: "returnTapped:") //colon passes tap gesture recognizer.
-//        tap1.numberOfTapsRequired = 1
+        let tap1 = UITapGestureRecognizer(target: self, action: "returnTapped:") 
+        tap1.numberOfTapsRequired = 1
         
         profileImg.layer.cornerRadius = profileImg.frame.size.width/2
         profileImg.clipsToBounds = true
@@ -119,19 +137,6 @@ class PostCellTableViewCell: UITableViewCell {
                 self.likeImage.image = UIImage(named: "heart-full")
             }
         })
-        
-        flagRef.observeSingleEventOfType(.Value, withBlock: { snapshot in //check value only once
-            if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
-                self.post.adjustFlags(true)
-                self.flagRef.setValue(true) //creates a like on life ref when set to true
-            } else {
-                self.post.adjustFlags(false)
-                self.flagRef.removeValue() //deletes entire key all together with reference
-            }
-        })
-        
-        
-        
     }
     
     func likeTapped(sender: UITapGestureRecognizer) {
@@ -148,52 +153,9 @@ class PostCellTableViewCell: UITableViewCell {
         })
     }
     
-    func flagReference(alert: UIAlertAction!) {
-        
-        flagRef.observeSingleEventOfType(.Value, withBlock: { snapshot in //check value only once
-            if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
-                self.post.adjustFlags(true)
-                self.flagRef.setValue(true) //creates a like on life ref when set to true
-            } else {
-                self.post.adjustFlags(false)
-                self.flagRef.removeValue() //deletes entire key all together with reference
-            }
-        })
-    }
-    
-    @IBAction func returnBtn(sender:AnyObject?) {
-        self.delegate?.returnTapped()
-    }
-    
-    
-    
-    
-    
-//    func returnTapped() {
-//        let alertController = UIAlertController(title: "Inappropriate Content", message: "Select an option", preferredStyle: .Alert)
-//        let blockUser = UIAlertAction(title: "Block User", style: .Default, handler:nil)
-//        let Report = UIAlertAction(title: "Report Inappropriate", style: .Default, handler:nil)
-//        alertController.addAction(blockUser)
-//        alertController.addAction(Report)
-//        self.presentViewController(alertController, animated: true, completion: nil)
-//
-//        flagRef.observeSingleEventOfType(.Value, withBlock: { snapshot in //check value only once
-//            if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
-//                self.post.adjustFlags(true)
-//                self.flagRef.setValue(true) //creates a like on life ref when set to true
-//            } else {
-//                self.post.adjustFlags(false)
-//                self.flagRef.removeValue() //deletes entire key all together with reference
-//            }
-//        })
-//        let alertmessage = UIAlertController(title: "Are you sure you want to flag the post?", message: "Pressing ok will flag the post!", preferredStyle: .Alert)
-//        let okayAction = UIAlertAction(title: "Ok", style: .Default, handler: markFlagged)
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
-//        alertmessage.addAction(okayAction)
-//        alertmessage.addAction(cancelAction)
-//        presentViewController(alertmessage, animated: true, completion: nil)
 
     
+
 
 }
     

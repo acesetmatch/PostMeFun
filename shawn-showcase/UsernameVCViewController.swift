@@ -40,12 +40,8 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        self.ProfileImg.layer.cornerRadius = (self.ProfileImg.frame.size.width) / 2
-//        self.ProfileImg.clipsToBounds = true
         ProfileImg.layer.cornerRadius = ProfileImg.frame.size.width/2
         ProfileImg.clipsToBounds = true
-        
         
         imagePickerUser = UIImagePickerController()
         imagePickerUser.delegate = self
@@ -128,11 +124,8 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     @IBAction func addBtnPressed(sender: UIButton){
-//        presentViewController(imagePickerUser, animated: true, completion: nil)
-//        self.performSegueWithIdentifier("returnToRegistration", sender: self)
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let registerVC = self.storyboard?.instantiateViewControllerWithIdentifier("RegisterVC") as? RegisterVC
-        
         self.navigationController?.pushViewController(registerVC!, animated: true) as? UIViewController
 
     }
@@ -176,17 +169,9 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
                 } else {
                     self.UpdateUserImageToFirebase(nil)
                 }
-    
-    
-            
             
             self.performSegueWithIdentifier("usernameSet", sender: nil)
-        
 
-        
-//        } else {
-//            self.displayAlertError("Cannot Post", Message: "Please add a Profile Image")
-//        }
     }
     
     @IBAction func logOut(unwindSegue: UIStoryboardSegue){
@@ -196,25 +181,14 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
         alertmessage.addAction(okayAction)
         alertmessage.addAction(cancelAction)
-
-        
         presentViewController(alertmessage, animated: true, completion: nil)
         
-//       self.performSegueWithIdentifier("loggingOut", sender: nil)
-       
     }
     
-    
 
-    
-   
-    
-    
-   
     
     func unAuthenticateUser(alert: UIAlertAction!) {
         DataService.ds.REF_USERS.unauth()
-//        NSUserDefaults.standardUserDefaults().removeObjectForKey(KEY_UID)
         self.performSegueWithIdentifier("loggingOutofUsername", sender: nil)
         self.navigationController?.navigationBarHidden = true;
     }
@@ -231,43 +205,16 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     
 
     func UpdateUserImageToFirebase(profileimgUrl: String?) {
-        
-//        let firebaseUser = DataService.ds.REF_USER_CURRENT //creates new database entry of autoiD
-//        firebaseUser.setValue(Username) //set post of new child autoid into firebase
-//        if post.postRef != nil {
-//          let profRef = post.postRef.childByAppendingPath("Uid")
+
         if profileimgUrl != nil {
-//            DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
-//                print(snapshot.value) //Prints value of snapshot
-//                if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
-//                    self.posts = []
-//                
-//                    for snap in snapshots {
-//                
-//                        if let postDict = snap.value as? Dictionary<String, AnyObject> {
-//                            let key = snap.key
-//                            let post = Post(postKey: key, dictionary: postDict)
-//                            let profRef = DataService.ds.REF_POSTS.childByAppendingPath(post.postKey).childByAppendingPath("Uid")
-////                            profRef.observeEventType(.ChildAdded, withBlock: { snapshot in
-////                                let newProfileImage = snapshot.value.objectForKey("profileUrl")
-////                                if newProfileImage != nil {
-                            let ProfileimgUrl: Dictionary < String, AnyObject > = ["profileUrl":profileimgUrl!]
-                            let firebaseProfile = DataService.ds.REF_USER_CURRENT//creates new database entry of autoid
-                            firebaseProfile.updateChildValues(ProfileimgUrl) //set post of new child autoid into firebase
-                    }
+            let ProfileimgUrl: Dictionary < String, AnyObject > = ["profileUrl":profileimgUrl!]
+            let firebaseProfile = DataService.ds.REF_USER_CURRENT//creates new database entry of autoid
+            firebaseProfile.updateChildValues(ProfileimgUrl) //set post of new child autoid into firebase
+        }
         
-                }
-                
+    }
     
-        
-    
-
-        
-
-
-//        profRef.observeSingleEventOfType(.Value, withBlock: { snapshot in //check value only once
-//            if let doesNotExist = snapshot.value  { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
             
         
-        }
+}
 
