@@ -98,7 +98,6 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
 
                     }
             
-           
                 
 //            }
             
@@ -184,6 +183,13 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         presentViewController(alertmessage, animated: true, completion: nil)
         
     }
+    
+    
+    
+    @IBAction func settingsOnPressed(sender: AnyObject) {
+        self.performSegueWithIdentifier("settingsSet", sender: nil)
+    }
+    
     
 
     

@@ -282,13 +282,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     func blockReference(alert: UIAlertAction!) {
         blockRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("blacklist")
             
-//        blockRef.observeSingleEventOfType(.Value, withBlock: { snapshot in //check value only once
-////            if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
-////                for snap in snapshots {
-////                    if let blacklistDict = snap.value as? String {
-//            
-//            if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
-                var blacklistUid: Dictionary <String,String> = ["1": self.Uid]
+//       
+                let blacklistUid: Dictionary <String,String> = ["1": self.Uid]
                 self.blockRef.updateChildValues(blacklistUid)
 //            } else {
 //                self.blockRef.removeValue()

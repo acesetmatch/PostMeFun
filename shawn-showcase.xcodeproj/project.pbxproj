@@ -8,7 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		06BD9BEE8D78123EAC02C240 /* Pods_shawn_showcase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E9C7666EE47786522071A02 /* Pods_shawn_showcase.framework */; };
+		19066CDD1CB70896005A4969 /* MaterialButton2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19066CDC1CB70896005A4969 /* MaterialButton2.swift */; };
+		19066CDF1CB9CD0D005A4969 /* BlacklistVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19066CDE1CB9CD0D005A4969 /* BlacklistVCViewController.swift */; };
+		19066CE11CB9CFDF005A4969 /* BlacklistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19066CE01CB9CFDF005A4969 /* BlacklistCell.swift */; };
+		1916DB8E1CB1E3090040ABD6 /* MaterialLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1916DB8D1CB1E3090040ABD6 /* MaterialLabel.swift */; };
 		1958FD1A1C4F370300DAA53F /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1958FD191C4F370300DAA53F /* RegisterVC.swift */; };
+		19729C9C1CB1D82500B0E4D9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19729C9B1CB1D82500B0E4D9 /* SettingsViewController.swift */; };
 		1975DA781C4B2F650085F1FD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1975DA771C4B2F650085F1FD /* User.swift */; };
 		1975DA7A1C4D052B0085F1FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1975DA791C4D052B0085F1FD /* Main.storyboard */; };
 		197CB9881C6BB06D0020E37A /* PassTouchesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197CB9871C6BB06D0020E37A /* PassTouchesScrollView.swift */; };
@@ -39,7 +44,12 @@
 
 /* Begin PBXFileReference section */
 		0E9C7666EE47786522071A02 /* Pods_shawn_showcase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_shawn_showcase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		19066CDC1CB70896005A4969 /* MaterialButton2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialButton2.swift; sourceTree = "<group>"; };
+		19066CDE1CB9CD0D005A4969 /* BlacklistVCViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlacklistVCViewController.swift; sourceTree = "<group>"; };
+		19066CE01CB9CFDF005A4969 /* BlacklistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlacklistCell.swift; sourceTree = "<group>"; };
+		1916DB8D1CB1E3090040ABD6 /* MaterialLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialLabel.swift; sourceTree = "<group>"; };
 		1958FD191C4F370300DAA53F /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
+		19729C9B1CB1D82500B0E4D9 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1975DA771C4B2F650085F1FD /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1975DA791C4D052B0085F1FD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		197CB9871C6BB06D0020E37A /* PassTouchesScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassTouchesScrollView.swift; sourceTree = "<group>"; };
@@ -132,6 +142,8 @@
 				1981C02E1C4722B9004F7F74 /* ViewController.swift */,
 				19D6AA721C4A0C2100BF77C2 /* UsernameVCViewController.swift */,
 				1958FD191C4F370300DAA53F /* RegisterVC.swift */,
+				19729C9B1CB1D82500B0E4D9 /* SettingsViewController.swift */,
+				19066CDE1CB9CD0D005A4969 /* BlacklistVCViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -146,6 +158,9 @@
 				199CD2321C597319007E05C1 /* RoundView.swift */,
 				19E3084E1C614DD3009B16E8 /* MaterialTextField2.swift */,
 				197CB9871C6BB06D0020E37A /* PassTouchesScrollView.swift */,
+				1916DB8D1CB1E3090040ABD6 /* MaterialLabel.swift */,
+				19066CDC1CB70896005A4969 /* MaterialButton2.swift */,
+				19066CE01CB9CFDF005A4969 /* BlacklistCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -345,18 +360,23 @@
 				1981C06F1C48D07A004F7F74 /* Post.swift in Sources */,
 				1981C0591C472799004F7F74 /* Constants.swift in Sources */,
 				197CB9881C6BB06D0020E37A /* PassTouchesScrollView.swift in Sources */,
+				19066CDD1CB70896005A4969 /* MaterialButton2.swift in Sources */,
 				199CD2331C597319007E05C1 /* RoundView.swift in Sources */,
 				1981C02F1C4722B9004F7F74 /* ViewController.swift in Sources */,
 				1981C06D1C4843E6004F7F74 /* PostCellTableViewCell.swift in Sources */,
+				19066CE11CB9CFDF005A4969 /* BlacklistCell.swift in Sources */,
 				19D6AA731C4A0C2100BF77C2 /* UsernameVCViewController.swift in Sources */,
 				1981C05B1C472B19004F7F74 /* MaterialButton.swift in Sources */,
 				1981C0351C4722B9004F7F74 /* shawn_showcase.xcdatamodeld in Sources */,
 				1981C02D1C4722B9004F7F74 /* AppDelegate.swift in Sources */,
+				1916DB8E1CB1E3090040ABD6 /* MaterialLabel.swift in Sources */,
 				1981C0561C472751004F7F74 /* MaterialView.swift in Sources */,
 				1958FD1A1C4F370300DAA53F /* RegisterVC.swift in Sources */,
 				19E3084F1C614DD3009B16E8 /* MaterialTextField2.swift in Sources */,
 				1981C05D1C472FCC004F7F74 /* MaterialTextField.swift in Sources */,
 				1981C0671C482019004F7F74 /* DataService.swift in Sources */,
+				19066CDF1CB9CD0D005A4969 /* BlacklistVCViewController.swift in Sources */,
+				19729C9C1CB1D82500B0E4D9 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
