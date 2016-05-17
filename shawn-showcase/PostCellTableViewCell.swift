@@ -69,7 +69,8 @@ class PostCellTableViewCell: UITableViewCell {
         profileImg.clipsToBounds = true
         
         showcaseImg.clipsToBounds = true
-        
+        showcaseImg.layer.cornerRadius = 10.0
+        returnButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
     }
     
     

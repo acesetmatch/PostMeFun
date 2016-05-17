@@ -26,6 +26,10 @@ class ViewController: UIViewController {
         self.navigationController?.navigationBarHidden = true;
         signUpBtn.layer.borderWidth = 1.0
         signUpBtn.layer.borderColor = UIColor(red: 70.0/255.0, green: 90.0/255.0, blue: 255.0, alpha: borderAlpha).CGColor
+        if NSUserDefaults.standardUserDefaults().boolForKey("TermsAccepted") {
+        } else {
+            self.performSegueWithIdentifier("returnToTerms", sender: nil)
+        }
     }
 
   
@@ -39,8 +43,9 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         self.navigationController?.navigationBarHidden = true;
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
-        
+        self.errorLbl.hidden = true
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+        
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -55,6 +60,13 @@ class ViewController: UIViewController {
             self.view.frame.origin.y = 0
         })
 
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        if NSUserDefaults.standardUserDefaults().boolForKey("TermsAccepted") {
+        } else {
+            self.performSegueWithIdentifier("returnToTerms", sender: nil)
+        }
     }
     
 
@@ -98,7 +110,6 @@ class ViewController: UIViewController {
                         NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: KEY_UID)
                         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
                         let usernameVCViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UsernameVCViewController") as? UsernameVCViewController
-
                         self.navigationController?.pushViewController(usernameVCViewController!, animated: true) as? UIViewController
 
                     }
@@ -125,6 +136,10 @@ class ViewController: UIViewController {
     
     @IBAction func loggingOutofUsername(segue: UIStoryboardSegue) {
        
+    }
+    
+    @IBAction func returnToRootView(segue: UIStoryboardSegue) {
+        
     }
     
     

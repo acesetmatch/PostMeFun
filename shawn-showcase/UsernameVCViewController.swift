@@ -45,8 +45,8 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         
         imagePickerUser = UIImagePickerController()
         imagePickerUser.delegate = self
-        var darkBlur = UIBlurEffect(style: UIBlurEffectStyle.Dark)
-        var blurView = UIVisualEffectView(effect: darkBlur)
+        let darkBlur = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        let blurView = UIVisualEffectView(effect: darkBlur)
         blurView.frame = backgroundImg.bounds
         blurView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         backgroundImg.addSubview(blurView)

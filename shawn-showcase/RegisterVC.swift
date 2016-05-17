@@ -34,7 +34,6 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         addBtn.hidden = false
-//        self.navigationController?.navigationBarHidden = true;
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name:UIKeyboardWillShowNotification, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name:UIKeyboardWillHideNotification, object: nil);
     }
@@ -83,10 +82,6 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        //        self.navigationController?.navigationBarHidden = true;
-
-        //        self.navigationItem.setHidesBackButton(true, animated: false)
         
     }
     
@@ -237,18 +232,9 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     }
     
     
-    
 }
 
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 
