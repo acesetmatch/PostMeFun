@@ -17,7 +17,7 @@
                BlueprintIdentifier = "1981C0281C4722B9004F7F74"
                BuildableName = "shawn-showcase.app"
                BlueprintName = "shawn-showcase"
-               ReferencedContainer = "container:PostMeFun.xcodeproj">
+               ReferencedContainer = "container:shawn-showcase.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "1981C0281C4722B9004F7F74"
             BuildableName = "shawn-showcase.app"
             BlueprintName = "shawn-showcase"
-            ReferencedContainer = "container:PostMeFun.xcodeproj">
+            ReferencedContainer = "container:shawn-showcase.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -58,7 +58,7 @@
             BlueprintIdentifier = "1981C0281C4722B9004F7F74"
             BuildableName = "shawn-showcase.app"
             BlueprintName = "shawn-showcase"
-            ReferencedContainer = "container:PostMeFun.xcodeproj">
+            ReferencedContainer = "container:shawn-showcase.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -77,7 +77,7 @@
             BlueprintIdentifier = "1981C0281C4722B9004F7F74"
             BuildableName = "shawn-showcase.app"
             BlueprintName = "shawn-showcase"
-            ReferencedContainer = "container:PostMeFun.xcodeproj">
+            ReferencedContainer = "container:shawn-showcase.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

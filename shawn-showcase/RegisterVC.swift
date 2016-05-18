@@ -15,6 +15,7 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     
     @IBOutlet weak var emailTextField: MaterialTextField!
     @IBOutlet weak var passwordTextField: MaterialTextField!
+    @IBOutlet weak var confirmPasswordTextField: MaterialTextField!
     @IBOutlet weak var firstNameTextField: MaterialTextField!
     @IBOutlet weak var lastNameTextField: MaterialTextField!
     @IBOutlet weak var errorMessageLbl: UILabel!
@@ -94,7 +95,8 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     
     
     @IBAction func registerOnPressed(segue: UIStoryboardSegue) {
-        if let username = usernameLbl.text where username != "", let email = emailTextField.text where email != "", let password = passwordTextField.text where password != "", let firstName = firstNameTextField.text where firstName != "", let lastName = lastNameTextField.text where lastName != ""{
+        if let username = usernameLbl.text where username != "", let email = emailTextField.text where email != "", let password = passwordTextField.text where password != "", let confirmpassword = confirmPasswordTextField.text where confirmpassword != "", let firstName = firstNameTextField.text where firstName != "", let lastName = lastNameTextField.text where lastName != ""{
+            if confirmpassword == password {
             let existingEmail = DataService.ds.REF_USERS.childByAppendingPath("email")
             existingEmail.observeEventType(.Value, withBlock: { snapshot in
                 let theEmail = (snapshot.value)
@@ -138,6 +140,10 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                         
                 }
             })
+            } else {
+                self.errorMessageLbl.hidden = false
+                self.errorMessageLbl.text = "Passwords do not match"
+            }
         } else {
             self.errorMessageLbl.hidden = false
             self.errorMessageLbl.text = "Please fill in all fields"

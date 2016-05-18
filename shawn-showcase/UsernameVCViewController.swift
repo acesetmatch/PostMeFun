@@ -195,6 +195,9 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     
     func unAuthenticateUser(alert: UIAlertAction!) {
         DataService.ds.REF_USERS.unauth()
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.removeObjectForKey("storedEmail")
+        defaults.removeObjectForKey("storedPassword")
         self.performSegueWithIdentifier("loggingOutofUsername", sender: nil)
         self.navigationController?.navigationBarHidden = true;
     }

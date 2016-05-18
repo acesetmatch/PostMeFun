@@ -32,7 +32,7 @@
 	<key>FacebookAppID</key>
 	<string>1224202547594800</string>
 	<key>FacebookDisplayName</key>
-	<string>Shawn Showcase</string>
+	<string>PostMeFun</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>

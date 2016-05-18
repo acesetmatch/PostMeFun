@@ -45,6 +45,17 @@ class ViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
         self.errorLbl.hidden = true
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+        let memoryEmail = NSUserDefaults.standardUserDefaults().objectForKey("storedEmail")
+        let memoryPassword = NSUserDefaults.standardUserDefaults().objectForKey("storedPassword")
+        if let memoryEmail = NSUserDefaults.standardUserDefaults().stringForKey("storedEmail") where memoryEmail != "", let memoryPassword = NSUserDefaults.standardUserDefaults().stringForKey("storedPassword") where memoryPassword != "" {
+            emailField.text = memoryEmail
+            passwordField.text = memoryPassword
+            pushToProfile()
+        } else {
+            emailField.text = ""
+            passwordField.text = ""
+        }
+
         
     }
     
@@ -107,10 +118,11 @@ class ViewController: UIViewController {
                           }
                         
                     } else {
-                        NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: KEY_UID)
-                        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                        let usernameVCViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UsernameVCViewController") as? UsernameVCViewController
-                        self.navigationController?.pushViewController(usernameVCViewController!, animated: true) as? UIViewController
+                        let storedEmail = self.emailField.text
+                        let storedPassword = self.passwordField.text
+                        NSUserDefaults.standardUserDefaults().setValue(storedEmail, forKey: "storedEmail")
+                        NSUserDefaults.standardUserDefaults().setValue(storedPassword, forKey: "storedPassword")
+                        self.pushToProfile()
 
                     }
                 })
@@ -148,6 +160,12 @@ class ViewController: UIViewController {
             let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
             alert.addAction(action)
             presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func pushToProfile() {
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let usernameVCViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UsernameVCViewController") as? UsernameVCViewController
+        self.navigationController?.pushViewController(usernameVCViewController!, animated: true) as? UIViewController
     }
     
     

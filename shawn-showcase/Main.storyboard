@@ -47,6 +47,7 @@
             <string>NotoSans</string>
             <string>NotoSans</string>
             <string>NotoSans</string>
+            <string>NotoSans</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -138,7 +139,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="-30" translatesAutoresizingMaskIntoConstraints="NO" id="T5C-Ck-Kgy">
                                         <rect key="frame" x="198" y="0.0" width="192" height="151"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iTunesArtwork-2" translatesAutoresizingMaskIntoConstraints="NO" id="4gk-6w-k8y">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="iTunesArtwork-2" translatesAutoresizingMaskIntoConstraints="NO" id="4gk-6w-k8y">
                                                 <rect key="frame" x="0.0" y="0.0" width="192" height="149"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="192" id="Ggr-Y0-X2K"/>
@@ -381,7 +382,7 @@
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="DemonSlayeristheman31" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="g79-li-m3a">
                                                                             <rect key="frame" x="65" y="0.0" width="134" height="50"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="kT6-aH-LnV"/>
+                                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="kT6-aH-LnV"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="17"/>
                                                                             <nil key="highlightedColor"/>
@@ -397,7 +398,7 @@
                                                                                     </constraints>
                                                                                     <state key="normal" backgroundImage="noun_1330"/>
                                                                                 </button>
-                                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="-40" translatesAutoresizingMaskIntoConstraints="NO" id="Ami-Ic-X47">
+                                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="Ami-Ic-X47">
                                                                                     <rect key="frame" x="40" y="0.0" width="66" height="50"/>
                                                                                     <subviews>
                                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="heart-empty" translatesAutoresizingMaskIntoConstraints="NO" id="wbB-K0-4wc">
@@ -406,8 +407,8 @@
                                                                                                 <constraint firstAttribute="width" constant="40" id="agM-Zv-d12"/>
                                                                                             </constraints>
                                                                                         </imageView>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1444" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BwS-gX-T6A">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="66" height="50"/>
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1444" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BwS-gX-T6A">
+                                                                                            <rect key="frame" x="30" y="0.0" width="36" height="50"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="Zve-ax-QwI"/>
                                                                                                 <constraint firstAttribute="height" constant="50" id="b3A-ys-tds"/>
@@ -539,7 +540,7 @@
                                 <rect key="frame" x="20" y="23" width="560" height="493"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Sfu-Il-h98">
-                                        <rect key="frame" x="20" y="194" width="520" height="165"/>
+                                        <rect key="frame" x="20" y="194" width="520" height="200"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6IN-qB-lOZ" customClass="MaterialTextField" customModule="shawn_showcase" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="520" height="25"/>
@@ -593,8 +594,19 @@
                                                 <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i0o-2w-yoB" customClass="MaterialTextField" customModule="shawn_showcase" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="175" width="520" height="25"/>
+                                                <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="ymm-KW-4ps"/>
+                                                </constraints>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                            </textField>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="i0o-2w-yoB" firstAttribute="height" secondItem="6IN-qB-lOZ" secondAttribute="height" id="PXl-OQ-Ei3"/>
                                             <constraint firstItem="y9d-Ym-eTk" firstAttribute="height" secondItem="6IN-qB-lOZ" secondAttribute="height" id="QEN-ap-bsW"/>
                                             <constraint firstItem="mOa-gR-k20" firstAttribute="height" secondItem="6IN-qB-lOZ" secondAttribute="height" id="Zdr-MF-VaD"/>
                                             <constraint firstItem="bFY-24-KUC" firstAttribute="height" secondItem="6IN-qB-lOZ" secondAttribute="height" id="e1g-gF-LMz"/>
@@ -642,6 +654,7 @@
                                         <rect key="frame" x="177" y="446" width="207" height="33"/>
                                         <color key="backgroundColor" red="0.27450980390000002" green="0.35294117650000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="3mN-HJ-Mtq"/>
                                             <constraint firstAttribute="width" constant="207" id="tiz-aJ-t2m"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="15"/>
@@ -666,7 +679,7 @@
                                     <constraint firstAttribute="bottom" secondItem="bVp-8S-pZB" secondAttribute="bottom" constant="40" id="Ncq-V2-oYF"/>
                                     <constraint firstAttribute="trailing" secondItem="Sfu-Il-h98" secondAttribute="trailing" constant="20" id="OSO-p3-pZm"/>
                                     <constraint firstItem="DpB-4l-EDp" firstAttribute="centerX" secondItem="qua-xb-1k4" secondAttribute="centerX" id="PUK-gV-paK"/>
-                                    <constraint firstItem="DpB-4l-EDp" firstAttribute="top" secondItem="qua-xb-1k4" secondAttribute="top" constant="20" id="R9E-xX-iIm"/>
+                                    <constraint firstItem="DpB-4l-EDp" firstAttribute="top" secondItem="qua-xb-1k4" secondAttribute="top" constant="10" id="R9E-xX-iIm"/>
                                     <constraint firstItem="AKU-E9-Rp2" firstAttribute="centerX" secondItem="qua-xb-1k4" secondAttribute="centerX" id="UzT-Zn-mn6"/>
                                     <constraint firstItem="DpB-4l-EDp" firstAttribute="height" secondItem="3qy-ot-BRf" secondAttribute="height" id="Yt4-NA-ZXg"/>
                                     <constraint firstItem="DpB-4l-EDp" firstAttribute="centerX" secondItem="3qy-ot-BRf" secondAttribute="centerX" id="Yte-mZ-td7"/>
@@ -687,6 +700,7 @@
                                         <exclude reference="DbS-uc-5zK"/>
                                         <exclude reference="Yte-mZ-td7"/>
                                         <exclude reference="Zna-ZO-vpv"/>
+                                        <exclude reference="GbA-Vt-ILw"/>
                                         <exclude reference="JGF-wU-W3A"/>
                                         <exclude reference="btb-9N-aeh"/>
                                     </mask>
@@ -705,6 +719,7 @@
                     <connections>
                         <outlet property="ProfileImg" destination="DpB-4l-EDp" id="IoR-Lw-Mw4"/>
                         <outlet property="addBtn" destination="3qy-ot-BRf" id="naw-kM-7Ce"/>
+                        <outlet property="confirmPasswordTextField" destination="i0o-2w-yoB" id="EJv-qp-yjY"/>
                         <outlet property="emailTextField" destination="y9d-Ym-eTk" id="FLF-zr-Ey4"/>
                         <outlet property="errorMessageLbl" destination="AKU-E9-Rp2" id="BYg-Z1-RLS"/>
                         <outlet property="firstNameTextField" destination="6IN-qB-lOZ" id="fSn-Yd-BBe"/>
