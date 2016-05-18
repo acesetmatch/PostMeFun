@@ -30,6 +30,20 @@ class ViewController: UIViewController {
         } else {
             self.performSegueWithIdentifier("returnToTerms", sender: nil)
         }
+        
+        let memoryEmail = NSUserDefaults.standardUserDefaults().stringForKey("storedEmail")
+        let memoryPassword = NSUserDefaults.standardUserDefaults().stringForKey("storedPassword")
+        if memoryEmail != nil && memoryPassword != nil {
+            emailField.text = memoryEmail
+            passwordField.text = memoryPassword
+            pushToProfile()
+        } else {
+            emailField.text = nil
+            passwordField.text = nil
+        }
+
+        
+
     }
 
   
@@ -45,18 +59,8 @@ class ViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
         self.errorLbl.hidden = true
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
-        let memoryEmail = NSUserDefaults.standardUserDefaults().objectForKey("storedEmail")
-        let memoryPassword = NSUserDefaults.standardUserDefaults().objectForKey("storedPassword")
-        if let memoryEmail = NSUserDefaults.standardUserDefaults().stringForKey("storedEmail") where memoryEmail != "", let memoryPassword = NSUserDefaults.standardUserDefaults().stringForKey("storedPassword") where memoryPassword != "" {
-            emailField.text = memoryEmail
-            passwordField.text = memoryPassword
-            pushToProfile()
-        } else {
-            emailField.text = ""
-            passwordField.text = ""
-        }
 
-        
+
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -74,10 +78,21 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        if NSUserDefaults.standardUserDefaults().boolForKey("TermsAccepted") {
-        } else {
-            self.performSegueWithIdentifier("returnToTerms", sender: nil)
-        }
+//        if NSUserDefaults.standardUserDefaults().boolForKey("TermsAccepted") {
+//        } else {
+//            self.performSegueWithIdentifier("returnToTerms", sender: nil)
+//        }
+//        
+//        let memoryEmail = NSUserDefaults.standardUserDefaults().stringForKey("storedEmail")
+//        let memoryPassword = NSUserDefaults.standardUserDefaults().stringForKey("storedPassword")
+//        if memoryEmail != "" && memoryPassword != "" {
+//            emailField.text = memoryEmail
+//            passwordField.text = memoryPassword
+//            pushToProfile()
+//        } else {
+//            emailField.text = ""
+//            passwordField.text = ""
+//        }
     }
     
 
@@ -118,6 +133,7 @@ class ViewController: UIViewController {
                           }
                         
                     } else {
+                          NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: KEY_UID)
                         let storedEmail = self.emailField.text
                         let storedPassword = self.passwordField.text
                         NSUserDefaults.standardUserDefaults().setValue(storedEmail, forKey: "storedEmail")
