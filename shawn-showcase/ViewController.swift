@@ -31,18 +31,16 @@ class ViewController: UIViewController {
             self.performSegueWithIdentifier("returnToTerms", sender: nil)
         }
         
+        
         let memoryEmail = NSUserDefaults.standardUserDefaults().stringForKey("storedEmail")
         let memoryPassword = NSUserDefaults.standardUserDefaults().stringForKey("storedPassword")
+        
+    
         if memoryEmail != nil && memoryPassword != nil {
             emailField.text = memoryEmail
             passwordField.text = memoryPassword
             pushToProfile()
-        } else {
-            emailField.text = nil
-            passwordField.text = nil
         }
-
-        
 
     }
 
@@ -59,7 +57,8 @@ class ViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
         self.errorLbl.hidden = true
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
-
+        emailField.text = ""
+        passwordField.text = ""
 
     }
     
@@ -77,25 +76,7 @@ class ViewController: UIViewController {
 
     }
     
-    override func viewDidAppear(animated: Bool) {
-//        if NSUserDefaults.standardUserDefaults().boolForKey("TermsAccepted") {
-//        } else {
-//            self.performSegueWithIdentifier("returnToTerms", sender: nil)
-//        }
-//        
-//        let memoryEmail = NSUserDefaults.standardUserDefaults().stringForKey("storedEmail")
-//        let memoryPassword = NSUserDefaults.standardUserDefaults().stringForKey("storedPassword")
-//        if memoryEmail != "" && memoryPassword != "" {
-//            emailField.text = memoryEmail
-//            passwordField.text = memoryPassword
-//            pushToProfile()
-//        } else {
-//            emailField.text = ""
-//            passwordField.text = ""
-//        }
-    }
     
-
     
     func keyboardWillShow(sender: NSNotification) {
         

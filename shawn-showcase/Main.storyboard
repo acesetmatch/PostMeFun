@@ -379,16 +379,16 @@
                                                                                 <constraint firstAttribute="width" constant="50" id="aWB-ns-eky"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="DemonSlayeristheman31" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="g79-li-m3a">
-                                                                            <rect key="frame" x="65" y="0.0" width="134" height="50"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="DemonSlayeristheman31" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="g79-li-m3a">
+                                                                            <rect key="frame" x="65" y="0.0" width="118" height="50"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="kT6-aH-LnV"/>
+                                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="kT6-aH-LnV"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="17"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fxQ-Ud-PpC">
-                                                                            <rect key="frame" x="214" y="0.0" width="106" height="50"/>
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fxQ-Ud-PpC">
+                                                                            <rect key="frame" x="198" y="0.0" width="122" height="50"/>
                                                                             <subviews>
                                                                                 <button opaque="NO" contentMode="scaleAspectFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FKK-0S-nBB">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="40" height="50"/>
@@ -398,26 +398,34 @@
                                                                                     </constraints>
                                                                                     <state key="normal" backgroundImage="noun_1330"/>
                                                                                 </button>
-                                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="Ami-Ic-X47">
-                                                                                    <rect key="frame" x="40" y="0.0" width="66" height="50"/>
+                                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Ami-Ic-X47">
+                                                                                    <rect key="frame" x="40" y="0.0" width="82" height="50"/>
                                                                                     <subviews>
                                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="heart-empty" translatesAutoresizingMaskIntoConstraints="NO" id="wbB-K0-4wc">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="40" height="50"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" constant="40" id="agM-Zv-d12"/>
                                                                                             </constraints>
+                                                                                            <variation key="default">
+                                                                                                <mask key="constraints">
+                                                                                                    <exclude reference="agM-Zv-d12"/>
+                                                                                                </mask>
+                                                                                            </variation>
                                                                                         </imageView>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1444" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BwS-gX-T6A">
-                                                                                            <rect key="frame" x="30" y="0.0" width="36" height="50"/>
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="1444" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BwS-gX-T6A">
+                                                                                            <rect key="frame" x="42" y="0.0" width="40" height="50"/>
                                                                                             <constraints>
+                                                                                                <constraint firstAttribute="width" constant="35" id="7XJ-R3-buD"/>
                                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="Zve-ax-QwI"/>
                                                                                                 <constraint firstAttribute="height" constant="50" id="b3A-ys-tds"/>
+                                                                                                <constraint firstAttribute="width" constant="40" id="n8d-Wh-Qay"/>
                                                                                             </constraints>
-                                                                                            <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="17"/>
+                                                                                            <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="15"/>
                                                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                             <variation key="default">
                                                                                                 <mask key="constraints">
+                                                                                                    <exclude reference="7XJ-R3-buD"/>
                                                                                                     <exclude reference="Zve-ax-QwI"/>
                                                                                                     <exclude reference="b3A-ys-tds"/>
                                                                                                 </mask>
@@ -425,10 +433,13 @@
                                                                                         </label>
                                                                                     </subviews>
                                                                                     <constraints>
-                                                                                        <constraint firstAttribute="width" constant="66" id="W5x-Bn-bR6"/>
+                                                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="66" id="W5x-Bn-bR6"/>
                                                                                     </constraints>
                                                                                 </stackView>
                                                                             </subviews>
+                                                                            <constraints>
+                                                                                <constraint firstItem="wbB-K0-4wc" firstAttribute="width" secondItem="FKK-0S-nBB" secondAttribute="width" id="qRS-0o-UUH"/>
+                                                                            </constraints>
                                                                         </stackView>
                                                                     </subviews>
                                                                 </stackView>
