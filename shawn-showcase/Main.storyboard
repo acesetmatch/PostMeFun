@@ -379,7 +379,7 @@
                                                                                 <constraint firstAttribute="width" constant="50" id="aWB-ns-eky"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="DemonSlayeristheman31" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="g79-li-m3a">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="DemonSlayeristheman31" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="g79-li-m3a">
                                                                             <rect key="frame" x="65" y="0.0" width="118" height="50"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="kT6-aH-LnV"/>
@@ -387,7 +387,7 @@
                                                                             <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="17"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fxQ-Ud-PpC">
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fxQ-Ud-PpC">
                                                                             <rect key="frame" x="198" y="0.0" width="122" height="50"/>
                                                                             <subviews>
                                                                                 <button opaque="NO" contentMode="scaleAspectFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FKK-0S-nBB">
@@ -398,7 +398,7 @@
                                                                                     </constraints>
                                                                                     <state key="normal" backgroundImage="noun_1330"/>
                                                                                 </button>
-                                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Ami-Ic-X47">
+                                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Ami-Ic-X47">
                                                                                     <rect key="frame" x="40" y="0.0" width="82" height="50"/>
                                                                                     <subviews>
                                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="heart-empty" translatesAutoresizingMaskIntoConstraints="NO" id="wbB-K0-4wc">
@@ -412,7 +412,7 @@
                                                                                                 </mask>
                                                                                             </variation>
                                                                                         </imageView>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="1444" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BwS-gX-T6A">
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1444" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BwS-gX-T6A">
                                                                                             <rect key="frame" x="42" y="0.0" width="40" height="50"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" constant="35" id="7XJ-R3-buD"/>
@@ -550,8 +550,32 @@
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qua-xb-1k4" customClass="MaterialView" customModule="shawn_showcase" customModuleProvider="target">
                                 <rect key="frame" x="20" y="23" width="560" height="493"/>
                                 <subviews>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AKU-E9-Rp2">
+                                        <rect key="frame" x="93" y="417" width="375" height="21"/>
+                                        <fontDescription key="fontDescription" name="NotoSans-Italic" family="Noto Sans" pointSize="14"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="163" y="448" width="34.5" height="165"/>
+                                        </variation>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVp-8S-pZB" customClass="MaterialButton" customModule="shawn_showcase" customModuleProvider="target">
+                                        <rect key="frame" x="177" y="446" width="207" height="33"/>
+                                        <color key="backgroundColor" red="0.27450980390000002" green="0.35294117650000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="3mN-HJ-Mtq"/>
+                                            <constraint firstAttribute="width" constant="207" id="tiz-aJ-t2m"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="15"/>
+                                        <state key="normal" title="Register Me!">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="registerOnPressed:" destination="ZrJ-Ti-dsz" eventType="touchUpInside" id="hKb-7x-5lB"/>
+                                        </connections>
+                                    </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Sfu-Il-h98">
-                                        <rect key="frame" x="20" y="194" width="520" height="200"/>
+                                        <rect key="frame" x="20" y="56" width="520" height="200"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6IN-qB-lOZ" customClass="MaterialTextField" customModule="shawn_showcase" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="520" height="25"/>
@@ -624,93 +648,25 @@
                                             <constraint firstItem="sq0-do-ani" firstAttribute="height" secondItem="6IN-qB-lOZ" secondAttribute="height" id="y7C-Vc-EhM"/>
                                         </constraints>
                                     </stackView>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AKU-E9-Rp2">
-                                        <rect key="frame" x="93" y="417" width="375" height="21"/>
-                                        <fontDescription key="fontDescription" name="NotoSans-Italic" family="Noto Sans" pointSize="14"/>
-                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="163" y="448" width="34.5" height="165"/>
-                                        </variation>
-                                    </label>
-                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Blank Profile(1)" translatesAutoresizingMaskIntoConstraints="NO" id="DpB-4l-EDp">
-                                        <rect key="frame" x="207" y="13" width="142" height="143"/>
-                                        <gestureRecognizers/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="226" id="GjH-yI-0uN"/>
-                                            <constraint firstAttribute="width" constant="278" id="Ngf-bj-DMo"/>
-                                            <constraint firstAttribute="width" constant="223" id="aIo-a7-SLJ"/>
-                                            <constraint firstAttribute="width" constant="142" id="pdG-K8-4Op"/>
-                                            <constraint firstAttribute="height" constant="143" id="zWe-xn-yCW"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="GjH-yI-0uN"/>
-                                                <exclude reference="Ngf-bj-DMo"/>
-                                                <exclude reference="aIo-a7-SLJ"/>
-                                            </mask>
-                                        </variation>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3qy-ot-BRf">
-                                        <rect key="frame" x="206" y="15" width="145" height="139"/>
-                                        <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="15"/>
-                                        <state key="normal" title="Add Profile Image">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="addBtnPressed:" destination="ZrJ-Ti-dsz" eventType="touchUpInside" id="GB6-Qs-eEJ"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVp-8S-pZB" customClass="MaterialButton" customModule="shawn_showcase" customModuleProvider="target">
-                                        <rect key="frame" x="177" y="446" width="207" height="33"/>
-                                        <color key="backgroundColor" red="0.27450980390000002" green="0.35294117650000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="3mN-HJ-Mtq"/>
-                                            <constraint firstAttribute="width" constant="207" id="tiz-aJ-t2m"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="15"/>
-                                        <state key="normal" title="Register Me!">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="registerOnPressed:" destination="ZrJ-Ti-dsz" eventType="touchUpInside" id="hKb-7x-5lB"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="bVp-8S-pZB" secondAttribute="trailing" constant="20" id="2H7-T9-tJt"/>
-                                    <constraint firstItem="DpB-4l-EDp" firstAttribute="centerY" secondItem="3qy-ot-BRf" secondAttribute="centerY" id="4ek-RB-GSx"/>
-                                    <constraint firstItem="DpB-4l-EDp" firstAttribute="width" secondItem="3qy-ot-BRf" secondAttribute="width" id="9ui-7o-RVi"/>
-                                    <constraint firstItem="DpB-4l-EDp" firstAttribute="width" secondItem="3qy-ot-BRf" secondAttribute="width" id="DbS-uc-5zK"/>
-                                    <constraint firstItem="3qy-ot-BRf" firstAttribute="centerX" secondItem="qua-xb-1k4" secondAttribute="centerX" id="EqA-Fm-0E0"/>
                                     <constraint firstItem="bVp-8S-pZB" firstAttribute="leading" secondItem="qua-xb-1k4" secondAttribute="leading" constant="20" id="GFw-fa-3z2"/>
                                     <constraint firstItem="bVp-8S-pZB" firstAttribute="height" secondItem="mOa-gR-k20" secondAttribute="height" id="GbA-Vt-ILw"/>
                                     <constraint firstItem="bVp-8S-pZB" firstAttribute="top" secondItem="AKU-E9-Rp2" secondAttribute="bottom" constant="8" id="JGF-wU-W3A"/>
                                     <constraint firstAttribute="bottom" secondItem="bVp-8S-pZB" secondAttribute="bottom" constant="40" id="Ncq-V2-oYF"/>
                                     <constraint firstAttribute="trailing" secondItem="Sfu-Il-h98" secondAttribute="trailing" constant="20" id="OSO-p3-pZm"/>
-                                    <constraint firstItem="DpB-4l-EDp" firstAttribute="centerX" secondItem="qua-xb-1k4" secondAttribute="centerX" id="PUK-gV-paK"/>
-                                    <constraint firstItem="DpB-4l-EDp" firstAttribute="top" secondItem="qua-xb-1k4" secondAttribute="top" constant="10" id="R9E-xX-iIm"/>
                                     <constraint firstItem="AKU-E9-Rp2" firstAttribute="centerX" secondItem="qua-xb-1k4" secondAttribute="centerX" id="UzT-Zn-mn6"/>
-                                    <constraint firstItem="DpB-4l-EDp" firstAttribute="height" secondItem="3qy-ot-BRf" secondAttribute="height" id="Yt4-NA-ZXg"/>
-                                    <constraint firstItem="DpB-4l-EDp" firstAttribute="centerX" secondItem="3qy-ot-BRf" secondAttribute="centerX" id="Yte-mZ-td7"/>
-                                    <constraint firstItem="DpB-4l-EDp" firstAttribute="height" secondItem="3qy-ot-BRf" secondAttribute="height" id="Zna-ZO-vpv"/>
                                     <constraint firstItem="bVp-8S-pZB" firstAttribute="top" secondItem="AKU-E9-Rp2" secondAttribute="bottom" constant="8" id="btb-9N-aeh"/>
                                     <constraint firstItem="bVp-8S-pZB" firstAttribute="centerX" secondItem="qua-xb-1k4" secondAttribute="centerX" id="d3m-E7-qoo"/>
                                     <constraint firstItem="AKU-E9-Rp2" firstAttribute="top" secondItem="Sfu-Il-h98" secondAttribute="bottom" constant="2" id="eoE-XA-7Ey"/>
-                                    <constraint firstItem="DpB-4l-EDp" firstAttribute="centerX" secondItem="3qy-ot-BRf" secondAttribute="centerX" id="goT-4x-3XW"/>
                                     <constraint firstItem="bVp-8S-pZB" firstAttribute="top" secondItem="AKU-E9-Rp2" secondAttribute="bottom" constant="5" id="k9i-Pp-iUk"/>
-                                    <constraint firstItem="DpB-4l-EDp" firstAttribute="centerY" secondItem="3qy-ot-BRf" secondAttribute="centerY" id="mN8-yF-oNI"/>
                                     <constraint firstItem="Sfu-Il-h98" firstAttribute="leading" secondItem="qua-xb-1k4" secondAttribute="leading" constant="20" id="nML-Gh-CZv"/>
-                                    <constraint firstItem="Sfu-Il-h98" firstAttribute="top" secondItem="DpB-4l-EDp" secondAttribute="bottom" constant="10" id="ojy-Cv-uie"/>
+                                    <constraint firstItem="Sfu-Il-h98" firstAttribute="top" secondItem="qua-xb-1k4" secondAttribute="top" constant="50" id="qAW-Xu-78g"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="EqA-Fm-0E0"/>
-                                        <exclude reference="4ek-RB-GSx"/>
-                                        <exclude reference="DbS-uc-5zK"/>
-                                        <exclude reference="Yte-mZ-td7"/>
-                                        <exclude reference="Zna-ZO-vpv"/>
                                         <exclude reference="GbA-Vt-ILw"/>
                                         <exclude reference="JGF-wU-W3A"/>
                                         <exclude reference="btb-9N-aeh"/>
@@ -728,8 +684,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Registration" id="TAY-ug-FeQ"/>
                     <connections>
-                        <outlet property="ProfileImg" destination="DpB-4l-EDp" id="IoR-Lw-Mw4"/>
-                        <outlet property="addBtn" destination="3qy-ot-BRf" id="naw-kM-7Ce"/>
                         <outlet property="confirmPasswordTextField" destination="i0o-2w-yoB" id="EJv-qp-yjY"/>
                         <outlet property="emailTextField" destination="y9d-Ym-eTk" id="FLF-zr-Ey4"/>
                         <outlet property="errorMessageLbl" destination="AKU-E9-Rp2" id="BYg-Z1-RLS"/>
@@ -961,8 +915,8 @@ If you have any questions, complaints, or claims with respect to the PostMeFun a
                                     <action selector="StartPosting:" destination="CHL-4U-CmT" eventType="touchUpInside" id="TxB-7w-QEg"/>
                                 </connections>
                             </button>
-                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Blank Profile(1)" translatesAutoresizingMaskIntoConstraints="NO" id="uov-YQ-pHu">
-                                <rect key="frame" x="208" y="31" width="184" height="187"/>
+                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Blank Profile(1)" translatesAutoresizingMaskIntoConstraints="NO" id="uov-YQ-pHu">
+                                <rect key="frame" x="208" y="0.0" width="184" height="187"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="187" id="1TG-qL-d0Y"/>
@@ -1133,26 +1087,50 @@ If you have any questions, complaints, or claims with respect to the PostMeFun a
                                     <constraint firstItem="uYY-H4-jf2" firstAttribute="width" secondItem="Wob-dU-az3" secondAttribute="width" id="wUk-I9-Dub"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gKk-bM-PRW">
+                                <rect key="frame" x="208" y="165" width="184" height="76"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="76" id="o1M-w7-UQ7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="14"/>
+                                <state key="normal" title="Change Profile Image">
+                                    <color key="titleColor" white="0.89932885910000004" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addBtnPressed:" destination="CHL-4U-CmT" eventType="touchUpInside" id="MzG-Vt-Mpt"/>
+                                    <action selector="addBtnPressed:" destination="ZrJ-Ti-dsz" eventType="touchUpInside" id="NFR-jv-Z7s"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="uov-YQ-pHu" firstAttribute="centerX" secondItem="ZZK-qQ-cBK" secondAttribute="centerX" id="4Jt-OO-sBz"/>
                             <constraint firstAttribute="trailing" secondItem="ACt-qd-eOy" secondAttribute="trailing" id="9xK-bt-gFb"/>
+                            <constraint firstItem="gKk-bM-PRW" firstAttribute="centerX" secondItem="ZZK-qQ-cBK" secondAttribute="centerX" id="Agw-Wb-8nC"/>
                             <constraint firstItem="ACt-qd-eOy" firstAttribute="top" secondItem="Slz-Qm-tIW" secondAttribute="bottom" id="BBH-f3-pMB"/>
                             <constraint firstItem="uov-YQ-pHu" firstAttribute="centerX" secondItem="ACt-qd-eOy" secondAttribute="centerX" id="Dy3-IC-sWP"/>
+                            <constraint firstItem="gKk-bM-PRW" firstAttribute="width" secondItem="uov-YQ-pHu" secondAttribute="width" id="Eec-vX-VH1"/>
+                            <constraint firstItem="gKk-bM-PRW" firstAttribute="centerY" secondItem="uov-YQ-pHu" secondAttribute="centerY" id="Jmx-Ti-Nnj"/>
                             <constraint firstItem="uab-UK-zI1" firstAttribute="top" secondItem="yBh-TX-YEh" secondAttribute="bottom" constant="20" id="Lvx-dt-jq0"/>
                             <constraint firstAttribute="trailing" secondItem="yBh-TX-YEh" secondAttribute="trailing" id="Pqj-yS-lmf"/>
                             <constraint firstItem="yBh-TX-YEh" firstAttribute="centerX" secondItem="ZZK-qQ-cBK" secondAttribute="centerX" id="ZjV-tv-iVp"/>
                             <constraint firstItem="4Hk-3i-5Fj" firstAttribute="top" secondItem="uab-UK-zI1" secondAttribute="bottom" constant="27" id="bo4-fs-YZG"/>
+                            <constraint firstItem="gKk-bM-PRW" firstAttribute="height" secondItem="uov-YQ-pHu" secondAttribute="height" id="coa-nn-LDa"/>
                             <constraint firstItem="uab-UK-zI1" firstAttribute="centerX" secondItem="ZZK-qQ-cBK" secondAttribute="centerX" id="dDJ-Gs-UwQ"/>
+                            <constraint firstItem="gKk-bM-PRW" firstAttribute="centerX" secondItem="uov-YQ-pHu" secondAttribute="centerX" id="dWL-c4-Usf"/>
                             <constraint firstItem="4Hk-3i-5Fj" firstAttribute="top" secondItem="uab-UK-zI1" secondAttribute="bottom" constant="27" id="eJZ-qb-FH3"/>
                             <constraint firstItem="yBh-TX-YEh" firstAttribute="top" secondItem="ACt-qd-eOy" secondAttribute="bottom" id="mjC-Uh-Dct"/>
                             <constraint firstItem="yBh-TX-YEh" firstAttribute="leading" secondItem="ZZK-qQ-cBK" secondAttribute="leading" id="rLs-Jv-wUl"/>
                             <constraint firstItem="ACt-qd-eOy" firstAttribute="leading" secondItem="ZZK-qQ-cBK" secondAttribute="leading" id="tVj-tz-hvn"/>
+                            <constraint firstItem="gKk-bM-PRW" firstAttribute="top" secondItem="uov-YQ-pHu" secondAttribute="bottom" id="wcf-rZ-1WX"/>
                             <constraint firstItem="uov-YQ-pHu" firstAttribute="centerY" secondItem="ACt-qd-eOy" secondAttribute="centerY" id="zFw-4u-YEd"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="Eec-vX-VH1"/>
+                                <exclude reference="Jmx-Ti-Nnj"/>
+                                <exclude reference="coa-nn-LDa"/>
+                                <exclude reference="dWL-c4-Usf"/>
                                 <exclude reference="bo4-fs-YZG"/>
                             </mask>
                         </variation>
@@ -1171,6 +1149,7 @@ If you have any questions, complaints, or claims with respect to the PostMeFun a
                     </navigationItem>
                     <connections>
                         <outlet property="ProfileImg" destination="uov-YQ-pHu" id="J8R-KG-nu8"/>
+                        <outlet property="addBtn" destination="gKk-bM-PRW" id="1nt-50-loz"/>
                         <outlet property="backgroundImg" destination="ACt-qd-eOy" id="48W-sY-LNl"/>
                         <outlet property="emailTxtField" destination="wKe-Z4-U7w" id="LwE-w8-RT5"/>
                         <outlet property="firstNameTxtField" destination="dy1-EH-JSI" id="NWt-Hk-a9R"/>

@@ -30,11 +30,10 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        imagePickerUser = UIImagePickerController()
-        imagePickerUser.delegate = self
+
+        
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
-        addBtn.hidden = false
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name:UIKeyboardWillShowNotification, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name:UIKeyboardWillHideNotification, object: nil);
     }
@@ -49,7 +48,6 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     func keyboardWillHide(sender: NSNotification) {
         let userInfo: [NSObject : AnyObject] = sender.userInfo!
         let endSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]!.CGRectValue.size
-
         let keyboardSize: CGSize = userInfo[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue.size
         let animationDuration: Double = userInfo[UIKeyboardAnimationDurationUserInfoKey]!.doubleValue
         UIView.animateWithDuration(animationDuration, animations: { () -> Void in
@@ -122,8 +120,12 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                                     DataService.ds.REF_BASE.authUser(email, password:password, withCompletionBlock: {err, authData in
                                         
                                         let user = ["provider": authData.provider!, "First Name":firstName, "Last Name": lastName, "email": email, "username": username] //swift dictionary
+                                        
+//                                        let registerAlertController = UIAlertController(title: "Registration", message: "You have successfully registered!", preferredStyle: .Alert)
+//                                        let okay = UIAlertAction(title: "Okay", style: .Cancel, handler: )                                        self.presentViewController(registerAlertController, animated: true, completion: nil)
+//                                        registerAlertController.addAction(okay)
                                         DataService.ds.createFirebaseUser(authData.uid, user: user)
-                                        self.SaveProfileImage()
+//                                        self.SaveProfileImage()
 
                                     })
                                     
@@ -135,8 +137,12 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                     }
                 })
                     } else {
-                        self.errorMessageLbl.hidden = false
-                        self.errorMessageLbl.text = "Email already exists"
+                        let emailExistsAlertController = UIAlertController(title: "Error", message: "Email is already taken. Please select another one", preferredStyle: .Alert)
+                        let okay = UIAlertAction(title: "Okay", style: .Cancel, handler: nil)
+                        self.presentViewController(emailExistsAlertController, animated: true, completion: nil)
+                        emailExistsAlertController.addAction(okay)
+//                        self.errorMessageLbl.hidden = false
+//                        self.errorMessageLbl.text = "Email already exists"
                         
                 }
             })
@@ -145,10 +151,16 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                 self.errorMessageLbl.text = "Passwords do not match"
             }
         } else {
-            self.errorMessageLbl.hidden = false
-            self.errorMessageLbl.text = "Please fill in all fields"
+            let fillfieldsAlertController = UIAlertController(title: "Error", message: "Please fill in all fields", preferredStyle: .Alert)
+            let okay = UIAlertAction(title: "Okay", style: .Cancel, handler: nil)
+            self.presentViewController(fillfieldsAlertController, animated: true, completion: nil)
+            fillfieldsAlertController.addAction(okay)
+//            self.errorMessageLbl.hidden = false
+//            self.errorMessageLbl.text = "Please fill in all fields"
         }
     }
+    
+
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         imagePickerUser.dismissViewControllerAnimated(true, completion: nil)
@@ -173,60 +185,6 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     }
     
     
-    
-    func UpdateUserImageToFirebase(profileimgUrl: String?) {
-        
-        //        let firebaseUser = DataService.ds.REF_USER_CURRENT //creates new database entry of autoiD
-        //        firebaseUser.setValue(Username) //set post of new child autoid into firebase
-        
-        let firebaseProfile = DataService.ds.REF_USER_CURRENT//creates new database entry of autoid
-        if profileimgUrl != nil {
-            let ProfileimgUrl: Dictionary < String, AnyObject > = ["profileUrl":profileimgUrl!]
-            firebaseProfile.updateChildValues(ProfileimgUrl) //set post of new child autoid into firebase
-        }
-    }
-    
-    func SaveProfileImage() {
-        if let profileimage = ProfileImg.image where imageSelected == true {
-            let urlStr = "https://post.imageshack.us/upload_api.php" //imageshack api website endpoint
-            let url = NSURL(string:urlStr)!
-            //Alamofire only takes in NSData
-            let imgData = UIImageJPEGRepresentation(profileimage, 0.2)! //0.2 is really compressed converted to jpeg
-            let keyData = API_Key.dataUsingEncoding(NSUTF8StringEncoding)! //converting string into data
-            let keyJSON = "json".dataUsingEncoding(NSUTF8StringEncoding)! //converts json to data , unwraps to eliminate errors
-            //uploads on alamofire in correct imageshack parameter format
-            Alamofire.upload(.POST, url, multipartFormData: { multipartFormData in
-                
-                multipartFormData.appendBodyPart(data: imgData, name: "fileupload", fileName: "image", mimeType: "image/jpg") //Passing in the key and value of image for imageshack parameters
-                multipartFormData.appendBodyPart(data: keyData, name: "key") //name = key, data = keyData
-                multipartFormData.appendBodyPart(data: keyJSON, name: "format")
-                
-                //when upload is done
-                }) { encodingResult in
-                    switch encodingResult {
-                    case .Success(let upload, _, _): //.success is a closure, if it is success we want to upload response JSON from server
-                        upload.responseJSON(completionHandler: { response in
-                            if let info = response.result.value as? Dictionary<String, AnyObject> { //returns JSON format of primary dictionary and (string, anyobject)
-                                if let links = info["links"] as? Dictionary<String, AnyObject> { //returns the secondary dictionary of links
-                                    if let imgLink = links["image_link"] as? String {
-                                        self.UpdateUserImageToFirebase(imgLink)
-                                        
-                                        
-                                        
-                                    }
-                                }
-                            }
-                        })
-                        
-                    case .Failure(let error):
-                        print(error)
-                    }
-            }
-        } else {
-            self.UpdateUserImageToFirebase(nil)
-        }
-        
-    }
 
     @IBAction func returnToRegistration(segue: UIStoryboardSegue) {
         

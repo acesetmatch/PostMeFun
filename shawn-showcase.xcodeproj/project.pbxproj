@@ -482,7 +482,7 @@
 			baseConfigurationReference = 8A737DD3DC0CEA995095FE0E /* Pods-shawn-showcase.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Shawn Hong (A4FSKQ68WQ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -494,7 +494,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Post.Me.Fun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "f9a7a174-a17b-4d2d-a6c8-41dc37727683";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -504,8 +504,8 @@
 			baseConfigurationReference = 6DC01DE81737EA0F27F06826 /* Pods-shawn-showcase.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shawn Hong (ZXS9ZP9K6N)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shawn Hong (ZXS9ZP9K6N)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Shawn Hong (A4FSKQ68WQ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -516,7 +516,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Post.Me.Fun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "f9a7a174-a17b-4d2d-a6c8-41dc37727683";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

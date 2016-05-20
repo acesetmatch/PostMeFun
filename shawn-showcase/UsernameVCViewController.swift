@@ -51,6 +51,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         blurView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         backgroundImg.addSubview(blurView)
         
+        addBtn.hidden = false
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         
@@ -117,15 +118,17 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         imagePickerUser.dismissViewControllerAnimated(true, completion: nil)
         ProfileImg.image = image
+        backgroundImg.image = image
         imageSelected = true
         
 
     }
     
     @IBAction func addBtnPressed(sender: UIButton){
-        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let registerVC = self.storyboard?.instantiateViewControllerWithIdentifier("RegisterVC") as? RegisterVC
-        self.navigationController?.pushViewController(registerVC!, animated: true) as? UIViewController
+        presentViewController(imagePickerUser, animated: true, completion: nil)
+//        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+//        let registerVC = self.storyboard?.instantiateViewControllerWithIdentifier("RegisterVC") as? RegisterVC
+//        self.navigationController?.pushViewController(registerVC!, animated: true) as? UIViewController
 
     }
     
@@ -173,6 +176,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
 
     }
     
+        
     @IBAction func logOut(unwindSegue: UIStoryboardSegue){
         
         let alertmessage = UIAlertController(title: "Are you sure you want to log out?", message: "Pressing ok will log you out!", preferredStyle: .Alert)
@@ -216,14 +220,17 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
 
+    
     func UpdateUserImageToFirebase(profileimgUrl: String?) {
-
+        
+        //        let firebaseUser = DataService.ds.REF_USER_CURRENT //creates new database entry of autoiD
+        //        firebaseUser.setValue(Username) //set post of new child autoid into firebase
+        
+        let firebaseProfile = DataService.ds.REF_USER_CURRENT//creates new database entry of autoid
         if profileimgUrl != nil {
             let ProfileimgUrl: Dictionary < String, AnyObject > = ["profileUrl":profileimgUrl!]
-            let firebaseProfile = DataService.ds.REF_USER_CURRENT//creates new database entry of autoid
             firebaseProfile.updateChildValues(ProfileimgUrl) //set post of new child autoid into firebase
         }
-        
     }
     
             
