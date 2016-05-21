@@ -126,9 +126,6 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     
     @IBAction func addBtnPressed(sender: UIButton){
         presentViewController(imagePickerUser, animated: true, completion: nil)
-//        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-//        let registerVC = self.storyboard?.instantiateViewControllerWithIdentifier("RegisterVC") as? RegisterVC
-//        self.navigationController?.pushViewController(registerVC!, animated: true) as? UIViewController
 
     }
     
@@ -222,9 +219,6 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
 
     
     func UpdateUserImageToFirebase(profileimgUrl: String?) {
-        
-        //        let firebaseUser = DataService.ds.REF_USER_CURRENT //creates new database entry of autoiD
-        //        firebaseUser.setValue(Username) //set post of new child autoid into firebase
         
         let firebaseProfile = DataService.ds.REF_USER_CURRENT//creates new database entry of autoid
         if profileimgUrl != nil {

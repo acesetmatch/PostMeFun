@@ -66,7 +66,7 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
 
         let animationDuration: Double = userInfo[UIKeyboardAnimationDurationUserInfoKey]!.doubleValue
         UIView.animateWithDuration(animationDuration, animations: { () -> Void in
-            self.view.frame.origin.y = -endSize.height/2 
+            self.view.frame.origin.y = -endSize.height/5
         })
         
     }
@@ -121,9 +121,10 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                                         
                                         let user = ["provider": authData.provider!, "First Name":firstName, "Last Name": lastName, "email": email, "username": username] //swift dictionary
                                         
-//                                        let registerAlertController = UIAlertController(title: "Registration", message: "You have successfully registered!", preferredStyle: .Alert)
-//                                        let okay = UIAlertAction(title: "Okay", style: .Cancel, handler: )                                        self.presentViewController(registerAlertController, animated: true, completion: nil)
-//                                        registerAlertController.addAction(okay)
+                                        let registerAlertController = UIAlertController(title: "Registration", message: "You have successfully registered!", preferredStyle: .Alert)
+                                        let okay = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                                        self.presentViewController(registerAlertController, animated: true, completion: nil)
+                                        registerAlertController.addAction(okay)
                                         DataService.ds.createFirebaseUser(authData.uid, user: user)
 //                                        self.SaveProfileImage()
 

@@ -575,10 +575,10 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Sfu-Il-h98">
-                                        <rect key="frame" x="20" y="56" width="520" height="200"/>
+                                        <rect key="frame" x="20" y="56" width="530" height="200"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6IN-qB-lOZ" customClass="MaterialTextField" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="520" height="25"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="530" height="25"/>
                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="25" id="9ep-HX-yXM">
@@ -590,7 +590,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bFY-24-KUC" customClass="MaterialTextField" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="35" width="520" height="25"/>
+                                                <rect key="frame" x="0.0" y="35" width="530" height="25"/>
                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="JiC-05-Nhc"/>
@@ -600,7 +600,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sq0-do-ani" customClass="MaterialTextField" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="70" width="520" height="25"/>
+                                                <rect key="frame" x="0.0" y="70" width="530" height="25"/>
                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="nmG-lh-CyN"/>
@@ -610,7 +610,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y9d-Ym-eTk" customClass="MaterialTextField" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="105" width="520" height="25"/>
+                                                <rect key="frame" x="0.0" y="105" width="530" height="25"/>
                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="28q-8T-Fh9"/>
@@ -620,7 +620,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mOa-gR-k20" customClass="MaterialTextField" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="140" width="520" height="25"/>
+                                                <rect key="frame" x="0.0" y="140" width="530" height="25"/>
                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="ilS-BL-jrz"/>
@@ -630,7 +630,7 @@
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i0o-2w-yoB" customClass="MaterialTextField" customModule="shawn_showcase" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="175" width="520" height="25"/>
+                                                <rect key="frame" x="0.0" y="175" width="530" height="25"/>
                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="ymm-KW-4ps"/>
@@ -649,7 +649,7 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="bVp-8S-pZB" secondAttribute="trailing" constant="20" id="2H7-T9-tJt"/>
                                     <constraint firstItem="bVp-8S-pZB" firstAttribute="leading" secondItem="qua-xb-1k4" secondAttribute="leading" constant="20" id="GFw-fa-3z2"/>
@@ -676,11 +676,19 @@
                         </subviews>
                         <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="qua-xb-1k4" firstAttribute="top" secondItem="WLs-xb-bdX" secondAttribute="bottom" constant="20" id="3SL-Lk-ys7"/>
-                            <constraint firstItem="qua-xb-1k4" firstAttribute="leading" secondItem="uXf-ag-IFh" secondAttribute="leadingMargin" id="8Yz-pp-goT"/>
-                            <constraint firstItem="qua-xb-1k4" firstAttribute="trailing" secondItem="uXf-ag-IFh" secondAttribute="trailingMargin" id="GAY-Id-DCI"/>
-                            <constraint firstItem="zhX-w2-8Ao" firstAttribute="top" secondItem="qua-xb-1k4" secondAttribute="bottom" constant="20" id="MVS-Zq-XUu"/>
+                            <constraint firstItem="qua-xb-1k4" firstAttribute="top" secondItem="WLs-xb-bdX" secondAttribute="bottom" constant="-5" id="3SL-Lk-ys7"/>
+                            <constraint firstItem="qua-xb-1k4" firstAttribute="leading" secondItem="uXf-ag-IFh" secondAttribute="leadingMargin" constant="10" id="8Yz-pp-goT"/>
+                            <constraint firstItem="qua-xb-1k4" firstAttribute="trailing" secondItem="uXf-ag-IFh" secondAttribute="trailingMargin" constant="-10" id="GAY-Id-DCI"/>
+                            <constraint firstItem="qua-xb-1k4" firstAttribute="leading" secondItem="uXf-ag-IFh" secondAttribute="leading" constant="15" id="KiR-Ln-xLs"/>
+                            <constraint firstItem="zhX-w2-8Ao" firstAttribute="top" secondItem="qua-xb-1k4" secondAttribute="bottom" constant="15" id="MVS-Zq-XUu"/>
+                            <constraint firstAttribute="trailing" secondItem="qua-xb-1k4" secondAttribute="trailing" constant="15" id="rJP-cC-7Hw"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="8Yz-pp-goT"/>
+                                <exclude reference="GAY-Id-DCI"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Registration" id="TAY-ug-FeQ"/>
                     <connections>
@@ -1087,8 +1095,8 @@ If you have any questions, complaints, or claims with respect to the PostMeFun a
                                     <constraint firstItem="uYY-H4-jf2" firstAttribute="width" secondItem="Wob-dU-az3" secondAttribute="width" id="wUk-I9-Dub"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gKk-bM-PRW">
-                                <rect key="frame" x="208" y="165" width="184" height="76"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gKk-bM-PRW">
+                                <rect key="frame" x="208" y="0.0" width="184" height="187"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="76" id="o1M-w7-UQ7"/>
                                 </constraints>
@@ -1096,6 +1104,11 @@ If you have any questions, complaints, or claims with respect to the PostMeFun a
                                 <state key="normal" title="Change Profile Image">
                                     <color key="titleColor" white="0.89932885910000004" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="o1M-w7-UQ7"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="addBtnPressed:" destination="CHL-4U-CmT" eventType="touchUpInside" id="MzG-Vt-Mpt"/>
                                     <action selector="addBtnPressed:" destination="ZrJ-Ti-dsz" eventType="touchUpInside" id="NFR-jv-Z7s"/>
@@ -1112,25 +1125,31 @@ If you have any questions, complaints, or claims with respect to the PostMeFun a
                             <constraint firstItem="gKk-bM-PRW" firstAttribute="width" secondItem="uov-YQ-pHu" secondAttribute="width" id="Eec-vX-VH1"/>
                             <constraint firstItem="gKk-bM-PRW" firstAttribute="centerY" secondItem="uov-YQ-pHu" secondAttribute="centerY" id="Jmx-Ti-Nnj"/>
                             <constraint firstItem="uab-UK-zI1" firstAttribute="top" secondItem="yBh-TX-YEh" secondAttribute="bottom" constant="20" id="Lvx-dt-jq0"/>
+                            <constraint firstItem="gKk-bM-PRW" firstAttribute="centerX" secondItem="uov-YQ-pHu" secondAttribute="centerX" id="N8J-3b-zfR"/>
                             <constraint firstAttribute="trailing" secondItem="yBh-TX-YEh" secondAttribute="trailing" id="Pqj-yS-lmf"/>
+                            <constraint firstItem="gKk-bM-PRW" firstAttribute="height" secondItem="uov-YQ-pHu" secondAttribute="height" id="Wmc-0u-oV0"/>
                             <constraint firstItem="yBh-TX-YEh" firstAttribute="centerX" secondItem="ZZK-qQ-cBK" secondAttribute="centerX" id="ZjV-tv-iVp"/>
                             <constraint firstItem="4Hk-3i-5Fj" firstAttribute="top" secondItem="uab-UK-zI1" secondAttribute="bottom" constant="27" id="bo4-fs-YZG"/>
                             <constraint firstItem="gKk-bM-PRW" firstAttribute="height" secondItem="uov-YQ-pHu" secondAttribute="height" id="coa-nn-LDa"/>
                             <constraint firstItem="uab-UK-zI1" firstAttribute="centerX" secondItem="ZZK-qQ-cBK" secondAttribute="centerX" id="dDJ-Gs-UwQ"/>
                             <constraint firstItem="gKk-bM-PRW" firstAttribute="centerX" secondItem="uov-YQ-pHu" secondAttribute="centerX" id="dWL-c4-Usf"/>
                             <constraint firstItem="4Hk-3i-5Fj" firstAttribute="top" secondItem="uab-UK-zI1" secondAttribute="bottom" constant="27" id="eJZ-qb-FH3"/>
+                            <constraint firstItem="gKk-bM-PRW" firstAttribute="centerY" secondItem="uov-YQ-pHu" secondAttribute="centerY" id="kd1-5d-OSz"/>
                             <constraint firstItem="yBh-TX-YEh" firstAttribute="top" secondItem="ACt-qd-eOy" secondAttribute="bottom" id="mjC-Uh-Dct"/>
                             <constraint firstItem="yBh-TX-YEh" firstAttribute="leading" secondItem="ZZK-qQ-cBK" secondAttribute="leading" id="rLs-Jv-wUl"/>
                             <constraint firstItem="ACt-qd-eOy" firstAttribute="leading" secondItem="ZZK-qQ-cBK" secondAttribute="leading" id="tVj-tz-hvn"/>
                             <constraint firstItem="gKk-bM-PRW" firstAttribute="top" secondItem="uov-YQ-pHu" secondAttribute="bottom" id="wcf-rZ-1WX"/>
+                            <constraint firstItem="gKk-bM-PRW" firstAttribute="width" secondItem="uov-YQ-pHu" secondAttribute="width" id="yUx-7F-bNy"/>
                             <constraint firstItem="uov-YQ-pHu" firstAttribute="centerY" secondItem="ACt-qd-eOy" secondAttribute="centerY" id="zFw-4u-YEd"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="Agw-Wb-8nC"/>
                                 <exclude reference="Eec-vX-VH1"/>
                                 <exclude reference="Jmx-Ti-Nnj"/>
                                 <exclude reference="coa-nn-LDa"/>
                                 <exclude reference="dWL-c4-Usf"/>
+                                <exclude reference="wcf-rZ-1WX"/>
                                 <exclude reference="bo4-fs-YZG"/>
                             </mask>
                         </variation>

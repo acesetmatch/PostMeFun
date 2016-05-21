@@ -167,58 +167,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     //When post is made, image is compressed on the server
     @IBAction func makePost(sender: AnyObject) {
         createPost()
-        
-//        let postAlertController = UIAlertController(title: "Post", message: "You just made a post!", preferredStyle: .Alert)
-//        let okay = UIAlertAction(title: "OK", style: .Default) { (UIAlertAction) in
-//            
-//        }
-//        self.presentViewController(postAlertController, animated: true, completion: nil)
-//        postAlertController.addAction(okay)
-    
-//        if let txt = postField.text where txt != ""{
-//            if let img = imageSelectorImage.image where imageSelected == true {
-//                let urlStr = "https://post.imageshack.us/upload_api.php" //imageshack api website endpoint
-//                let url = NSURL(string:urlStr)!
-//                //Alamofire only takes in NSData
-//                let imgData = UIImageJPEGRepresentation(img, 0.2)! //0.2 is really compressed converted to jpeg
-//                let keyData = API_Key.dataUsingEncoding(NSUTF8StringEncoding)! //converting string into data
-//                let keyJSON = "json".dataUsingEncoding(NSUTF8StringEncoding)! //converts json to data , unwraps to eliminate errors
-//                var imageLink = ""
-//                //uploads on alamofire in correct imageshack parameter format
-//                Alamofire.upload(.POST, url, multipartFormData: { multipartFormData in //what special data to include in http post data.
-//                    
-//                    multipartFormData.appendBodyPart(data: imgData, name: "fileupload", fileName: "image", mimeType: "image/jpg") //Passing in the key and value of image for imageshack parameters
-//                    multipartFormData.appendBodyPart(data: keyData, name: "key") //name = key, data = keyData
-//                    multipartFormData.appendBodyPart(data: keyJSON, name: "format")
-//                
-//                //when upload is done
-//                    }) { encodingResult in
-//                        switch encodingResult {
-//                        case .Success(let upload, _, _): //.success is a closure, if it is success we want response JSON from server
-//                            upload.responseJSON(completionHandler: { response in
-//                                if let info = response.result.value as? Dictionary<String, AnyObject> { //returns JSON format of primary dictionary and (string, anyobject)
-//                                    if let links = info["links"] as? Dictionary<String, AnyObject> { //returns the secondary dictionary of links
-//                                        if let imgLink = links["image_link"] as? String { //grabs the key image_link and gets the values as string
-//                                            imageLink = imgLink
-//                                            self.postToFirebase(imageLink)
-//                                        
-//                                            
-//                                        
-//                                        }
-//                                    }
-//                                }
-//                            })
-//                            
-//                        case .Failure(let error):
-//                            print(error)
-//                        }
-//            }
-//            } else {
-//                showErrorAlert("Image Required", msg: "You must select an image")
-//            }
-//        } else {
-//            showErrorAlert("Description Required", msg: "You must enter a description")
-//        }
     }
     
     func returnTapped(sender:UIButton!) {
@@ -289,10 +237,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
 //        })
     }
     
-//    func postCreated(alert:UIAlertAction!) {
-//        let postAlertController = UIAlertController(title: "Post", message: "You just made a post!", preferredStyle: .Alert)
-//        let okay = UIAlertAction(title: "Okay", style: .Cancel, handler: createPost)
-//    }
+
     
     func createPost() {
             if let txt = postField.text where txt != ""{
