@@ -14,28 +14,7 @@ protocol PostCellTableViewDelegate {
     func returnTapped()
 }
 
-//protocol MyAlert {
-//    func returnTapped()
-//    func reportConfirmed(alert:UIAlertAction!)
-//    func confirmingReport(alert: UIAlertAction!)
-//    
-//}
-//
-//extension MyAlert where Self: FeedVC {
-//    func returnTapped() {
-//        let alertController = UIAlertController(title: "Inappropriate Content", message: "Select an option", preferredStyle: .ActionSheet)
-//        let blockUser = UIAlertAction(title: "Block User", style: .Default, handler:nil)
-//        let Report = UIAlertAction(title: "Report Inappropriate", style: .Default, handler: nil)
-//        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler:nil)
-//        alertController.addAction(blockUser)
-//        alertController.addAction(Report)
-//        alertController.addAction(cancel)
-//        
-//        self.presentViewController(alertController, animated: true, completion: nil)
-//    }
-//    
-//  
-//}
+
 
 class PostCellTableViewCell: UITableViewCell {
 

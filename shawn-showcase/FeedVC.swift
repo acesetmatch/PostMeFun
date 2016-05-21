@@ -63,7 +63,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                     if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
                         self.posts = []
                         
-                        for snap in snapshots {
+                        for snap in snapshots.reverse() {
                             print("SNAP: \(snap)")
                             
                             if let postDict = snap.value as? Dictionary<String, AnyObject> {
@@ -116,6 +116,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         return posts.count
     }
     
+    
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let post = self.posts[indexPath.row]
         self.post = post
@@ -164,11 +166,15 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
    
     //When post is made, image is compressed on the server
     @IBAction func makePost(sender: AnyObject) {
-        let postAlertController = UIAlertController(title: "Post", message: "You just made a post!", preferredStyle: .Alert)
-        let okay = UIAlertAction(title: "Okay", style: .Cancel, handler: createPost)
-        self.presentViewController(postAlertController, animated: true, completion: nil)
-        postAlertController.addAction(okay)
-
+        createPost()
+        
+//        let postAlertController = UIAlertController(title: "Post", message: "You just made a post!", preferredStyle: .Alert)
+//        let okay = UIAlertAction(title: "OK", style: .Default) { (UIAlertAction) in
+//            
+//        }
+//        self.presentViewController(postAlertController, animated: true, completion: nil)
+//        postAlertController.addAction(okay)
+    
 //        if let txt = postField.text where txt != ""{
 //            if let img = imageSelectorImage.image where imageSelected == true {
 //                let urlStr = "https://post.imageshack.us/upload_api.php" //imageshack api website endpoint
@@ -283,12 +289,12 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
 //        })
     }
     
-    func postCreated(alert:UIAlertAction!) {
-        let postAlertController = UIAlertController(title: "Post", message: "You just made a post!", preferredStyle: .Alert)
-        let okay = UIAlertAction(title: "Okay", style: .Cancel, handler: createPost)
-    }
+//    func postCreated(alert:UIAlertAction!) {
+//        let postAlertController = UIAlertController(title: "Post", message: "You just made a post!", preferredStyle: .Alert)
+//        let okay = UIAlertAction(title: "Okay", style: .Cancel, handler: createPost)
+//    }
     
-    func createPost(alert: UIAlertAction!) {
+    func createPost() {
             if let txt = postField.text where txt != ""{
                 if let img = imageSelectorImage.image where imageSelected == true {
                     let urlStr = "https://post.imageshack.us/upload_api.php" //imageshack api website endpoint
@@ -386,6 +392,13 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                 self.imageSelectorImage.image = UIImage(named: "camera 2")
                 self.imageSelected = false
                 self.tableView.reloadData()
+                
+                let postAlertController = UIAlertController(title: "Post", message: "You just made a post!", preferredStyle: .Alert)
+                let okay = UIAlertAction(title: "OK", style: .Default) { (UIAlertAction) in
+                    
+                }
+                self.presentViewController(postAlertController, animated: true, completion: nil)
+                postAlertController.addAction(okay)
             }
 
             }, withCancelBlock: {error in

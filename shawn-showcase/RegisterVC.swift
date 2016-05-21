@@ -138,7 +138,7 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                 })
                     } else {
                         let emailExistsAlertController = UIAlertController(title: "Error", message: "Email is already taken. Please select another one", preferredStyle: .Alert)
-                        let okay = UIAlertAction(title: "Okay", style: .Cancel, handler: nil)
+                        let okay = UIAlertAction(title: "OK", style: .Default, handler: nil)
                         self.presentViewController(emailExistsAlertController, animated: true, completion: nil)
                         emailExistsAlertController.addAction(okay)
 //                        self.errorMessageLbl.hidden = false
@@ -152,7 +152,7 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
             }
         } else {
             let fillfieldsAlertController = UIAlertController(title: "Error", message: "Please fill in all fields", preferredStyle: .Alert)
-            let okay = UIAlertAction(title: "Okay", style: .Cancel, handler: nil)
+            let okay = UIAlertAction(title: "OK", style: .Default, handler: nil)
             self.presentViewController(fillfieldsAlertController, animated: true, completion: nil)
             fillfieldsAlertController.addAction(okay)
 //            self.errorMessageLbl.hidden = false
@@ -174,7 +174,7 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     
     func showErrorAlert(title: String, msg: String) {
         let alert = UIAlertController(title:title, message: msg, preferredStyle: .Alert)
-        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+        let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
         alert.addAction(action)
         presentViewController(alert, animated: true, completion: nil)
     }

@@ -180,8 +180,8 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     @IBAction func logOut(unwindSegue: UIStoryboardSegue){
         
         let alertmessage = UIAlertController(title: "Are you sure you want to log out?", message: "Pressing ok will log you out!", preferredStyle: .Alert)
-        let okayAction = UIAlertAction(title: "Ok", style: .Default, handler: unAuthenticateUser)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+        let okayAction = UIAlertAction(title: "OK", style: .Default, handler: unAuthenticateUser)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive, handler: nil)
         alertmessage.addAction(okayAction)
         alertmessage.addAction(cancelAction)
         presentViewController(alertmessage, animated: true, completion: nil)
@@ -213,7 +213,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     
     func displayAlertError(Title: String, Message: String) {
         let alertmessage = UIAlertController(title: Title, message: Message, preferredStyle: .Alert)
-        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+        let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
         alertmessage.addAction(action)
         presentViewController(alertmessage, animated: true, completion: nil)
         
