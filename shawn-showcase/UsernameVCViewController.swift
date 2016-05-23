@@ -133,9 +133,10 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
             if let profileimage = ProfileImg.image where imageSelected == true {
                         let urlStr = "https://post.imageshack.us/upload_api.php" //imageshack api website endpoint
                         let url = NSURL(string:urlStr)!
-                        //Alamofire only takes in NSData
+                
+                        //Alamofire only takes in NSData so convert image, key, and json format into data
                         let imgData = UIImageJPEGRepresentation(profileimage, 0.2)! //0.2 is really compressed converted to jpeg
-                        let keyData = API_Key.dataUsingEncoding(NSUTF8StringEncoding)! //converting string into data
+                        let keyData = API_Key.dataUsingEncoding(NSUTF8StringEncoding)! //converting string into data. NSUTF8StringEncoding is standard encoding format for strings.
                         let keyJSON = "json".dataUsingEncoding(NSUTF8StringEncoding)! //converts json to data , unwraps to eliminate errors
                         //uploads on alamofire in correct imageshack parameter format
                         Alamofire.upload(.POST, url, multipartFormData: { multipartFormData in
