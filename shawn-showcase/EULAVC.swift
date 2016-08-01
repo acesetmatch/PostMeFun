@@ -23,17 +23,9 @@ class EULAVC: UIViewController {
     }
     
     @IBAction func disagreePressed(sender:AnyObject?) {
-        showErrorAlert("License Agreement", msg: "You agree to the terms and conditions to continue")
-    }
-    
-    func showErrorAlert(title: String, msg: String) {
-        let alert = UIAlertController(title:title, message: msg, preferredStyle: .Alert)
-        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-        alert.addAction(action)
+        let alert = Helper.showErrorAlert("License Agreement", msg: "You must agree to the terms and conditions to continue")
         presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    
 
+    }
 
 }

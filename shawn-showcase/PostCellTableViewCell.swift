@@ -14,8 +14,6 @@ protocol PostCellTableViewDelegate {
     func returnTapped()
 }
 
-
-
 class PostCellTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profileImg: UIImageView!
@@ -30,23 +28,19 @@ class PostCellTableViewCell: UITableViewCell {
     var post: Post! //store post
     var request: Request? //Request is Firebase object
     var request2: Request?
-    var likeRef:Firebase!
-    var flagRef:Firebase!
-    var blockRef: Firebase!
+    var likeRef:FIRDatabaseReference!
+    var flagRef:FIRDatabaseReference!
+    var blockRef: FIRDatabaseReference!
     var user: User!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        let tap = UITapGestureRecognizer(target: self, action: "likeTapped:") //colon passes tap gesture recognizer.
+        let tap = UITapGestureRecognizer(target: self, action: #selector(PostCellTableViewCell.likeTapped(_:))) //colon passes tap gesture recognizer.
         tap.numberOfTapsRequired = 1
         likeImage.addGestureRecognizer(tap)
         likeImage.userInteractionEnabled = true
-        
-        let tap1 = UITapGestureRecognizer(target: self, action: "returnTapped:") 
-        tap1.numberOfTapsRequired = 1
-        
         profileImg.layer.cornerRadius = profileImg.frame.size.width/2
         profileImg.clipsToBounds = true
-        
         showcaseImg.clipsToBounds = true
         showcaseImg.layer.cornerRadius = 10.0
         returnButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
@@ -63,14 +57,11 @@ class PostCellTableViewCell: UITableViewCell {
     
     func configureCell(post: Post, img: UIImage?, ProfileImage: UIImage?) {
         self.post = post
-        likeRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)
-        flagRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("flags").childByAppendingPath(post.postKey)
-//        blockRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("blacklist").childByAppendingPath(post.postKey)
+        likeRef = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey)
+        flagRef = DataService.ds.REF_USER_CURRENT.child("flags").child(post.postKey)
         self.descriptionText.text = post.postDescription       //extracts like data from likes and sees if that post exists
         self.likesLbl.text = "\(post.likes)"
-//        let usernameRef = DataService.ds.REF_USER_CURRENT
         self.usernameLbl.text = post.username
-        //if the imageurl is there then run this code, but if isn't then
         if post.imageUrl != nil {
             if img != nil {
                 self.showcaseImg.image = img

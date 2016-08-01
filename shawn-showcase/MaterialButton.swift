@@ -8,7 +8,15 @@
 
 import UIKit
 
+@IBDesignable
 class MaterialButton: UIButton {
+    
+    @IBInspectable var cornerRadius: CGFloat = 4.0 {
+        didSet {
+            self.layer.cornerRadius = cornerRadius
+        }
+    }
+    
 
     override func awakeFromNib() {
         layer.cornerRadius = 4.0

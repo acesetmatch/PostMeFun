@@ -8,13 +8,20 @@
 
 import UIKit
 
+@IBDesignable
 class MaterialTextField: UITextField, UITextViewDelegate {
+    
+    @IBInspectable var cornerRadius: CGFloat = 4.0 {
+        didSet {
+            self.layer.cornerRadius = cornerRadius
+        }
+    }
 
     override func awakeFromNib() {
-        layer.cornerRadius = 4.0
         layer.borderColor = UIColor(red: SHADOW_COLOR, green: SHADOW_COLOR, blue: SHADOW_COLOR, alpha: 0.1).CGColor
         layer.borderWidth = 1.0
     }
+    
     
     //Placeholder
     override func textRectForBounds(bounds: CGRect) -> CGRect {

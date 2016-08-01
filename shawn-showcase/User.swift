@@ -13,8 +13,8 @@ class User {
     private var _username: String!
     private var _userKey: String!
     private var _blacklistUserKey: String!
-    private var _userRef: Firebase!
-    private var _userblacklistRef: Firebase!
+    private var _userRef: FIRDatabaseReference!
+    private var _userblacklistRef: FIRDatabaseReference!
     private var _profileImageUrl: String?
     private var _firstName: String!
     private var _lastName: String!

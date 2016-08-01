@@ -31,11 +31,8 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     var proImg: UIImage?
     var request: Request?
     var post: Post! //store post
-//    var profRef:Firebase!
     var posts = [Post]()
     var registerVC: RegisterVC!
-
-
 
 
     override func viewDidLoad() {
@@ -196,7 +193,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
 
     
     func unAuthenticateUser(alert: UIAlertAction!) {
-        DataService.ds.REF_USERS.unauth()
+        try! FIRAuth.auth()?.signOut()
        
         let defaults = NSUserDefaults.standardUserDefaults()
         if defaults.stringForKey("storedEmail") != "" && defaults.stringForKey("storedPassword") != "" {
@@ -218,9 +215,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
 
-    
     func UpdateUserImageToFirebase(profileimgUrl: String?) {
-        
         let firebaseProfile = DataService.ds.REF_USER_CURRENT//creates new database entry of autoid
         if profileimgUrl != nil {
             let ProfileimgUrl: Dictionary < String, AnyObject > = ["profileUrl":profileimgUrl!]

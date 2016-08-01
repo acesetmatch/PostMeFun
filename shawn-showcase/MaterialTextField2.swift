@@ -9,7 +9,13 @@
 import UIKit
 
 class MaterialTextField2: UITextField {
-
+    
+    @IBInspectable var cornerRadius: CGFloat = 4.0 {
+        didSet {
+            self.layer.cornerRadius = cornerRadius
+        }
+    }
+    
     override func awakeFromNib() {
         layer.cornerRadius = 0
         layer.borderColor = UIColor(red: SHADOW_COLOR, green: SHADOW_COLOR, blue: SHADOW_COLOR, alpha: 0.1).CGColor

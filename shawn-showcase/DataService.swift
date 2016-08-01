@@ -9,41 +9,42 @@
 import Foundation
 import Firebase
 
-let URL_BASE = "https://shawn-showcase.firebaseio.com/"
+let URL_BASE = FIRDatabase.database().reference()
+//"https://shawn-showcase.firebaseio.com/"
 
 class DataService {
     
     static let ds = DataService() //static variable, one instance in memory so people don't destroy it.
     
-    private var _REF_BASE = Firebase(url: "\(URL_BASE)") //reference to specific Firebase account
-    private var _REF_POSTS = Firebase(url: "\(URL_BASE)/posts")
-    private var _REF_USERS = Firebase(url: "\(URL_BASE)/users")
+    private var _REF_BASE = URL_BASE //reference to specific Firebase account
+    private var _REF_POSTS = URL_BASE.child("posts")
+    private var _REF_USERS = URL_BASE.child("users")
     
-    var REF_BASE: Firebase {
+    var REF_BASE: FIRDatabaseReference {
         return _REF_BASE
     }
     
-    var REF_POSTS: Firebase {
+    var REF_POSTS: FIRDatabaseReference {
         return _REF_POSTS
     }
     
-    var REF_USERS: Firebase {
+    var REF_USERS: FIRDatabaseReference {
         return _REF_USERS
     }
     
-    var REF_USER_CURRENT: Firebase {
+    var REF_USER_CURRENT: FIRDatabaseReference {
         let uid = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) as! String
-        let user = Firebase(url: "\(URL_BASE)").childByAppendingPath("users").childByAppendingPath(uid)
-        return user!
+        let user = URL_BASE.child("users").child(uid)
+        return user
     }
     
-    var REF_POST_CURRENT: Firebase {
+    var REF_POST_CURRENT: FIRDatabaseReference {
         let uid = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) as! String
-        let user = Firebase(url: "\(URL_BASE)").childByAppendingPath("posts").childByAppendingPath(uid)
+        let user = URL_BASE.child("posts").child(uid)
         return user
     }
     
     func createFirebaseUser(uid: String, user: Dictionary <String, String>) {
-        REF_USERS.childByAppendingPath(uid).setValue(user) //setValue will save uid for the whole path or creates a new one
+        REF_USERS.childByAppendingPath(uid).updateChildValues(user) //setValue will save uid for the whole path or creates a new one
     }
 }

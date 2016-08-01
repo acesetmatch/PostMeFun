@@ -9,7 +9,7 @@
 import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
-
+import FirebaseAuth
 
 class ViewController: UIViewController {
     
@@ -27,15 +27,14 @@ class ViewController: UIViewController {
         signUpBtn.layer.borderWidth = 1.0
         signUpBtn.layer.borderColor = UIColor(red: 70.0/255.0, green: 90.0/255.0, blue: 255.0, alpha: borderAlpha).CGColor
         if NSUserDefaults.standardUserDefaults().boolForKey("TermsAccepted") {
+        
         } else {
             self.performSegueWithIdentifier("returnToTerms", sender: nil)
         }
         
-        
         let memoryEmail = NSUserDefaults.standardUserDefaults().stringForKey("storedEmail")
         let memoryPassword = NSUserDefaults.standardUserDefaults().stringForKey("storedPassword")
         
-    
         if memoryEmail != nil && memoryPassword != nil {
             emailField.text = memoryEmail
             passwordField.text = memoryPassword
@@ -44,8 +43,6 @@ class ViewController: UIViewController {
 
     }
 
-  
-    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
         view.endEditing(true)
         super.touchesBegan(touches, withEvent: event)
@@ -54,9 +51,9 @@ class ViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationController?.navigationBarHidden = true;
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
         self.errorLbl.hidden = true
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
         emailField.text = ""
         passwordField.text = ""
 
@@ -76,8 +73,6 @@ class ViewController: UIViewController {
 
     }
     
-    
-    
     func keyboardWillShow(sender: NSNotification) {
         
         let userInfo: [NSObject : AnyObject] = sender.userInfo!
@@ -87,34 +82,31 @@ class ViewController: UIViewController {
         UIView.animateWithDuration(animationDuration, animations: { () -> Void in
             self.view.frame.origin.y = -endSize.height/2
         })
-
     }
-    
-
     
 
     @IBAction func attemptLogin(sender:UIButton!) {
         if let email = emailField.text where email != "", let pwd = passwordField.text where pwd != "" {
-            DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: { error, authData in
+            FIRAuth.auth()?.signInWithEmail(email, password: pwd, completion: { (user,error) in
                     if (error != nil) {
-                        print(error.code)
+                        print(error)
                         
-                          if error.code == STATUS_ACCOUNT_NONEXIST {
+                          if error!.code == STATUS_ACCOUNT_NONEXIST {
                             self.errorLbl.hidden = false
                             self.errorLbl.text = "User does not exist"
                           }
 
-                          if error.code == INVALID_EMAIL {
+                          if error!.code == INVALID_EMAIL {
                              self.errorLbl.hidden = false
                             self.errorLbl.text = "Invalid Email"
                           }
-                          if error.code == INCORRECT_PASSWORD {
+                          if error!.code == INCORRECT_PASSWORD {
                             self.errorLbl.hidden = false
                             self.errorLbl.text = "Incorrect Password"
                           }
                         
                     } else {
-                          NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: KEY_UID)
+                        NSUserDefaults.standardUserDefaults().setValue(user!.uid, forKey: KEY_UID)
                         let storedEmail = self.emailField.text
                         let storedPassword = self.passwordField.text
                         NSUserDefaults.standardUserDefaults().setValue(storedEmail, forKey: "storedEmail")
@@ -123,14 +115,10 @@ class ViewController: UIViewController {
 
                     }
                 })
-                
-        
-            
         } else {
-            showErrorAlert("Email and Password Required", msg: "You must enter an email and a password")
+            let alert = Helper.showErrorAlert("Email and Password Required", msg: "You must enter an email and a password")
+            presentViewController(alert, animated: true, completion: nil)
         }
-        
-
     }
     
     @IBAction func signUpOnPressed(sender:UIButton!) {
@@ -152,17 +140,9 @@ class ViewController: UIViewController {
     }
     
     
-    func showErrorAlert(title: String, msg: String) {
-            let alert = UIAlertController(title:title, message: msg, preferredStyle: .Alert)
-            let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
-            alert.addAction(action)
-            presentViewController(alert, animated: true, completion: nil)
-    }
-    
     func pushToProfile() {
-        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let usernameVCViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UsernameVCViewController") as? UsernameVCViewController
-        self.navigationController?.pushViewController(usernameVCViewController!, animated: true) as? UIViewController
+        self.navigationController?.pushViewController(usernameVCViewController!, animated: true)
     }
     
     
