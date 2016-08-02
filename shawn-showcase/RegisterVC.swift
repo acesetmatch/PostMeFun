@@ -21,50 +21,73 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     @IBOutlet weak var errorMessageLbl: UILabel!
     @IBOutlet weak var usernameLbl: MaterialTextField!
     @IBOutlet weak var ProfileImg: UIImageView!
-    @IBOutlet weak var addBtn: UIButton!
-    @IBOutlet var textFieldToBottomLayoutGuideConstraint: NSLayoutConstraint!
+    @IBOutlet weak var registerBtn: UIButton!
+    @IBOutlet weak var textFieldToBottomLayoutGuideConstraint: NSLayoutConstraint!
+    @IBOutlet weak var navBar: UINavigationBar!
+    @IBOutlet weak var textStackView: UIStackView!
+    
+    
+    //Constraints
+    @IBOutlet weak var registerBtnLeftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var registerBtnRightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var registerBtnBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var stackHeight: NSLayoutConstraint!
+    
+    
+    
     var imagePickerUser: UIImagePickerController!
     var imageSelected = false
     
+    var stackViewHeightConstraint: NSLayoutConstraint!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow), name:UIKeyboardWillShowNotification, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHide), name:UIKeyboardWillHideNotification, object: nil);
+        self.stackViewHeightConstraint = NSLayoutConstraint(item: self.textStackView, attribute: .Height, relatedBy: .Equal, toItem: self.view, attribute: .Height, multiplier: 0.0, constant: stackViewYAdjust())
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewDidAppear(animated)
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow), name:UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHide), name:UIKeyboardWillHideNotification, object: nil);
     }
     
-    func keyboardWillHide(sender: NSNotification) {
-        let userInfo: [NSObject : AnyObject] = sender.userInfo!
-        let endSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]!.CGRectValue.size
-//        let keyboardSize: CGSize = userInfo[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue.size
-        let animationDuration: Double = userInfo[UIKeyboardAnimationDurationUserInfoKey]!.doubleValue
-        UIView.animateWithDuration(animationDuration, animations: { () -> Void in
-            self.view.frame.origin.y = 0+endSize.height/4
-        })
-        
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
 
     
+    func keyboardWillHide(sender: NSNotification) {
+        let userInfo: [NSObject : AnyObject] = sender.userInfo!
+
+        let animationDuration: Double = userInfo[UIKeyboardAnimationDurationUserInfoKey]!.doubleValue
+        self.registerBtnLeftConstraint.constant = 40.0
+        self.registerBtnRightConstraint.constant = 40.0
+        self.registerBtnBottomConstraint.constant = 40.0
+        UIView.animateWithDuration(animationDuration, animations: { () -> Void in
+            self.registerBtn.layer.cornerRadius = 4.0
+            self.stackViewHeightConstraint.active = false
+            self.view.layoutIfNeeded()
+        })
+    }
+
     func keyboardWillShow(sender: NSNotification) {
-        
         let userInfo: [NSObject : AnyObject] = sender.userInfo!
         let endSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]!.CGRectValue.size
-//        let keyboardSize: CGSize = userInfo[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue.size
         let animationDuration: Double = userInfo[UIKeyboardAnimationDurationUserInfoKey]!.doubleValue
+        self.registerBtnLeftConstraint.constant = -20
+        self.registerBtnRightConstraint.constant = -20
+        self.registerBtnBottomConstraint.constant = endSize.height-15.0
         UIView.animateWithDuration(animationDuration, animations: { () -> Void in
-            self.view.frame.origin.y = -endSize.height/5
+            self.registerBtn.layer.cornerRadius = 0.0
+            self.stackViewHeightConstraint.active = true
+            self.view.layoutIfNeeded()
         })
         
     }
@@ -99,12 +122,12 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                                 let userData = ["provider": "email", "First Name":firstName, "Last Name": lastName, "email": email, "username": username] //swift dictionary
                                 
                                 let registerAlertController = UIAlertController(title: "Registration", message: "You have successfully registered!", preferredStyle: .Alert)
-                                let okay = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                                let okay = UIAlertAction(title: "OK", style: .Default, handler: self.okayPressed)
                                 self.presentViewController(registerAlertController, animated: true, completion: nil)
                                 registerAlertController.addAction(okay)
                                 DataService.ds.createFirebaseUser(user!.uid, user: userData)
-                                self.performSegueWithIdentifier("returnToLogin", sender: nil)
-                                self.navigationController?.navigationBarHidden = true;
+//                                self.performSegueWithIdentifier("returnToLogin", sender: nil)
+                                self.navigationController?.popToRootViewControllerAnimated(true)
                             }
                         })
                         
@@ -143,12 +166,35 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     @IBAction func returnToRegistration(segue: UIStoryboardSegue) {
         
     }
-    
-    
+
     @IBAction func BacktoProfilePressed(sender: AnyObject!) {
         self.performSegueWithIdentifier("BacktoProfile", sender: nil)
     }
     
+    
+    //Screen Size Adjustment
+    
+    func screenHeight() -> CGFloat {
+        return UIScreen.mainScreen().bounds.height
+    }
+    
+    func stackViewYAdjust() -> CGFloat {
+        switch(self.screenHeight()) {
+        case 568:
+            return 195
+        case 667:
+            return 270
+        case 736:
+            return 310
+        default:
+            return 270
+        }
+    }
+    
+    func okayPressed(alert:UIAlertAction!) {
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
+
     
 }
 

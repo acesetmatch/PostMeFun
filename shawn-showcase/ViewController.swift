@@ -122,6 +122,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func signUpOnPressed(sender:UIButton!) {
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         self.performSegueWithIdentifier("signUp", sender: nil)
         self.navigationController?.navigationBarHidden = false;
 

@@ -51,12 +51,10 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         addBtn.hidden = false
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
-        
+        imagePickerUser.navigationBar.barTintColor = UIColor(red: 70/255.0, green: 90/255, blue: 255/255.0, alpha: 1.0)
+
         DataService.ds.REF_USER_CURRENT.observeEventType(.Value, withBlock: { snapshot in
             print(snapshot.value) //Prints value of snapshot
-//            if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
-            
-                
                    if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
                         let key = snapshot.key
                         let user = User(userKey: key, dictionary: userDict)
@@ -93,12 +91,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
                             
                     }
 
-
                     }
-            
-                
-//            }
-            
         })
         
         // Do any additional setup after loading the view.
@@ -151,9 +144,6 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
                                             if let links = info["links"] as? Dictionary<String, AnyObject> { //returns the secondary dictionary of links
                                                 if let imgLink = links["image_link"] as? String {
                                                     self.UpdateUserImageToFirebase(imgLink)
-                                                    
-                                                    
-                                                    
                                                 }
                                             }
                                         }
