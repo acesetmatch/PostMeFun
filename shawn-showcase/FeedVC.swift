@@ -47,8 +47,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
      
         DataService.ds.REF_USER_CURRENT.observeEventType(.Value, withBlock: { snapshot in
             print(snapshot.value) //Prints value of snapshot
-            //            if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
-            
             self.tableView.reloadData()
 
             if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
@@ -102,8 +100,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                     })
             }
         })
-        
-    
     }
     
     
@@ -114,7 +110,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
-    
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -221,12 +216,10 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     
     func blockUserConfirmed(alert:UIAlertAction!) {
         let thirdAlertController = UIAlertController(title: "User Blocked", message: "You have blocked this user", preferredStyle: .Alert)
-        let userAlreadyBlockedController = UIAlertController(title: "Cannot Block", message: "You have already blocked this user", preferredStyle: .Alert)
         let okay = UIAlertAction(title: "Okay", style: .Cancel, handler: blockReference)
         thirdAlertController.addAction(okay)
         self.presentViewController(thirdAlertController, animated: true, completion: nil)
     }
-    
 
     
     func createPost() {

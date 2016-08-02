@@ -92,7 +92,7 @@ class User {
         }
         
         
-        self._userRef = DataService.ds.REF_USERS.childByAppendingPath(self._userKey!)
+        self._userRef = DataService.ds.REF_USERS.child(self._userKey!)
 //        self._userblacklistRef = DataService.ds.REF_USERS.childByAppendingPath(self._userKey!).childByAppendingPath(self._blacklistUserKey!)
     }
 }

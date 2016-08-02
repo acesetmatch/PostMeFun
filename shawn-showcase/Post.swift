@@ -94,7 +94,7 @@ class Post {
 
         
                
-        self._postRef = DataService.ds.REF_POSTS.childByAppendingPath(self._postKey!)
+        self._postRef = DataService.ds.REF_POSTS.child(self._postKey!)
         
     
     }
@@ -107,7 +107,7 @@ class Post {
             _likes = _likes - 1
         }
         
-        _postRef.childByAppendingPath("likes").setValue(_likes)
+        _postRef.child("likes").setValue(_likes)
     }
     
     func adjustFlags(addFlag: Bool) {
@@ -118,7 +118,7 @@ class Post {
             _flags = _flags - 1
         }
         
-        _postRef.childByAppendingPath("flags").setValue(_flags)
+        _postRef.child("flags").setValue(_flags)
     }
     
 
