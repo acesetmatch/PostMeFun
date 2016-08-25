@@ -53,54 +53,45 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         imagePickerUser.navigationBar.barTintColor = UIColor(red: 70/255.0, green: 90/255, blue: 255/255.0, alpha: 1.0)
 
-        DataService.ds.REF_USER_CURRENT.observeEventType(.Value, withBlock: { snapshot in
-            print(snapshot.value) //Prints value of snapshot
-                   if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
-                        let key = snapshot.key
-                        let user = User(userKey: key, dictionary: userDict)
-                        print(user.firstName)
-                        print(user.lastName)
-                        print(user.email)
-                        print(user.username)
-                        self.firstNameTxtField.text = user.firstName
-                        self.lastNameTxtField.text = user.lastName
-                        self.emailTxtField.text = user.email
-                        self.usernameTxtField.text = user.username
-                        if let proUrl = user.profileImageUrl {
-                            self.proImg = FeedVC.imageCache.objectForKey(proUrl) as? UIImage //passing image from the cache if it exists. Returns value of the key(url). FeedVC is single instance
-                            if user.profileImageUrl != nil {
-                                if self.proImg != nil {
-                                    self.ProfileImg.image = self.proImg
-                                    self.backgroundImg.image = self.proImg
-                                } else {
-                                    self.request = Alamofire.request(.GET, user.profileImageUrl!).validate(contentType: ["image/*"]).response(completionHandler: { request, response, data, err in
-                                        
-                                        if err == nil {
-                                            if let ProfileImage = UIImage(data: data!) {
-                                                self.ProfileImg.image = ProfileImage
-                                                self.backgroundImg.image = ProfileImage
-                                                //                            FeedVC.imageCache.setObject(ProfileImage, forKey: self.user.profileImageUrl!)
-                                            }
-                                        }
-                                    })
-                                }
-                                
-                            } else {
-                                self.ProfileImg.hidden = false
-                            }
-                            
-                    }
-
-                    }
-        })
-        
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
         self.navigationItem.setHidesBackButton(true, animated: true)
         self.navigationController?.navigationBarHidden = false
-        
+        DataService.ds.REF_USER_CURRENT.observeEventType(.Value, withBlock: { snapshot in
+            if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
+                let key = snapshot.key
+                let user = User(userKey: key, dictionary: userDict)
+                self.firstNameTxtField.text = user.firstName
+                self.lastNameTxtField.text = user.lastName
+                self.emailTxtField.text = user.email
+                self.usernameTxtField.text = user.username
+                if let proUrl = user.profileImageUrl {
+                    self.proImg = FeedVC.imageCache.objectForKey(proUrl) as? UIImage //passing image from the cache if it exists. Returns value of the key(url). FeedVC is single instance
+                    if user.profileImageUrl != nil {
+                        if self.proImg != nil {
+                            self.ProfileImg.image = self.proImg
+                            self.backgroundImg.image = self.proImg
+                        } else {
+                            self.request = Alamofire.request(.GET, user.profileImageUrl!).validate(contentType: ["image/*"]).response(completionHandler: { request, response, data, err in
+                                
+                                if err == nil {
+                                    if let ProfileImage = UIImage(data: data!) {
+                                        self.ProfileImg.image = ProfileImage
+                                        self.backgroundImg.image = ProfileImage
+                                    }
+                                }
+                            })
+                        }
+                        
+                    } else {
+                        self.ProfileImg.hidden = false
+                    }
+                    
+                }
+                
+            }
+        })
     }
     
     

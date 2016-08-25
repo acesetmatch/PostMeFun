@@ -43,26 +43,22 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         imagePicker.delegate = self
         imageSelectorImage.layer.cornerRadius = 2.0
         imageSelectorImage.clipsToBounds = true
-        
-     
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         DataService.ds.REF_USER_CURRENT.observeEventType(.Value, withBlock: { snapshot in
-            print(snapshot.value) //Prints value of snapshot
             self.tableView.reloadData()
-
+            
             if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
                 let key = snapshot.key
                 let user = User(userKey: key, dictionary: userDict)
                 self.user = user
-//                let blacklistuser = user.blacklist
                 self.users.append(user)
                 DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
-                    print(snapshot.value) //Prints value of snapshot
                     if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
                         self.posts = []
                         
                         for snap in snapshots.reverse() {
-                            print("SNAP: \(snap)")
-                            
                             if let postDict = snap.value as? Dictionary<String, AnyObject> {
                                 let key = snap.key
                                 let post = Post(postKey: key, dictionary: postDict)
@@ -71,7 +67,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                                 self.posts.append(post)
                                 for post in self.posts {
                                     self.blacklistRef.observeSingleEventOfType(.Value, withBlock: { snapshot in //check value only once
-                                        //   `                                 if let doesNotExist = snapshot.value as? NSNull {
                                         if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
                                             for snap in snapshots {
                                                 if let blacklistDict = snap.value as? String {
@@ -83,21 +78,21 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                                                         self.tableView.reloadData()
                                                         
                                                     }
-                                                
+                                                    
                                                 }
                                             }
-                                            }
-                                        })
-                                        
-                                    }
+                                        }
+                                    })
+                                    
                                 }
-                                
                             }
-                        self.tableView.reloadData()
-
+                            
                         }
+                        self.tableView.reloadData()
                         
-                    })
+                    }
+                    
+                })
             }
         })
     }
@@ -128,9 +123,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             if let proUrl = post.profileImageUrl {
                 proImg = FeedVC.imageCache.objectForKey(proUrl) as? UIImage //FeedVC is publicly available
             }
-//            returntapped(post)
             cell.configureCell(post, img: img, ProfileImage: proImg)
-            
             return cell
         } else {
             return PostCellTableViewCell()
