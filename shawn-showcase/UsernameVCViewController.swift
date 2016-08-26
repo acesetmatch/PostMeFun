@@ -52,12 +52,15 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         imagePickerUser.navigationBar.barTintColor = UIColor(red: 70/255.0, green: 90/255, blue: 255/255.0, alpha: 1.0)
-
+        initObservers()
     }
     
     override func viewWillAppear(animated: Bool) {
         self.navigationItem.setHidesBackButton(true, animated: true)
         self.navigationController?.navigationBarHidden = false
+    }
+    
+    func initObservers() {
         DataService.ds.REF_USER_CURRENT.observeEventType(.Value, withBlock: { snapshot in
             if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
                 let key = snapshot.key
@@ -92,8 +95,8 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
                 
             }
         })
+
     }
-    
     
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {

@@ -46,8 +46,6 @@ class PostCellTableViewCell: UITableViewCell {
         returnButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
     }
     
-    
-    
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

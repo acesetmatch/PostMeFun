@@ -43,12 +43,13 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         imagePicker.delegate = self
         imageSelectorImage.layer.cornerRadius = 2.0
         imageSelectorImage.clipsToBounds = true
+        initObservers()
     }
+
     
-    override func viewWillAppear(animated: Bool) {
+    func initObservers() {
         DataService.ds.REF_USER_CURRENT.observeEventType(.Value, withBlock: { snapshot in
             self.tableView.reloadData()
-            
             if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
                 let key = snapshot.key
                 let user = User(userKey: key, dictionary: userDict)
@@ -57,7 +58,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                 DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
                     if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
                         self.posts = []
-                        
                         for snap in snapshots.reverse() {
                             if let postDict = snap.value as? Dictionary<String, AnyObject> {
                                 let key = snap.key
@@ -76,7 +76,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                                                         self.tableView.reloadData()
                                                     } else {
                                                         self.tableView.reloadData()
-                                                        
                                                     }
                                                     
                                                 }
@@ -95,6 +94,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                 })
             }
         })
+        
     }
     
     
