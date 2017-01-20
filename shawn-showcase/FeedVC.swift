@@ -30,7 +30,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     var imagePicker: UIImagePickerController!
     var postCellTableView: PostCellTableViewCell = PostCellTableViewCell()
     
-    static var imageCache = NSCache()
+    static var imageCache = NSCache<AnyObject, AnyObject>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,17 +48,17 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
 
     
     func initObservers() {
-        DataService.ds.REF_USER_CURRENT.observeEventType(.Value, withBlock: { snapshot in
+        DataService.ds.REF_USER_CURRENT.observe(.value, with: { snapshot in
             self.tableView.reloadData()
             if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
                 let key = snapshot.key
                 let user = User(userKey: key, dictionary: userDict)
                 self.user = user
                 self.users.append(user)
-                DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
+                DataService.ds.REF_POSTS.observe(.value, with: { snapshot in
                     if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
                         self.posts = []
-                        for snap in snapshots.reverse() {
+                        for snap in snapshots.reversed() {
                             if let postDict = snap.value as? Dictionary<String, AnyObject> {
                                 let key = snap.key
                                 let post = Post(postKey: key, dictionary: postDict)
@@ -66,7 +66,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                                 self.blacklistRef = DataService.ds.REF_USER_CURRENT.child("blacklist")
                                 self.posts.append(post)
                                 for post in self.posts {
-                                    self.blacklistRef.observeSingleEventOfType(.Value, withBlock: { snapshot in //check value only once
+                                    self.blacklistRef.observeSingleEvent(of: .value, with: { snapshot in //check value only once
                                         if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
                                             for snap in snapshots {
                                                 if let blacklistDict = snap.value as? String {
@@ -98,30 +98,30 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     }
     
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let post = self.posts[indexPath.row]
         self.post = post
-        if let cell = tableView.dequeueReusableCellWithIdentifier("PostCellTableViewCell", forIndexPath: indexPath) as? PostCellTableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "PostCellTableViewCell", for: indexPath) as? PostCellTableViewCell {
             cell.request?.cancel()
             cell.returnButton.tag = indexPath.row
-            cell.returnButton.addTarget(self, action: #selector(returnTapped), forControlEvents: UIControlEvents.TouchUpInside)
+            cell.returnButton.addTarget(self, action: #selector(returnTapped), for: UIControlEvents.touchUpInside)
             var img: UIImage? //making an empty image
             var proImg: UIImage?
             
             if let url = post.imageUrl {
-                img = FeedVC.imageCache.objectForKey(url) as? UIImage //passing iamge from the cache if it exists. Returns value of the key(url).
+                img = FeedVC.imageCache.object(forKey: url as AnyObject) as? UIImage //passing iamge from the cache if it exists. Returns value of the key(url).
             }
             if let proUrl = post.profileImageUrl {
-                proImg = FeedVC.imageCache.objectForKey(proUrl) as? UIImage //FeedVC is publicly available
+                proImg = FeedVC.imageCache.object(forKey: proUrl as AnyObject) as? UIImage //FeedVC is publicly available
             }
             cell.configureCell(post, img: img, ProfileImage: proImg)
             return cell
@@ -131,7 +131,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     }
 
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let post = posts[indexPath.row]
         
         if post.imageUrl == nil {
@@ -141,54 +141,54 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         }
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        imagePicker.dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        imagePicker.dismiss(animated: true, completion: nil)
         imageSelectorImage.image = image
         imageSelected = true
     }
 
-    @IBAction func selectImage(sender: UITapGestureRecognizer) {
-        presentViewController(imagePicker, animated: true, completion: nil)
+    @IBAction func selectImage(_ sender: UITapGestureRecognizer) {
+        present(imagePicker, animated: true, completion: nil)
     }
    
     //When post is made, image is compressed on the server
-    @IBAction func makePost(sender: AnyObject) {
+    @IBAction func makePost(_ sender: AnyObject) {
         createPost()
     }
     
-    func returnTapped(sender:UIButton!) {
+    func returnTapped(_ sender:UIButton!) {
         self.post = self.posts[sender.tag]
         self.Uid = self.post.Uid
-        let alertController = UIAlertController(title: "Inappropriate Content", message: "Select an option", preferredStyle: .ActionSheet)
-        let blockUser = UIAlertAction(title: "Block User", style: .Default, handler:confirmingBlockUser)
-        let Report = UIAlertAction(title: "Report Inappropriate", style: .Default, handler: confirmingReport)
-        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler:nil)
+        let alertController = UIAlertController(title: "Inappropriate Content", message: "Select an option", preferredStyle: .actionSheet)
+        let blockUser = UIAlertAction(title: "Block User", style: .default, handler:confirmingBlockUser)
+        let Report = UIAlertAction(title: "Report Inappropriate", style: .default, handler: confirmingReport)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler:nil)
         alertController.addAction(blockUser)
         alertController.addAction(Report)
         alertController.addAction(cancel)
         
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
-    func confirmingReport(alert: UIAlertAction!) {
-        let secondAlertController = UIAlertController(title: "Report Post", message: "Are you sure you want to report this post?", preferredStyle: .Alert)
-        let confirm = UIAlertAction(title: "Yes", style: .Default, handler:reportConfirmed)
-        let cancel = UIAlertAction(title: "No", style: .Cancel, handler: nil)
+    func confirmingReport(_ alert: UIAlertAction!) {
+        let secondAlertController = UIAlertController(title: "Report Post", message: "Are you sure you want to report this post?", preferredStyle: .alert)
+        let confirm = UIAlertAction(title: "Yes", style: .default, handler:reportConfirmed)
+        let cancel = UIAlertAction(title: "No", style: .cancel, handler: nil)
         secondAlertController.addAction(confirm)
         secondAlertController.addAction(cancel)
-        self.presentViewController(secondAlertController, animated: true, completion: nil)
+        self.present(secondAlertController, animated: true, completion: nil)
     }
     
-    func reportConfirmed(alert:UIAlertAction!) {
-        let thirdAlertController = UIAlertController(title: "Post Report", message: "This post has been flagged as inappropriate", preferredStyle: .Alert)
-        let okay = UIAlertAction(title: "Okay", style: .Cancel, handler: flagReference)
+    func reportConfirmed(_ alert:UIAlertAction!) {
+        let thirdAlertController = UIAlertController(title: "Post Report", message: "This post has been flagged as inappropriate", preferredStyle: .alert)
+        let okay = UIAlertAction(title: "Okay", style: .cancel, handler: flagReference)
         thirdAlertController.addAction(okay)
-        self.presentViewController(thirdAlertController, animated: true, completion: nil)
+        self.present(thirdAlertController, animated: true, completion: nil)
     }
     
-    func flagReference(alert: UIAlertAction!) {
+    func flagReference(_ alert: UIAlertAction!) {
         flagRef = DataService.ds.REF_POSTS.child(post.postKey).child("flags").child(user.userKey!)
-        flagRef.observeSingleEventOfType(.Value, withBlock: { snapshot in //check value only once
+        flagRef.observeSingleEvent(of: .value, with: { snapshot in //check value only once
             if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
                 self.flagRef.setValue(true)
             } else {
@@ -198,32 +198,32 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     }
     
     
-    func confirmingBlockUser(alert: UIAlertAction!) {
-        let secondAlertController = UIAlertController(title: "Block User", message: "Are you sure you want to block this user?", preferredStyle: .Alert)
-        let confirm = UIAlertAction(title: "Yes", style: .Default, handler:blockUserConfirmed)
-        let cancel = UIAlertAction(title: "No", style: .Cancel, handler: nil)
+    func confirmingBlockUser(_ alert: UIAlertAction!) {
+        let secondAlertController = UIAlertController(title: "Block User", message: "Are you sure you want to block this user?", preferredStyle: .alert)
+        let confirm = UIAlertAction(title: "Yes", style: .default, handler:blockUserConfirmed)
+        let cancel = UIAlertAction(title: "No", style: .cancel, handler: nil)
         secondAlertController.addAction(confirm)
         secondAlertController.addAction(cancel)
-        self.presentViewController(secondAlertController, animated: true, completion: nil)
+        self.present(secondAlertController, animated: true, completion: nil)
     }
     
-    func blockUserConfirmed(alert:UIAlertAction!) {
-        let thirdAlertController = UIAlertController(title: "User Blocked", message: "You have blocked this user", preferredStyle: .Alert)
-        let okay = UIAlertAction(title: "Okay", style: .Cancel, handler: blockReference)
+    func blockUserConfirmed(_ alert:UIAlertAction!) {
+        let thirdAlertController = UIAlertController(title: "User Blocked", message: "You have blocked this user", preferredStyle: .alert)
+        let okay = UIAlertAction(title: "Okay", style: .cancel, handler: blockReference)
         thirdAlertController.addAction(okay)
-        self.presentViewController(thirdAlertController, animated: true, completion: nil)
+        self.present(thirdAlertController, animated: true, completion: nil)
     }
 
     
     func createPost() {
-            if let txt = postField.text where txt != ""{
-                if let img = imageSelectorImage.image where imageSelected == true {
+            if let txt = postField.text, txt != ""{
+                if let img = imageSelectorImage.image, imageSelected == true {
                     let urlStr = "https://post.imageshack.us/upload_api.php" //imageshack api website endpoint
-                    let url = NSURL(string:urlStr)!
+                    let url = URL(string:urlStr)!
                     //Alamofire only takes in NSData
                     let imgData = UIImageJPEGRepresentation(img, 0.2)! //0.2 is really compressed converted to jpeg
-                    let keyData = API_Key.dataUsingEncoding(NSUTF8StringEncoding)! //converting string into data
-                    let keyJSON = "json".dataUsingEncoding(NSUTF8StringEncoding)! //converts json to data , unwraps to eliminate errors
+                    let keyData = API_Key.data(using: String.Encoding.utf8)! //converting string into data
+                    let keyJSON = "json".data(using: String.Encoding.utf8)! //converts json to data , unwraps to eliminate errors
                     var imageLink = ""
                     //uploads on alamofire in correct imageshack parameter format
                     Alamofire.upload(.POST, url, multipartFormData: { multipartFormData in //what special data to include in http post data.
@@ -253,25 +253,25 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                     }
                 } else {
                     let alert = Helper.showErrorAlert("Image Required", msg: "You must select an image")
-                    presentViewController(alert, animated: true, completion: nil)
+                    present(alert, animated: true, completion: nil)
                 }
             } else {
                 let alert = Helper.showErrorAlert("Description Required", msg: "You must enter a description")
-                presentViewController(alert, animated: true, completion: nil)
+                present(alert, animated: true, completion: nil)
             }
         
     }
     
-    func blockReference(alert: UIAlertAction!) {
+    func blockReference(_ alert: UIAlertAction!) {
         blockRef = DataService.ds.REF_USER_CURRENT.child("blacklist")
         let blacklistUid: Dictionary <String,String> = ["1": self.Uid]
         self.blockRef.updateChildValues(blacklistUid)
     }
 
-    func postToFirebase(imgUrl: String?) {
-        let theUid = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) as! String
+    func postToFirebase(_ imgUrl: String?) {
+        let theUid = UserDefaults.standard.value(forKey: KEY_UID) as! String
         let Uid = DataService.ds.REF_USER_CURRENT
-        Uid.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        Uid.observeSingleEvent(of: .value, with: { snapshot in
             if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
                 let key = snapshot.key
                 let user = User(userKey: key, dictionary: userDict)
@@ -295,15 +295,15 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                 self.imageSelected = false
                 self.tableView.reloadData()
                 
-                let postAlertController = UIAlertController(title: "Post", message: "You just made a post!", preferredStyle: .Alert)
-                let okay = UIAlertAction(title: "OK", style: .Default) { (UIAlertAction) in
+                let postAlertController = UIAlertController(title: "Post", message: "You just made a post!", preferredStyle: .alert)
+                let okay = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
                     
                 }
-                self.presentViewController(postAlertController, animated: true, completion: nil)
+                self.present(postAlertController, animated: true, completion: nil)
                 postAlertController.addAction(okay)
             }
 
-            }, withCancelBlock: {error in
+            }, withCancel: {error in
                 print(error.description)
         })
      

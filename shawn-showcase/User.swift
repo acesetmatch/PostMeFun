@@ -10,16 +10,16 @@ import Foundation
 import Firebase
 
 class User {
-    private var _username: String!
-    private var _userKey: String!
-    private var _blacklistUserKey: String!
-    private var _userRef: FIRDatabaseReference!
-    private var _userblacklistRef: FIRDatabaseReference!
-    private var _profileImageUrl: String?
-    private var _firstName: String!
-    private var _lastName: String!
-    private var _email: String!
-    private var _blacklist: Dictionary < Int, String >?
+    fileprivate var _username: String!
+    fileprivate var _userKey: String!
+    fileprivate var _blacklistUserKey: String!
+    fileprivate var _userRef: FIRDatabaseReference!
+    fileprivate var _userblacklistRef: FIRDatabaseReference!
+    fileprivate var _profileImageUrl: String?
+    fileprivate var _firstName: String!
+    fileprivate var _lastName: String!
+    fileprivate var _email: String!
+    fileprivate var _blacklist: Dictionary < Int, String >?
     
     var username: String {
         return _username

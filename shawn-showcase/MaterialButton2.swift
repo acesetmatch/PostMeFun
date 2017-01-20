@@ -12,7 +12,7 @@ class MaterialButton2: UIButton {
 
     override func awakeFromNib() {
         layer.borderWidth = 0.5;
-        layer.borderColor = UIColor.blackColor().CGColor
+        layer.borderColor = UIColor.black.cgColor
     }
 
 }

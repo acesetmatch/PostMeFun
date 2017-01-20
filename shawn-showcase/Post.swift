@@ -10,15 +10,15 @@ import Foundation
 import Firebase
 import Alamofire
 class Post {
-    private var _postDescription: String! //exclamation is required
-    private var _postKey: String!
-    private var _postRef: FIRDatabaseReference!
-    private var _imageUrl: String?
-    private var _likes: Int!
-    private var _flags: Int!
-    private var _username: String?
-    private var _profileImageUrl: String?
-    private var _Uid: String!
+    fileprivate var _postDescription: String! //exclamation is required
+    fileprivate var _postKey: String!
+    fileprivate var _postRef: FIRDatabaseReference!
+    fileprivate var _imageUrl: String?
+    fileprivate var _likes: Int!
+    fileprivate var _flags: Int!
+    fileprivate var _username: String?
+    fileprivate var _profileImageUrl: String?
+    fileprivate var _Uid: String!
         
     var postDescription: String {
         return _postDescription
@@ -99,7 +99,7 @@ class Post {
     
     }
     
-    func adjustLikes(addLike: Bool) {
+    func adjustLikes(_ addLike: Bool) {
         
         if addLike {
             _likes = _likes + 1
@@ -110,7 +110,7 @@ class Post {
         _postRef.child("likes").setValue(_likes)
     }
     
-    func adjustFlags(addFlag: Bool) {
+    func adjustFlags(_ addFlag: Bool) {
         
         if addFlag {
             _flags = _flags + 1

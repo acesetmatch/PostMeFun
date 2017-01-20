@@ -16,9 +16,9 @@ class DataService {
     
     static let ds = DataService() //static variable, one instance in memory so people don't destroy it.
     
-    private var _REF_BASE = URL_BASE //reference to specific Firebase account
-    private var _REF_POSTS = URL_BASE.child("posts")
-    private var _REF_USERS = URL_BASE.child("users")
+    fileprivate var _REF_BASE = URL_BASE //reference to specific Firebase account
+    fileprivate var _REF_POSTS = URL_BASE.child("posts")
+    fileprivate var _REF_USERS = URL_BASE.child("users")
     
     var REF_BASE: FIRDatabaseReference {
         return _REF_BASE
@@ -33,18 +33,18 @@ class DataService {
     }
     
     var REF_USER_CURRENT: FIRDatabaseReference {
-        let uid = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) as! String
+        let uid = UserDefaults.standard.value(forKey: KEY_UID) as! String
         let user = URL_BASE.child("users").child(uid)
         return user
     }
     
     var REF_POST_CURRENT: FIRDatabaseReference {
-        let uid = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) as! String
+        let uid = UserDefaults.standard.value(forKey: KEY_UID) as! String
         let user = URL_BASE.child("posts").child(uid)
         return user
     }
     
-    func createFirebaseUser(uid: String, user: Dictionary <String, String>) {
-        REF_USERS.childByAppendingPath(uid).updateChildValues(user) //setValue will save uid for the whole path or creates a new one
+    func createFirebaseUser(_ uid: String, user: Dictionary <String, String>) {
+        REF_USERS.child(byAppendingPath: uid).updateChildValues(user) //setValue will save uid for the whole path or creates a new one
     }
 }

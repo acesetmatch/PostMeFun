@@ -9,8 +9,8 @@
 import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
-import Alamofire
 import Firebase
+import Alamofire
 
 
 class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -42,26 +42,26 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         
         imagePickerUser = UIImagePickerController()
         imagePickerUser.delegate = self
-        let darkBlur = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        let darkBlur = UIBlurEffect(style: UIBlurEffectStyle.dark)
         let blurView = UIVisualEffectView(effect: darkBlur)
         blurView.frame = backgroundImg.bounds
-        blurView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         backgroundImg.addSubview(blurView)
         
-        addBtn.hidden = false
-        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+        addBtn.isHidden = false
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
         imagePickerUser.navigationBar.barTintColor = UIColor(red: 70/255.0, green: 90/255, blue: 255/255.0, alpha: 1.0)
         initObservers()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.setHidesBackButton(true, animated: true)
-        self.navigationController?.navigationBarHidden = false
+        self.navigationController?.isNavigationBarHidden = false
     }
     
     func initObservers() {
-        DataService.ds.REF_USER_CURRENT.observeEventType(.Value, withBlock: { snapshot in
+        DataService.ds.REF_USER_CURRENT.observe(.value, with: { snapshot in
             if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
                 let key = snapshot.key
                 let user = User(userKey: key, dictionary: userDict)
@@ -70,14 +70,15 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
                 self.emailTxtField.text = user.email
                 self.usernameTxtField.text = user.username
                 if let proUrl = user.profileImageUrl {
-                    self.proImg = FeedVC.imageCache.objectForKey(proUrl) as? UIImage //passing image from the cache if it exists. Returns value of the key(url). FeedVC is single instance
+                    self.proImg = FeedVC.imageCache.object(forKey: proUrl as AnyObject) as? UIImage //passing image from the cache if it exists. Returns value of the key(url). FeedVC is single instance
                     if user.profileImageUrl != nil {
                         if self.proImg != nil {
                             self.ProfileImg.image = self.proImg
                             self.backgroundImg.image = self.proImg
                         } else {
-                            self.request = Alamofire.request(.GET, user.profileImageUrl!).validate(contentType: ["image/*"]).response(completionHandler: { request, response, data, err in
-                                
+//                            self.request = Alamofire.request(.GET, user.profileImageUrl!).validate(contentType: ["image/*"]).response(completionHandler: { request, response, data, err in
+                            Alamofire.request(<#T##urlRequest: URLRequestConvertible##URLRequestConvertible#>)
+                            self.request = Alamofire.request(user.profileImageUrl, method: .get, parameters: <#T##Parameters?#>, encoding: <#T##ParameterEncoding#>, headers: <#T##HTTPHeaders?#>).validate(contentType: ["image/*"]).response(completionHandler: { (request, response, data, err ) in
                                 if err == nil {
                                     if let ProfileImage = UIImage(data: data!) {
                                         self.ProfileImg.image = ProfileImage
@@ -88,7 +89,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
                         }
                         
                     } else {
-                        self.ProfileImg.hidden = false
+                        self.ProfileImg.isHidden = false
                     }
                     
                 }
@@ -99,41 +100,70 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        imagePickerUser.dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        imagePickerUser.dismiss(animated: true, completion: nil)
         ProfileImg.image = image
         backgroundImg.image = image
         imageSelected = true
-        
+    }
+    
+    @IBAction func addBtnPressed(_ sender: UIButton){
+        present(imagePickerUser, animated: true, completion: nil)
 
     }
     
-    @IBAction func addBtnPressed(sender: UIButton){
-        presentViewController(imagePickerUser, animated: true, completion: nil)
-
-    }
-    
-    @IBAction func StartPosting(sender: AnyObject!) {
-            if let profileimage = ProfileImg.image where imageSelected == true {
+    @IBAction func StartPosting(_ sender: AnyObject!) {
+            if let profileimage = ProfileImg.image, imageSelected == true {
                         let urlStr = "https://post.imageshack.us/upload_api.php" //imageshack api website endpoint
-                        let url = NSURL(string:urlStr)!
+                        let url = URL(string:urlStr)!
                 
                         //Alamofire only takes in NSData so convert image, key, and json format into data
                         let imgData = UIImageJPEGRepresentation(profileimage, 0.2)! //0.2 is really compressed converted to jpeg
-                        let keyData = API_Key.dataUsingEncoding(NSUTF8StringEncoding)! //converting string into data. NSUTF8StringEncoding is standard encoding format for strings.
-                        let keyJSON = "json".dataUsingEncoding(NSUTF8StringEncoding)! //converts json to data , unwraps to eliminate errors
+                        let keyData = API_Key.data(using: String.Encoding.utf8)! //converting string into data. NSUTF8StringEncoding is standard encoding format for strings.
+                        let keyJSON = "json".data(using: String.Encoding.utf8)! //converts json to data , unwraps to eliminate errors
                         //uploads on alamofire in correct imageshack parameter format
-                        Alamofire.upload(.POST, url, multipartFormData: { multipartFormData in
-                            
-                            multipartFormData.appendBodyPart(data: imgData, name: "fileupload", fileName: "image", mimeType: "image/jpg") //Passing in the key and value of image for imageshack parameters
-                            multipartFormData.appendBodyPart(data: keyData, name: "key") //name = key, data = keyData
+                        Alamofire.upload(multipartFormData: { (multipartFormData) in
+                            multipartFormData.append(imgData, withName: "fileupload", fileName: "image", mimeType: "image/jpg")
+                            multipartFormData.append(keyData, withName: "key")
+                            multipartFormData.append(keyJSON, withName: "format")
+                             //multipartFormData.append(data: imgData, name: "fileupload", fileName: "image", mimeType: "image/jpg")
+                            //Passing in the key and value of image for imageshack parameters
+                            //multipartFormData.appendBodyPart(data: keyData, name: "key")
+                            //name = key, data = keyData
+                            //multipartFormData.appendBodyPart(data: keyJSON, name: "format"
+                            //when upload is done
+                        }, to: url, encodingCompletion: { (result) in
+                            switch result {
+                            case .success(let upload, _, _): //.success is a closure, if it is success we want to upload response JSON from server
+                                upload.responseJSON { response in
+                                    if let info = response.result.value as? Dictionary<String, AnyObject> { //returns JSON format of primary dictionary and (string, anyobject)
+                                        if let links = info["links"] as? Dictionary<String, AnyObject> { //returns the secondary dictionary of links
+                                            if let imgLink = links["image_link"] as? String {
+                                                self.UpdateUserImageToFirebase(imgLink)
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                            case .failure(let encodingError):
+                                print(encodingError)
+                                
+                            }
+                        })
+                
+                /*
+                        Alamofire.upload(multipartFormData: { (multipartFormData) in
+                            /*
+                            multipartFormData.appendBodyPart(data: imgData, name: "fileupload", fileName: "image", mimeType: "image/jpg") Passing in the key and value of image for imageshack parameters
+                            multipartFormData.appendBodyPart(data: keyData, name: "key") name = key, data = keyData
                             multipartFormData.appendBodyPart(data: keyJSON, name: "format")
+                            */
                             
                             //when upload is done
-                            }) { encodingResult in
-                                switch encodingResult {
+                        }, with: url, encodingCompletion: {(result) in
+                                switch result {
                                 case .Success(let upload, _, _): //.success is a closure, if it is success we want to upload response JSON from server
-                                    upload.responseJSON(completionHandler: { response in
+                                    upload.responseJSON { response in
                                         if let info = response.result.value as? Dictionary<String, AnyObject> { //returns JSON format of primary dictionary and (string, anyobject)
                                             if let links = info["links"] as? Dictionary<String, AnyObject> { //returns the secondary dictionary of links
                                                 if let imgLink = links["image_link"] as? String {
@@ -141,68 +171,69 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
                                                 }
                                             }
                                         }
-                                    })
+                                    }
                                     
-                                case .Failure(let error):
+                                case .Failure(let encodingError):
                                     print(error)
                                 }
-                }
+                })
+                */
                 } else {
                     self.UpdateUserImageToFirebase(nil)
                 }
             
-            self.performSegueWithIdentifier("usernameSet", sender: nil)
+            self.performSegue(withIdentifier: "usernameSet", sender: nil)
 
     }
     
-        
-    @IBAction func logOut(unwindSegue: UIStoryboardSegue){
-        
-        let alertmessage = UIAlertController(title: "Are you sure you want to log out?", message: "Pressing ok will log you out!", preferredStyle: .Alert)
-        let okayAction = UIAlertAction(title: "OK", style: .Default, handler: unAuthenticateUser)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive, handler: nil)
+    
+    @IBAction func logOut(_ unwindSegue: UIStoryboardSegue){
+    
+        let alertmessage = UIAlertController(title: "Are you sure you want to log out?", message: "Pressing ok will log you out!", preferredStyle: .alert)
+        let okayAction = UIAlertAction(title: "OK", style: .default, handler: unAuthenticateUser)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
         alertmessage.addAction(okayAction)
         alertmessage.addAction(cancelAction)
-        presentViewController(alertmessage, animated: true, completion: nil)
+        present(alertmessage, animated: true, completion: nil)
         
     }
     
     
     
-    @IBAction func settingsOnPressed(sender: AnyObject) {
-        self.performSegueWithIdentifier("settingsSet", sender: nil)
+    @IBAction func settingsOnPressed(_ sender: AnyObject) {
+        self.performSegue(withIdentifier: "settingsSet", sender: nil)
     }
     
     
 
     
-    func unAuthenticateUser(alert: UIAlertAction!) {
+    func unAuthenticateUser(_ alert: UIAlertAction!) {
         try! FIRAuth.auth()?.signOut()
        
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.stringForKey("storedEmail") != "" && defaults.stringForKey("storedPassword") != "" {
-            defaults.removeObjectForKey("storedEmail")
-            defaults.removeObjectForKey("storedPassword")
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "storedEmail") != "" && defaults.string(forKey: "storedPassword") != "" {
+            defaults.removeObject(forKey: "storedEmail")
+            defaults.removeObject(forKey: "storedPassword")
         }
-        self.performSegueWithIdentifier("loggingOutofUsername", sender: nil)
-        self.navigationController?.navigationBarHidden = true;
+        self.performSegue(withIdentifier: "loggingOutofUsername", sender: nil)
+        self.navigationController?.isNavigationBarHidden = true;
     }
     
 
     
-    func displayAlertError(Title: String, Message: String) {
-        let alertmessage = UIAlertController(title: Title, message: Message, preferredStyle: .Alert)
-        let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+    func displayAlertError(_ Title: String, Message: String) {
+        let alertmessage = UIAlertController(title: Title, message: Message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertmessage.addAction(action)
-        presentViewController(alertmessage, animated: true, completion: nil)
+        present(alertmessage, animated: true, completion: nil)
         
     }
     
 
-    func UpdateUserImageToFirebase(profileimgUrl: String?) {
+    func UpdateUserImageToFirebase(_ profileimgUrl: String?) {
         let firebaseProfile = DataService.ds.REF_USER_CURRENT//creates new database entry of autoid
         if profileimgUrl != nil {
-            let ProfileimgUrl: Dictionary < String, AnyObject > = ["profileUrl":profileimgUrl!]
+            let ProfileimgUrl: Dictionary < String, AnyObject > = ["profileUrl":profileimgUrl! as AnyObject]
             firebaseProfile.updateChildValues(ProfileimgUrl) //set post of new child autoid into firebase
         }
     }

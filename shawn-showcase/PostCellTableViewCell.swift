@@ -38,22 +38,22 @@ class PostCellTableViewCell: UITableViewCell {
         let tap = UITapGestureRecognizer(target: self, action: #selector(PostCellTableViewCell.likeTapped(_:))) //colon passes tap gesture recognizer.
         tap.numberOfTapsRequired = 1
         likeImage.addGestureRecognizer(tap)
-        likeImage.userInteractionEnabled = true
+        likeImage.isUserInteractionEnabled = true
         profileImg.layer.cornerRadius = profileImg.frame.size.width/2
         profileImg.clipsToBounds = true
         showcaseImg.clipsToBounds = true
         showcaseImg.layer.cornerRadius = 10.0
-        returnButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
+        returnButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
     }
     
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
-    func configureCell(post: Post, img: UIImage?, ProfileImage: UIImage?) {
+    func configureCell(_ post: Post, img: UIImage?, ProfileImage: UIImage?) {
         self.post = post
         likeRef = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey)
         flagRef = DataService.ds.REF_USER_CURRENT.child("flags").child(post.postKey)
@@ -76,7 +76,7 @@ class PostCellTableViewCell: UITableViewCell {
                 })
             }
         } else {
-            self.showcaseImg.hidden = true
+            self.showcaseImg.isHidden = true
         }
         
         if post.profileImageUrl != nil {
@@ -95,11 +95,11 @@ class PostCellTableViewCell: UITableViewCell {
             }
     
         } else {
-            self.profileImg.hidden = false
+            self.profileImg.isHidden = false
         }
         
   
-        likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in //check value only once
+        likeRef.observeSingleEvent(of: .value, with: { snapshot in //check value only once
             if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
                 self.likeImage.image = UIImage(named: "heart-empty")
             } else {
@@ -108,8 +108,8 @@ class PostCellTableViewCell: UITableViewCell {
         })
     }
     
-    func likeTapped(sender: UITapGestureRecognizer) {
-        likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in //check value only once
+    func likeTapped(_ sender: UITapGestureRecognizer) {
+        likeRef.observeSingleEvent(of: .value, with: { snapshot in //check value only once
             if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
                 self.likeImage.image = UIImage(named: "heart-full")
                 self.post.adjustLikes(true)

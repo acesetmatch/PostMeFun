@@ -23,17 +23,17 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: false)
-        self.navigationController?.navigationBarHidden = true;
+        self.navigationController?.isNavigationBarHidden = true;
         signUpBtn.layer.borderWidth = 1.0
-        signUpBtn.layer.borderColor = UIColor(red: 70.0/255.0, green: 90.0/255.0, blue: 255.0, alpha: borderAlpha).CGColor
-        if NSUserDefaults.standardUserDefaults().boolForKey("TermsAccepted") {
+        signUpBtn.layer.borderColor = UIColor(red: 70.0/255.0, green: 90.0/255.0, blue: 255.0, alpha: borderAlpha).cgColor
+        if UserDefaults.standard.bool(forKey: "TermsAccepted") {
         
         } else {
-            self.performSegueWithIdentifier("returnToTerms", sender: nil)
+            self.performSegue(withIdentifier: "returnToTerms", sender: nil)
         }
         
-        let memoryEmail = NSUserDefaults.standardUserDefaults().stringForKey("storedEmail")
-        let memoryPassword = NSUserDefaults.standardUserDefaults().stringForKey("storedPassword")
+        let memoryEmail = UserDefaults.standard.string(forKey: "storedEmail")
+        let memoryPassword = UserDefaults.standard.string(forKey: "storedPassword")
         
         if memoryEmail != nil && memoryPassword != nil {
             emailField.text = memoryEmail
@@ -43,107 +43,107 @@ class ViewController: UIViewController {
 
     }
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         view.endEditing(true)
-        super.touchesBegan(touches, withEvent: event)
+        super.touchesBegan(touches, with: event)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.navigationController?.navigationBarHidden = true;
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
-        self.errorLbl.hidden = true
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
+        self.navigationController?.isNavigationBarHidden = true;
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        self.errorLbl.isHidden = true
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         emailField.text = ""
         passwordField.text = ""
 
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    func keyboardWillHide(sender: NSNotification) {
-        let userInfo: [NSObject : AnyObject] = sender.userInfo!
-        let animationDuration: Double = userInfo[UIKeyboardAnimationDurationUserInfoKey]!.doubleValue
-        UIView.animateWithDuration(animationDuration, animations: { () -> Void in
+    func keyboardWillHide(_ sender: Notification) {
+        let userInfo: [AnyHashable: Any] = sender.userInfo!
+        let animationDuration: Double = (userInfo[UIKeyboardAnimationDurationUserInfoKey]! as AnyObject).doubleValue
+        UIView.animate(withDuration: animationDuration, animations: { () -> Void in
             self.view.frame.origin.y = 0
         })
 
     }
     
-    func keyboardWillShow(sender: NSNotification) {
+    func keyboardWillShow(_ sender: Notification) {
         
-        let userInfo: [NSObject : AnyObject] = sender.userInfo!
-        let endSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]!.CGRectValue.size
-        let animationDuration: Double = userInfo[UIKeyboardAnimationDurationUserInfoKey]!.doubleValue
+        let userInfo: [AnyHashable: Any] = sender.userInfo!
+        let endSize: CGSize = (userInfo[UIKeyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue.size
+        let animationDuration: Double = (userInfo[UIKeyboardAnimationDurationUserInfoKey]! as AnyObject).doubleValue
         
-        UIView.animateWithDuration(animationDuration, animations: { () -> Void in
+        UIView.animate(withDuration: animationDuration, animations: { () -> Void in
             self.view.frame.origin.y = -endSize.height/2
         })
     }
     
 
-    @IBAction func attemptLogin(sender:UIButton!) {
-        if let email = emailField.text where email != "", let pwd = passwordField.text where pwd != "" {
-            FIRAuth.auth()?.signInWithEmail(email, password: pwd, completion: { (user,error) in
+    @IBAction func attemptLogin(_ sender:UIButton!) {
+        if let email = emailField.text, email != "", let pwd = passwordField.text, pwd != "" {
+            FIRAuth.auth()?.signIn(withEmail: email, password: pwd, completion: { (user,error) in
                     if (error != nil) {
                         print(error)
                         
-                          if error!.code == STATUS_ACCOUNT_NONEXIST {
-                            self.errorLbl.hidden = false
+                          if error!._code == STATUS_ACCOUNT_NONEXIST {
+                            self.errorLbl.isHidden = false
                             self.errorLbl.text = "User does not exist"
                           }
 
-                          if error!.code == INVALID_EMAIL {
-                             self.errorLbl.hidden = false
+                          if error!._code == INVALID_EMAIL {
+                             self.errorLbl.isHidden = false
                             self.errorLbl.text = "Invalid Email"
                           }
-                          if error!.code == INCORRECT_PASSWORD {
-                            self.errorLbl.hidden = false
+                          if error!._code == INCORRECT_PASSWORD {
+                            self.errorLbl.isHidden = false
                             self.errorLbl.text = "Incorrect Password"
                           }
                         
                     } else {
-                        NSUserDefaults.standardUserDefaults().setValue(user!.uid, forKey: KEY_UID)
+                        UserDefaults.standard.setValue(user!.uid, forKey: KEY_UID)
                         let storedEmail = self.emailField.text
                         let storedPassword = self.passwordField.text
-                        NSUserDefaults.standardUserDefaults().setValue(storedEmail, forKey: "storedEmail")
-                        NSUserDefaults.standardUserDefaults().setValue(storedPassword, forKey: "storedPassword")
+                        UserDefaults.standard.setValue(storedEmail, forKey: "storedEmail")
+                        UserDefaults.standard.setValue(storedPassword, forKey: "storedPassword")
                         self.pushToProfile()
 
                     }
                 })
         } else {
             let alert = Helper.showErrorAlert("Email and Password Required", msg: "You must enter an email and a password")
-            presentViewController(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
         }
     }
     
-    @IBAction func signUpOnPressed(sender:UIButton!) {
-        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
-        self.performSegueWithIdentifier("signUp", sender: nil)
-        self.navigationController?.navigationBarHidden = false;
+    @IBAction func signUpOnPressed(_ sender:UIButton!) {
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
+        self.performSegue(withIdentifier: "signUp", sender: nil)
+        self.navigationController?.isNavigationBarHidden = false;
 
     }
     
-    @IBAction func returnToLogin(segue: UIStoryboardSegue) {
+    @IBAction func returnToLogin(_ segue: UIStoryboardSegue) {
         
     }
     
-    @IBAction func loggingOutofUsername(segue: UIStoryboardSegue) {
+    @IBAction func loggingOutofUsername(_ segue: UIStoryboardSegue) {
        
     }
     
-    @IBAction func returnToRootView(segue: UIStoryboardSegue) {
+    @IBAction func returnToRootView(_ segue: UIStoryboardSegue) {
         
     }
     
     
     func pushToProfile() {
-        let usernameVCViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UsernameVCViewController") as? UsernameVCViewController
+        let usernameVCViewController = self.storyboard?.instantiateViewController(withIdentifier: "UsernameVCViewController") as? UsernameVCViewController
         self.navigationController?.pushViewController(usernameVCViewController!, animated: true)
     }
     

@@ -25,27 +25,27 @@ class PassTouchesScrollView: UIScrollView {
         super.init(coder: aDecoder)
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         // Notify it's delegate about touched
         self.delegatePass?.touchBegan()
         
-        if self.dragging == true {
-            self.nextResponder()?.touchesBegan(touches, withEvent: event)
+        if self.isDragging == true {
+            self.next?.touchesBegan(touches, with: event)
         } else {
-            super.touchesBegan(touches, withEvent: event)
+            super.touchesBegan(touches, with: event)
         }
         
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?)  {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)  {
         
         // Notify it's delegate about touched
         self.delegatePass?.touchMoved()
         
-        if self.dragging == true {
-            self.nextResponder()?.touchesMoved(touches, withEvent: event)
+        if self.isDragging == true {
+            self.next?.touchesMoved(touches, with: event)
         } else {            
-            super.touchesMoved(touches, withEvent: event)
+            super.touchesMoved(touches, with: event)
         }
     }
 

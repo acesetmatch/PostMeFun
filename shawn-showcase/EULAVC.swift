@@ -16,15 +16,15 @@ class EULAVC: UIViewController {
     }
     
     
-    @IBAction func agreePressed(sender: AnyObject?) {
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "TermsAccepted")
-        self.performSegueWithIdentifier("returnToLogin", sender: self)
+    @IBAction func agreePressed(_ sender: AnyObject?) {
+        UserDefaults.standard.set(true, forKey: "TermsAccepted")
+        self.performSegue(withIdentifier: "returnToLogin", sender: self)
 
     }
     
-    @IBAction func disagreePressed(sender:AnyObject?) {
+    @IBAction func disagreePressed(_ sender:AnyObject?) {
         let alert = Helper.showErrorAlert("License Agreement", msg: "You must agree to the terms and conditions to continue")
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
 
     }
 
