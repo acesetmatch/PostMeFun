@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import Firebase
+import FirebaseStorage
 
 protocol PostCellTableViewDelegate {
     func returnTapped()
@@ -65,15 +66,32 @@ class PostCellTableViewCell: UITableViewCell {
                 self.showcaseImg.image = img
             } else {
                 //getting an image request then call the response
-                request = Alamofire.request(.GET, post.imageUrl!).validate(contentType: ["image/*"]).response(completionHandler: { request, response, data, err in
+                if let imageURL = post.imageUrl {
+                    let ref = FIRStorage.storage().reference(forURL: imageURL)
+                    ref.data(withMaxSize: 2 * 1024 * 1024, completion: { (data, error) in
+                        if error != nil {
+                            print("unable to download image from Firebase Storage")
+                        } else {
+                            print("image downloaded")
+                            if let imgData = data {
+                                if let img = UIImage(data: imgData) {
+                                    self.showcaseImg.image = img
+                                    FeedVC.imageCache.setObject(img, forKey: post.imageUrl as AnyObject)
+                                }
+                            }
+                        }
+                    })
+                }
                 
-                    if err == nil
-                    {
-                        let img = UIImage(data: data!)!
-                        self.showcaseImg.image = img
-                        FeedVC.imageCache.setObject(img, forKey: self.post.imageUrl!)
-                    }
-                })
+//                request = Alamofire.request(.GET, post.imageUrl!).validate(contentType: ["image/*"]).response(completionHandler: { request, response, data, err in
+//                
+//                    if err == nil
+//                    {
+//                        let img = UIImage(data: data!)!
+//                        self.showcaseImg.image = img
+//                        FeedVC.imageCache.setObject(img, forKey: self.post.imageUrl!)
+//                    }
+//                })
             }
         } else {
             self.showcaseImg.isHidden = true
@@ -106,6 +124,10 @@ class PostCellTableViewCell: UITableViewCell {
                 self.likeImage.image = UIImage(named: "heart-full")
             }
         })
+    }
+    
+    func downloadFromFirebaseStorage() {
+        
     }
     
     func likeTapped(_ sender: UITapGestureRecognizer) {
