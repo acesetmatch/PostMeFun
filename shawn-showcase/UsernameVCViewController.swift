@@ -100,6 +100,35 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     
+    func downloadFromFirebaseStorage(imageUrl: String, img: UIImage) {
+        if post.imageUrl != nil {
+            if img != nil {
+                outletImgView.image = img
+            } else {
+                //getting an image request then call the response
+                if let imageURL = post.imageUrl {
+                    let ref = FIRStorage.storage().reference(forURL: imageURL)
+                    ref.data(withMaxSize: 2 * 1024 * 1024, completion: { (data, error) in
+                        if error != nil {
+                            print("unable to download image from Firebase Storage")
+                        } else {
+                            print("image downloaded")
+                            if let imgData = data {
+                                if let img = UIImage(data: imgData) {
+                                    outletImgView.image = img
+                                    FeedVC.imageCache.setObject(img, forKey: self.post.imageUrl as AnyObject)
+                                }
+                            }
+                        }
+                    })
+                }
+            }
+        } else {
+            outletImgView.isHidden = true
+        }
+    }
+    
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         imagePickerUser.dismiss(animated: true, completion: nil)
         ProfileImg.image = image

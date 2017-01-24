@@ -8,10 +8,10 @@
 
 import Foundation
 import Firebase
-
+import FirebaseStorage
 let URL_BASE = FIRDatabase.database().reference()
 //"https://shawn-showcase.firebaseio.com/"
-
+let STORAGE_BASE = FIRStorage.storage().reference()
 class DataService {
     
     static let ds = DataService() //static variable, one instance in memory so people don't destroy it.
@@ -19,7 +19,8 @@ class DataService {
     fileprivate var _REF_BASE = URL_BASE //reference to specific Firebase account
     fileprivate var _REF_POSTS = URL_BASE.child("posts")
     fileprivate var _REF_USERS = URL_BASE.child("users")
-    
+    fileprivate var _REF_POST_IMAGES = STORAGE_BASE.child("post-pics")
+    fileprivate var _REF_PROFILE_IMAGES = STORAGE_BASE.child("profile-pics")
     var REF_BASE: FIRDatabaseReference {
         return _REF_BASE
     }
@@ -44,7 +45,16 @@ class DataService {
         return user
     }
     
+    var REF_POST_IMAGES: FIRStorageReference {
+        return _REF_POST_IMAGES
+    }
+    
+    var REF_PROFILE_IMAGES: FIRStorageReference {
+        return _REF_PROFILE_IMAGES
+    }
+    
     func createFirebaseUser(_ uid: String, user: Dictionary <String, String>) {
-        REF_USERS.child(byAppendingPath: uid).updateChildValues(user) //setValue will save uid for the whole path or creates a new one
+//        REF_USERS.child(byAppendingPath: uid).updateChildValues(user) //setValue will save uid for the whole path or creates a new one
+        REF_USERS.child(uid).updateChildValues(user)
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import Alamofire
-
+import FirebaseStorage
 
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
@@ -210,55 +210,88 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     func blockUserConfirmed(_ alert:UIAlertAction!) {
         let thirdAlertController = UIAlertController(title: "User Blocked", message: "You have blocked this user", preferredStyle: .alert)
         let okay = UIAlertAction(title: "Okay", style: .cancel, handler: blockReference)
+            
         thirdAlertController.addAction(okay)
         self.present(thirdAlertController, animated: true, completion: nil)
     }
 
     
     func createPost() {
-            if let txt = postField.text, txt != ""{
-                if let img = imageSelectorImage.image, imageSelected == true {
-                    let urlStr = "https://post.imageshack.us/upload_api.php" //imageshack api website endpoint
-                    let url = URL(string:urlStr)!
-                    //Alamofire only takes in NSData
-                    let imgData = UIImageJPEGRepresentation(img, 0.2)! //0.2 is really compressed converted to jpeg
-                    let keyData = API_Key.data(using: String.Encoding.utf8)! //converting string into data
-                    let keyJSON = "json".data(using: String.Encoding.utf8)! //converts json to data , unwraps to eliminate errors
-                    var imageLink = ""
-                    //uploads on alamofire in correct imageshack parameter format
-                    Alamofire.upload(.POST, url, multipartFormData: { multipartFormData in //what special data to include in http post data.
-                        
-                        multipartFormData.appendBodyPart(data: imgData, name: "fileupload", fileName: "image", mimeType: "image/jpg") //Passing in the key and value of image for imageshack parameters
-                        multipartFormData.appendBodyPart(data: keyData, name: "key") //name = key, data = keyData
-                        multipartFormData.appendBodyPart(data: keyJSON, name: "format")
-                        
-                        //when upload is done
-                    }) { encodingResult in
-                        switch encodingResult {
-                        case .Success(let upload, _, _): //.success is a closure, if it is success we want response JSON from server
-                            upload.responseJSON(completionHandler: { response in
-                                if let info = response.result.value as? Dictionary<String, AnyObject> { //returns JSON format of primary dictionary and (string, anyobject)
-                                    if let links = info["links"] as? Dictionary<String, AnyObject> { //returns the secondary dictionary of links
-                                        if let imgLink = links["image_link"] as? String { //grabs the key image_link and gets the values as string
-                                            imageLink = imgLink
-                                            self.postToFirebase(imageLink)
-                                        }
-                                    }
-                                }
-                            })
-                            
-                        case .Failure(let error):
-                            print(error)
-                        }
-                    }
+        guard let text = postField.text, text != "" else {
+            let alert = Helper.showErrorAlert("Description Required", msg: "You must enter a description")
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        guard let img = imageSelectorImage.image, imageSelected == true else {
+            let alert = Helper.showErrorAlert("Image Required", msg: "You must select an image")
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        if let imgData = UIImageJPEGRepresentation(img, 0.2) {
+            let imgUid = NSUUID().uuidString
+            let metaData = FIRStorageMetadata()
+            metaData.contentType = "image/jpeg"
+            DataService.ds.REF_POST_IMAGES.child(imgUid).put(imgData, metadata: metaData) { (metadata, error) in
+                if error != nil {
+                    print("Unable to load image to Firebase Storage")
                 } else {
-                    let alert = Helper.showErrorAlert("Image Required", msg: "You must select an image")
-                    present(alert, animated: true, completion: nil)
+                    print("Successfully uploaded")
+                    let downloadURL = metaData.downloadURL()?.absoluteString
+                    self.postToFirebase(downloadURL)
                 }
-            } else {
-                let alert = Helper.showErrorAlert("Description Required", msg: "You must enter a description")
-                present(alert, animated: true, completion: nil)
             }
+        }
+        
+        
+        
+        
+        
+//        
+//            if let txt = postField.text, txt != ""{
+//                if let img = imageSelectorImage.image, imageSelected == true {
+//                    let urlStr = "https://post.imageshack.us/upload_api.php" //imageshack api website endpoint
+//                    let url = URL(string:urlStr)!
+//                    //Alamofire only takes in NSData
+//                    let imgData = UIImageJPEGRepresentation(img, 0.2)! //0.2 is really compressed converted to jpeg
+//                    let keyData = API_Key.data(using: String.Encoding.utf8)! //converting string into data
+//                    let keyJSON = "json".data(using: String.Encoding.utf8)! //converts json to data , unwraps to eliminate errors
+//                    var imageLink = ""
+//                    //uploads on alamofire in correct imageshack parameter format
+//                    Alamofire.upload(.POST, url, multipartFormData: { multipartFormData in //what special data to include in http post data.
+//                        
+//                        multipartFormData.appendBodyPart(data: imgData, name: "fileupload", fileName: "image", mimeType: "image/jpg") //Passing in the key and value of image for imageshack parameters
+//                        multipartFormData.appendBodyPart(data: keyData, name: "key") //name = key, data = keyData
+//                        multipartFormData.appendBodyPart(data: keyJSON, name: "format")
+//                        
+//                        //when upload is done
+//                    }) { encodingResult in
+//                        switch encodingResult {
+//                        case .Success(let upload, _, _): //.success is a closure, if it is success we want response JSON from server
+//                            upload.responseJSON(completionHandler: { response in
+//                                if let info = response.result.value as? Dictionary<String, AnyObject> { //returns JSON format of primary dictionary and (string, anyobject)
+//                                    if let links = info["links"] as? Dictionary<String, AnyObject> { //returns the secondary dictionary of links
+//                                        if let imgLink = links["image_link"] as? String { //grabs the key image_link and gets the values as string
+//                                            imageLink = imgLink
+//                                            self.postToFirebase(imageLink)
+//                                        }
+//                                    }
+//                                }
+//                            })
+//                            
+//                        case .Failure(let error):
+//                            print(error)
+//                        }
+//                    }
+//                } else {
+//                    let alert = Helper.showErrorAlert("Image Required", msg: "You must select an image")
+//                    present(alert, animated: true, completion: nil)
+//                }
+//            } else {
+//                let alert = Helper.showErrorAlert("Description Required", msg: "You must enter a description")
+//                present(alert, animated: true, completion: nil)
+//            }
         
     }
     
@@ -271,21 +304,21 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     func postToFirebase(_ imgUrl: String?) {
         let theUid = UserDefaults.standard.value(forKey: KEY_UID) as! String
         let Uid = DataService.ds.REF_USER_CURRENT
-        Uid.observeSingleEvent(of: .value, with: { snapshot in
+        Uid.observeSingleEvent(of: .value, with: { (snapshot) in
             if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
                 let key = snapshot.key
                 let user = User(userKey: key, dictionary: userDict)
                 let userProfileImg = user.profileImageUrl
                 let userUsername = user.username
-                var post: Dictionary < String, AnyObject >= ["Uid":theUid, "username": userUsername,
-                    "description" : self.postField.text!,
-                    "likes": 0]
+                var post: Dictionary < String, AnyObject >= ["Uid":theUid as AnyObject, "username": userUsername as AnyObject,
+                    "description" : self.postField.text! as AnyObject,
+                    "likes": 0 as AnyObject]
                 if imgUrl != nil {
-                    post["imageUrl"] = imgUrl!
+                    post["imageUrl"] = imgUrl! as AnyObject?
                 }
                 
                 if userProfileImg != nil {
-                    post["profileUrl"] = userProfileImg!
+                    post["profileUrl"] = userProfileImg! as AnyObject?
                 }
             
                 let firebasePost = DataService.ds.REF_POSTS.childByAutoId() //creates new database entry of autoid
@@ -302,11 +335,12 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                 self.present(postAlertController, animated: true, completion: nil)
                 postAlertController.addAction(okay)
             }
-
-            }, withCancel: {error in
-                print(error.description)
         })
-     
+//
+//        }) {(error) in
+//                print(error.localizedDescription)
+//        
+        
         
     }
 

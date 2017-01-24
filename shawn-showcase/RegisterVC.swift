@@ -127,7 +127,7 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                                 registerAlertController.addAction(okay)
                                 DataService.ds.createFirebaseUser(user!.uid, user: userData)
 //                                self.performSegueWithIdentifier("returnToLogin", sender: nil)
-                                self.navigationController?.popToRootViewController(animated: true)
+                                _ = self.navigationController?.popToRootViewController(animated: true)
                             }
                         })
                         
@@ -192,7 +192,7 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     }
     
     func okayPressed(_ alert:UIAlertAction!) {
-        self.navigationController?.popToRootViewController(animated: true)
+        _ = self.navigationController?.popToRootViewController(animated: true)
     }
 
     

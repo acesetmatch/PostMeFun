@@ -61,9 +61,25 @@ class PostCellTableViewCell: UITableViewCell {
         self.descriptionText.text = post.postDescription       //extracts like data from likes and sees if that post exists
         self.likesLbl.text = "\(post.likes)"
         self.usernameLbl.text = post.username
+        
+        if let img = img, let ProfileImage = ProfileImage {
+            downloadFromFirebaseStorage(imageUrl: post.imageUrl!, outletImgView: self.showcaseImg, img: img)
+            downloadFromFirebaseStorage(imageUrl: post.profileImageUrl!, outletImgView: self.profileImg, img: ProfileImage)
+        }
+
+        likeRef.observeSingleEvent(of: .value, with: { snapshot in //check value only once
+            if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
+                self.likeImage.image = UIImage(named: "heart-empty")
+            } else {
+                self.likeImage.image = UIImage(named: "heart-full")
+            }
+        })
+    }
+    
+    func downloadFromFirebaseStorage(imageUrl: String, outletImgView: UIImageView, img: UIImage) {
         if post.imageUrl != nil {
             if img != nil {
-                self.showcaseImg.image = img
+                outletImgView.image = img
             } else {
                 //getting an image request then call the response
                 if let imageURL = post.imageUrl {
@@ -75,59 +91,17 @@ class PostCellTableViewCell: UITableViewCell {
                             print("image downloaded")
                             if let imgData = data {
                                 if let img = UIImage(data: imgData) {
-                                    self.showcaseImg.image = img
-                                    FeedVC.imageCache.setObject(img, forKey: post.imageUrl as AnyObject)
+                                    outletImgView.image = img
+                                    FeedVC.imageCache.setObject(img, forKey: self.post.imageUrl as AnyObject)
                                 }
                             }
                         }
                     })
                 }
-                
-//                request = Alamofire.request(.GET, post.imageUrl!).validate(contentType: ["image/*"]).response(completionHandler: { request, response, data, err in
-//                
-//                    if err == nil
-//                    {
-//                        let img = UIImage(data: data!)!
-//                        self.showcaseImg.image = img
-//                        FeedVC.imageCache.setObject(img, forKey: self.post.imageUrl!)
-//                    }
-//                })
             }
         } else {
-            self.showcaseImg.isHidden = true
+            outletImgView.isHidden = true
         }
-        
-        if post.profileImageUrl != nil {
-            if ProfileImage != nil {
-                self.profileImg.image = ProfileImage
-            } else {
-                request = Alamofire.request(.GET, post.profileImageUrl!).validate(contentType: ["image/*"]).response(completionHandler: { request, response, data, err in
-                    
-                    if err == nil {
-                        if let ProfileImage = UIImage(data: data!) {
-                            self.profileImg.image = ProfileImage
-                            FeedVC.imageCache.setObject(ProfileImage, forKey: self.post.profileImageUrl!)
-                        }
-                    }
-                })
-            }
-    
-        } else {
-            self.profileImg.isHidden = false
-        }
-        
-  
-        likeRef.observeSingleEvent(of: .value, with: { snapshot in //check value only once
-            if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
-                self.likeImage.image = UIImage(named: "heart-empty")
-            } else {
-                self.likeImage.image = UIImage(named: "heart-full")
-            }
-        })
-    }
-    
-    func downloadFromFirebaseStorage() {
-        
     }
     
     func likeTapped(_ sender: UITapGestureRecognizer) {
