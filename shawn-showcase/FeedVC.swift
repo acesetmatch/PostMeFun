@@ -229,6 +229,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             return
         }
         
+        //Uploading image to Firebase Storage
         if let imgData = UIImageJPEGRepresentation(img, 0.2) {
             let imgUid = NSUUID().uuidString
             let metaData = FIRStorageMetadata()
@@ -301,6 +302,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         self.blockRef.updateChildValues(blacklistUid)
     }
 
+    // Put Post dictionary to firebase database. 
     func postToFirebase(_ imgUrl: String?) {
         let theUid = UserDefaults.standard.value(forKey: KEY_UID) as! String
         let Uid = DataService.ds.REF_USER_CURRENT

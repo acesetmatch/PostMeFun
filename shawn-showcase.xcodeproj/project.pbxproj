@@ -501,7 +501,7 @@
 					"$(PROJECT_DIR)/shawn-showcase",
 				);
 				INFOPLIST_FILE = "shawn-showcase/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Post.Me.Fun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -525,7 +525,7 @@
 					"$(PROJECT_DIR)/shawn-showcase",
 				);
 				INFOPLIST_FILE = "shawn-showcase/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Post.Me.Fun;
 				PRODUCT_NAME = "$(TARGET_NAME)";

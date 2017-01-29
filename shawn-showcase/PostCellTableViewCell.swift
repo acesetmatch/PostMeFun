@@ -76,13 +76,14 @@ class PostCellTableViewCell: UITableViewCell {
         })
     }
     
-    func downloadFromFirebaseStorage(imageUrl: String, outletImgView: UIImageView, img: UIImage) {
-        if post.imageUrl != nil {
+    // Downloading images from Firebase Storage.
+    func downloadFromFirebaseStorage(imageUrl: String?, outletImgView: UIImageView, img: UIImage?) {
+        if imageUrl != nil {
             if img != nil {
                 outletImgView.image = img
             } else {
                 //getting an image request then call the response
-                if let imageURL = post.imageUrl {
+                if let imageURL = imageUrl {
                     let ref = FIRStorage.storage().reference(forURL: imageURL)
                     ref.data(withMaxSize: 2 * 1024 * 1024, completion: { (data, error) in
                         if error != nil {

@@ -11,7 +11,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import Firebase
 import Alamofire
-
+import FirebaseStorage
 
 class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -60,6 +60,8 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         self.navigationController?.isNavigationBarHidden = false
     }
     
+    
+    // Fetch from Firebase Database and init the user text fields. The images will be fetched from Firebase Storage and cached.
     func initObservers() {
         DataService.ds.REF_USER_CURRENT.observe(.value, with: { snapshot in
             if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
@@ -76,18 +78,24 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
                             self.ProfileImg.image = self.proImg
                             self.backgroundImg.image = self.proImg
                         } else {
-//                            self.request = Alamofire.request(.GET, user.profileImageUrl!).validate(contentType: ["image/*"]).response(completionHandler: { request, response, data, err in
-                            Alamofire.request(<#T##urlRequest: URLRequestConvertible##URLRequestConvertible#>)
-                            self.request = Alamofire.request(user.profileImageUrl, method: .get, parameters: <#T##Parameters?#>, encoding: <#T##ParameterEncoding#>, headers: <#T##HTTPHeaders?#>).validate(contentType: ["image/*"]).response(completionHandler: { (request, response, data, err ) in
-                                if err == nil {
-                                    if let ProfileImage = UIImage(data: data!) {
-                                        self.ProfileImg.image = ProfileImage
-                                        self.backgroundImg.image = ProfileImage
+                            //if let imageURL = self.user.profileImageUrl {
+                                let ref = FIRStorage.storage().reference(forURL: proUrl)
+                                ref.data(withMaxSize: 2 * 1024 * 1024, completion: { (data, error) in
+                                    if error != nil {
+                                        print("unable to download image from Firebase Storage")
+                                    } else {
+                                        print("image downloaded")
+                                        if let imgData = data {
+                                            if let img = UIImage(data: imgData) {
+                                                self.ProfileImg.image = img
+                                                self.backgroundImg.image = img
+                                                FeedVC.imageCache.setObject(img, forKey: proUrl as AnyObject)
+                                            }
+                                        }
                                     }
-                                }
-                            })
+                                })
+                            //}
                         }
-                        
                     } else {
                         self.ProfileImg.isHidden = false
                     }
@@ -99,7 +107,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
 
     }
     
-    
+    /*
     func downloadFromFirebaseStorage(imageUrl: String, img: UIImage) {
         if post.imageUrl != nil {
             if img != nil {
@@ -127,6 +135,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
             outletImgView.isHidden = true
         }
     }
+ */
     
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
@@ -142,6 +151,28 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     @IBAction func StartPosting(_ sender: AnyObject!) {
+        guard let img = ProfileImg.image, imageSelected == true else {
+            let alert = Helper.showErrorAlert("Image Required", msg: "You must select an image")
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        //Uploading image to Firebase Storage
+        if let imgData = UIImageJPEGRepresentation(img, 0.2) {
+            let imgUid = NSUUID().uuidString
+            let metaData = FIRStorageMetadata()
+            metaData.contentType = "image/jpeg"
+            DataService.ds.REF_POST_IMAGES.child(imgUid).put(imgData, metadata: metaData) { (metadata, error) in
+                if error != nil {
+                    print("Unable to load image to Firebase Storage")
+                } else {
+                    print("Successfully uploaded")
+                    let downloadURL = metaData.downloadURL()?.absoluteString
+                    self.UpdateUserImageToFirebase(downloadURL)
+                }
+            }
+        }
+        /*
             if let profileimage = ProfileImg.image, imageSelected == true {
                         let urlStr = "https://post.imageshack.us/upload_api.php" //imageshack api website endpoint
                         let url = URL(string:urlStr)!
@@ -180,7 +211,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
                             }
                         })
                 
-                /*
+         
                         Alamofire.upload(multipartFormData: { (multipartFormData) in
                             /*
                             multipartFormData.appendBodyPart(data: imgData, name: "fileupload", fileName: "image", mimeType: "image/jpg") Passing in the key and value of image for imageshack parameters
@@ -206,10 +237,11 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
                                     print(error)
                                 }
                 })
-                */
+                
                 } else {
                     self.UpdateUserImageToFirebase(nil)
                 }
+        */
             
             self.performSegue(withIdentifier: "usernameSet", sender: nil)
 
