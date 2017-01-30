@@ -234,13 +234,15 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             let imgUid = NSUUID().uuidString
             let metaData = FIRStorageMetadata()
             metaData.contentType = "image/jpeg"
-            DataService.ds.REF_POST_IMAGES.child(imgUid).put(imgData, metadata: metaData) { (metadata, error) in
+            DataService.ds.REF_POST_IMAGES.child(imgUid).put(imgData, metadata: metaData) { (metdata, error) in
                 if error != nil {
                     print("Unable to load image to Firebase Storage")
                 } else {
                     print("Successfully uploaded")
-                    let downloadURL = metaData.downloadURL()?.absoluteString
-                    self.postToFirebase(downloadURL)
+                    let downloadURL = metdata?.downloadURL()?.absoluteString
+                    if downloadURL != nil {
+                        self.postToFirebase(downloadURL)
+                    }
                 }
             }
         }

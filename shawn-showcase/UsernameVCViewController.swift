@@ -73,7 +73,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
                 self.usernameTxtField.text = user.username
                 if let proUrl = user.profileImageUrl {
                     self.proImg = FeedVC.imageCache.object(forKey: proUrl as AnyObject) as? UIImage //passing image from the cache if it exists. Returns value of the key(url). FeedVC is single instance
-                    if user.profileImageUrl != nil {
+                    //if user.profileImageUrl != nil {
                         if self.proImg != nil {
                             self.ProfileImg.image = self.proImg
                             self.backgroundImg.image = self.proImg
@@ -96,9 +96,9 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
                                 })
                             //}
                         }
-                    } else {
-                        self.ProfileImg.isHidden = false
-                    }
+                    //} else {
+                    //    self.ProfileImg.isHidden = false
+                    //}
                     
                 }
                 
@@ -162,13 +162,15 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
             let imgUid = NSUUID().uuidString
             let metaData = FIRStorageMetadata()
             metaData.contentType = "image/jpeg"
-            DataService.ds.REF_POST_IMAGES.child(imgUid).put(imgData, metadata: metaData) { (metadata, error) in
+            DataService.ds.REF_PROFILE_IMAGES.child(imgUid).put(imgData, metadata: metaData) { (metdata, error) in
                 if error != nil {
                     print("Unable to load image to Firebase Storage")
                 } else {
                     print("Successfully uploaded")
-                    let downloadURL = metaData.downloadURL()?.absoluteString
-                    self.UpdateUserImageToFirebase(downloadURL)
+                    let downloadURL = metdata?.downloadURL()?.absoluteString
+                    if downloadURL != nil {
+                        self.UpdateUserImageToFirebase(downloadURL)
+                    }
                 }
             }
         }

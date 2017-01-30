@@ -62,10 +62,10 @@ class PostCellTableViewCell: UITableViewCell {
         self.likesLbl.text = "\(post.likes)"
         self.usernameLbl.text = post.username
         
-        if let img = img, let ProfileImage = ProfileImage {
-            downloadFromFirebaseStorage(imageUrl: post.imageUrl!, outletImgView: self.showcaseImg, img: img)
-            downloadFromFirebaseStorage(imageUrl: post.profileImageUrl!, outletImgView: self.profileImg, img: ProfileImage)
-        }
+        //if let img = img, let ProfileImage = ProfileImage {
+        downloadFromFirebaseStorage(imageUrl: post.imageUrl, outletImgView: self.showcaseImg, img: img)
+        downloadFromFirebaseStorage(imageUrl: post.profileImageUrl, outletImgView: self.profileImg, img: ProfileImage)
+        //}
 
         likeRef.observeSingleEvent(of: .value, with: { snapshot in //check value only once
             if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
@@ -78,7 +78,7 @@ class PostCellTableViewCell: UITableViewCell {
     
     // Downloading images from Firebase Storage.
     func downloadFromFirebaseStorage(imageUrl: String?, outletImgView: UIImageView, img: UIImage?) {
-        if imageUrl != nil {
+        //if imageUrl != nil {
             if img != nil {
                 outletImgView.image = img
             } else {
@@ -100,9 +100,11 @@ class PostCellTableViewCell: UITableViewCell {
                     })
                 }
             }
+        /*
         } else {
             outletImgView.isHidden = true
         }
+ */
     }
     
     func likeTapped(_ sender: UITapGestureRecognizer) {
