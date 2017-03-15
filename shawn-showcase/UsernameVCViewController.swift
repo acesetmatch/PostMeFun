@@ -63,6 +63,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     
     // Fetch from Firebase Database and init the user text fields. The images will be fetched from Firebase Storage and cached.
     func initObservers() {
+        
         DataService.ds.REF_USER_CURRENT.observe(.value, with: { snapshot in
             if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
                 let key = snapshot.key
