@@ -46,6 +46,7 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.8)
+  - NVActivityIndicatorView (3.5.1)
 
 DEPENDENCIES:
   - Alamofire (from `https://github.com/Alamofire/Alamofire.git`, tag `4.0.0`)
@@ -53,6 +54,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
+  - NVActivityIndicatorView
 
 EXTERNAL SOURCES:
   Alamofire:
@@ -77,7 +79,8 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 6f8d8b28b7e345549ac471071608170b31cb4977
+  NVActivityIndicatorView: 075563b3547445ebcff840e3297ce9dd4a23731f
 
-PODFILE CHECKSUM: 69ada66610b0800e5a7070f184af6d4cecd08c0f
+PODFILE CHECKSUM: 761a3697e5783d36f20bbc40bcc2b0d00cfa7909
 
-COCOAPODS: 1.2.0.beta.1
+COCOAPODS: 1.1.1
