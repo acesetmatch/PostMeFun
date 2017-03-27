@@ -12,8 +12,8 @@ import FBSDKLoginKit
 import Firebase
 import Alamofire
 import FirebaseStorage
-
-class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+import NVActivityIndicatorView
+class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndicatorViewable {
 
     
     @IBOutlet weak var ProfileImg: UIImageView!
@@ -63,9 +63,10 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     
     // Fetch from Firebase Database and init the user text fields. The images will be fetched from Firebase Storage and cached.
     func initObservers() {
-        
+        startAnimating()
         DataService.ds.REF_USER_CURRENT.observe(.value, with: { snapshot in
             if let userDict = snapshot.value as? Dictionary<String, AnyObject> {
+                self.stopAnimating()
                 let key = snapshot.key
                 let user = User(userKey: key, dictionary: userDict)
                 self.firstNameTxtField.text = user.firstName
