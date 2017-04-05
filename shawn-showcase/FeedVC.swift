@@ -314,7 +314,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                 let user = User(userKey: key, dictionary: userDict)
                 let userProfileImg = user.profileImageUrl
                 let userUsername = user.username
-                var post: Dictionary < String, AnyObject >= ["Uid":theUid as AnyObject, "username": userUsername as AnyObject,
+                var post: Dictionary < String, AnyObject > = ["Uid":theUid as AnyObject, "username": userUsername as AnyObject,
                     "description" : self.postField.text! as AnyObject,
                     "likes": 0 as AnyObject]
                 if imgUrl != nil {

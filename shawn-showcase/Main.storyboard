@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="RnY-2S-Uq4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="RnY-2S-Uq4">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -574,10 +574,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Sfu-Il-h98">
-                                        <rect key="frame" x="20" y="35" width="305" height="350"/>
+                                        <rect key="frame" x="20" y="35" width="305" height="370"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6IN-qB-lOZ" customClass="YoshikoTextField" customModule="TextFieldEffects">
-                                                <rect key="frame" x="0.0" y="0.0" width="305" height="46"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="305" height="49"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="20" id="9ep-HX-yXM">
                                                         <variation key="heightClass=regular-widthClass=compact" constant="50"/>
@@ -607,7 +607,7 @@
                                                 </variation>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bFY-24-KUC" customClass="YoshikoTextField" customModule="TextFieldEffects">
-                                                <rect key="frame" x="0.0" y="61" width="305" height="45.5"/>
+                                                <rect key="frame" x="0.0" y="64" width="305" height="49.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="JiC-05-Nhc"/>
                                                 </constraints>
@@ -635,7 +635,7 @@
                                                 </variation>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Display Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sq0-do-ani" customClass="YoshikoTextField" customModule="TextFieldEffects">
-                                                <rect key="frame" x="0.0" y="121.5" width="305" height="46"/>
+                                                <rect key="frame" x="0.0" y="128.5" width="305" height="49"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="nmG-lh-CyN"/>
                                                 </constraints>
@@ -663,7 +663,7 @@
                                                 </variation>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y9d-Ym-eTk" customClass="YoshikoTextField" customModule="TextFieldEffects">
-                                                <rect key="frame" x="0.0" y="182.5" width="305" height="46"/>
+                                                <rect key="frame" x="0.0" y="192.5" width="305" height="49"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="28q-8T-Fh9"/>
                                                 </constraints>
@@ -691,7 +691,7 @@
                                                 </variation>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mOa-gR-k20" customClass="YoshikoTextField" customModule="TextFieldEffects">
-                                                <rect key="frame" x="0.0" y="243.5" width="305" height="45.5"/>
+                                                <rect key="frame" x="0.0" y="256.5" width="305" height="49.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="ilS-BL-jrz"/>
                                                 </constraints>
@@ -719,7 +719,7 @@
                                                 </variation>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i0o-2w-yoB" customClass="YoshikoTextField" customModule="TextFieldEffects">
-                                                <rect key="frame" x="0.0" y="304" width="305" height="46"/>
+                                                <rect key="frame" x="0.0" y="321" width="305" height="49"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="ymm-KW-4ps"/>
                                                 </constraints>
@@ -752,7 +752,7 @@
                                             <constraint firstItem="y9d-Ym-eTk" firstAttribute="height" secondItem="6IN-qB-lOZ" secondAttribute="height" id="QEN-ap-bsW"/>
                                             <constraint firstItem="mOa-gR-k20" firstAttribute="height" secondItem="6IN-qB-lOZ" secondAttribute="height" id="Zdr-MF-VaD"/>
                                             <constraint firstItem="bFY-24-KUC" firstAttribute="height" secondItem="6IN-qB-lOZ" secondAttribute="height" id="e1g-gF-LMz"/>
-                                            <constraint firstAttribute="height" constant="350" id="vU1-rc-NZ1"/>
+                                            <constraint firstAttribute="height" constant="370" id="vU1-rc-NZ1"/>
                                             <constraint firstItem="sq0-do-ani" firstAttribute="height" secondItem="6IN-qB-lOZ" secondAttribute="height" id="y7C-Vc-EhM"/>
                                         </constraints>
                                     </stackView>
@@ -829,6 +829,7 @@
                         <outlet property="registerBtnBottomConstraint" destination="Ncq-V2-oYF" id="Ujy-OS-5rw"/>
                         <outlet property="registerBtnLeftConstraint" destination="GFw-fa-3z2" id="UlG-Bl-20t"/>
                         <outlet property="registerBtnRightConstraint" destination="2H7-T9-tJt" id="EAq-D5-zjc"/>
+                        <outlet property="signUpTextStackViewTop" destination="qAW-Xu-78g" id="hAF-Im-HAD"/>
                         <outlet property="stackHeight" destination="vU1-rc-NZ1" id="1Lc-QE-AeP"/>
                         <outlet property="textStackView" destination="Sfu-Il-h98" id="JwT-d7-jhB"/>
                         <outlet property="usernameLbl" destination="sq0-do-ani" id="MYB-gZ-Obc"/>
@@ -1551,7 +1552,7 @@ If you have any questions, complaints, or claims with respect to the PostMeFun a
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RnY-2S-Uq4" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="lGh-l3-0O5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="lGh-l3-0O5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.27450980390000002" green="0.35294117650000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

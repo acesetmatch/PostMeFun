@@ -28,6 +28,7 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     
     
     //Constraints
+    @IBOutlet weak var signUpTextStackViewTop: NSLayoutConstraint!
     @IBOutlet weak var registerBtnLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var registerBtnRightConstraint: NSLayoutConstraint!
     @IBOutlet weak var registerBtnBottomConstraint: NSLayoutConstraint!
