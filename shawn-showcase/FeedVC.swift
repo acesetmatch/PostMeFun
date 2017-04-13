@@ -10,12 +10,13 @@ import UIKit
 import Firebase
 import Alamofire
 import FirebaseStorage
-
+import NVActivityIndicatorView
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var postField: MaterialTextField!
     @IBOutlet weak var imageSelectorImage: UIImageView!
+    
     var posts = [Post]()
     var users = [User]()
     var flagRef:FIRDatabaseReference!
@@ -37,7 +38,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         
         tableView.delegate = self
         tableView.dataSource = self
-        
+        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 358
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -74,8 +75,10 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                                                     if blacklistDict == blacklistPost {
                                                         self.posts = self.posts.filter({$0.Uid != blacklistDict})
                                                         self.tableView.reloadData()
+
                                                     } else {
                                                         self.tableView.reloadData()
+                                                        
                                                     }
                                                     
                                                 }

@@ -17,9 +17,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FIRApp.configure()
+        
+        let memoryEmail = UserDefaults.standard.string(forKey: "storedEmail")
+        let memoryPassword = UserDefaults.standard.string(forKey: "storedPassword")
+        
+        if memoryEmail != nil && memoryPassword != nil {
+            let profileVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "UsernameVCViewController")
+            let navigation = UINavigationController.init(rootViewController: profileVC)
+            //navigation.navigationBar.barTintColor = UIColor.init(red: 70, green: 90, blue: 255, alpha: 1.0)
+            navigation.navigationBar.barTintColor = UIColor(red: 70.0/255.0, green: 90/255.0, blue: 255.0/255.0, alpha: 1.0)
+            navigation.navigationBar.tintColor = UIColor.white
+            navigation.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+            self.window?.rootViewController = navigation
+        } else {
+            if let rootVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController() {
+                self.window?.rootViewController = rootVC
+            }
+        }
 
         // Override point for customization after application launch.
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)

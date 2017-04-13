@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="NotoSans-Bold.ttf">
+            <string>NotoSans-Bold</string>
+        </array>
+        <array key="NotoSans-Regular.ttf">
+            <string>NotoSans</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Settings-->
+        <scene sceneID="xV5-1z-WcQ">
+            <objects>
+                <viewController restorationIdentifier="SettingsVC" storyboardIdentifier="SettingsVC" id="9pB-Of-spS" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vPQ-qP-ZuS"/>
+                        <viewControllerLayoutGuide type="bottom" id="SwA-eI-yao"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bA0-Hf-byG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dsc-BB-nqj">
+                                <rect key="frame" x="0.0" y="40" width="375" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IN THE APP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caN-BI-LF8" customClass="MaterialLabel" customModule="shawn_showcase" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                                        <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="20"/>
+                                        <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKe-tZ-BpU" customClass="MaterialButton2" customModule="shawn_showcase" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="40" width="375" height="60"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="20"/>
+                                        <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Legal Agreements">
+                                            <color key="titleColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="Dq3-lC-j5M" kind="showDetail" id="JSH-7z-lhX"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Afm-bk-TvM"/>
+                                    <constraint firstItem="bKe-tZ-BpU" firstAttribute="height" secondItem="caN-BI-LF8" secondAttribute="height" multiplier="2" id="ug9-dD-Exb"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.89932888749999995" green="0.89932888749999995" blue="0.89932888749999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="dsc-BB-nqj" firstAttribute="leading" secondItem="bA0-Hf-byG" secondAttribute="leading" id="02f-xA-K6G"/>
+                            <constraint firstAttribute="trailing" secondItem="dsc-BB-nqj" secondAttribute="trailing" id="UJN-Yu-jwD"/>
+                            <constraint firstItem="dsc-BB-nqj" firstAttribute="top" secondItem="vPQ-qP-ZuS" secondAttribute="bottom" constant="20" id="cIG-kY-lZF"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Settings" id="v7D-rM-0TJ">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="HU1-Hn-WSb"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sFu-My-fTH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2689" y="-1043"/>
+        </scene>
+        <!--End User License Agreement-->
+        <scene sceneID="hW5-Dr-lDR">
+            <objects>
+                <viewController title="End User License Agreement" id="Dq3-lC-j5M" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UgH-o3-CX2"/>
+                        <viewControllerLayoutGuide type="bottom" id="tbb-xg-tbg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5vf-E2-NTd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6bO-v5-GL6">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PostMeFun End User License Agreement" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9cc-yS-5pN">
+                                        <rect key="frame" x="8" y="18" width="359" height="54.5"/>
+                                        <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="20"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="1000" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ozp-ja-DMW">
+                                        <rect key="frame" x="8" y="80.5" width="359" height="2516.5"/>
+                                        <attributedString key="attributedText">
+                                            <fragment>
+                                                <string key="content">This End User License Agreement (“Agreement”) is between you and PostMeFun and governs use of this app made available through the Apple App Store. By installing the PostMeFun App, you agree to be bound by this Agreement and understand that there is no tolerance for objectionable content. If you do not agree with the terms and conditions of this Agreement, you are not entitled to use the PostMeFun App.
+
+In order to ensure PostMeFun provides the best experience possible for everyone, we strongly enforce a no tolerance policy for objectionable content. If you see inappropriate content, please use the "Report Post" or “Block User” feature found under each post.
+
+1. Parties 
+
+This Agreement is between you and PostMeFun only, and not Apple, Inc. (“Apple”). Notwithstanding the foregoing, you acknowledge that Apple and its subsidiaries are third party beneficiaries of this Agreement and Apple has the right to enforce this Agreement against you. PostMeFun, not Apple, is solely responsible for the PostMeFun App and its content.
+
+2. Privacy/Data
+
+PostMeFun may collect and use information about your usage of the PostMeFun App, including certain types of information from and about your device. PostMeFun may use this information, as long as it is in a form that does not personally identify you, to measure the use and performance of the PostMeFun App.
+
+3. Limited Scope of License 
+
+PostMeFun grants you a limited, non-exclusive, non-transferable, revocable license to use the PostMeFun App for your personal, non-commercial purposes. You may only use the PostMeFun App on Apple devices that you own or control and as permitted by the App Store Terms of Service.
+
+4. Age Restrictions 
+
+By using the PostMeFun App, you represent and warrant that (a) you are 17 years of age or older and you agree to be bound by this Agreement; (b) if you are under 17 years of age, you have obtained verifiable consent from a parent or legal guardian; and (c) your use of the PostMeFun App does not violate any applicable law or regulation. Your access to the PostMeFun App may be terminated without warning if PostMeFun believes, in its sole discretion, that you are under the age of 17 years and have not obtained verifiable consent from a parent or legal guardian. If you are a parent or legal guardian and you provide your consent to your child's use of the PostMeFun App, you agree to be bound by this Agreement in respect to your child's use of the PostMeFun App.
+
+5. Objectionable Content Policy 
+
+Content may not be submitted to PostMeFun, who will moderate all content and ultimately decide whether or not to post a submission to the extent such content includes, is in conjunction with, or alongside any, Objectionable Content. Objectionable Content includes, but is not limited to: (i) sexually explicit materials; (ii) obscene, defamatory, libelous, slanderous, violent and/or unlawful content or profanity; (iii) content that infringes upon the rights of any third party, including copyright, trademark, privacy, publicity or other personal or proprietary right, or that is deceptive or fraudulent; (iv) content that promotes the use or sale of illegal or regulated substances, tobacco products, ammunition and/or firearms; and (v) gambling, including without limitation, any online casino, sports books, bingo or poker.
+
+6. Warranty 
+
+PostMeFun disclaims all warranties about the PostMeFun App to the fullest extent permitted by law. To the extent any warranty exists under law that cannot be disclaimed, PostMeFun, not Apple, shall be solely responsible for such warranty.
+
+7. Maintenance and Support 
+
+PostMeFun does provide minimal maintenance or support for it but not to the extent that any maintenance or support is required by applicable law, PostMeFun, not Apple, shall be obligated to furnish any such maintenance or support.
+
+8. Product Claims 
+
+PostMeFun, not Apple, is responsible for addressing any claims by you relating to the PostMeFun App or use of it, including, but not limited to: (i) any product liability claim; (ii) any claim that the PostMeFun App fails to conform to any applicable legal or regulatory requirement; and (iii) any claim arising under consumer protection or similar legislation. Nothing in this Agreement shall be deemed an admission that you may have such claims.
+
+9. Third Party Intellectual Property Claims 
+
+PostMeFun shall not be obligated to indemnify or defend you with respect to any third party claim arising out or relating to the PostMeFun App. To the extent PostMeFun is required to provide indemnification by applicable law, PostMeFun, not Apple, shall be solely responsible for the investigation, defense, settlement and discharge of any claim that the PostMeFun App or your use of it infringes any third party intellectual property right.
+10. Third Party Beneficiary
+
+You (“end-user”) and PostMeFun agree that Apple, and Apple’s subsidiaries, are third party beneficiaries of this EULA, and that, upon your acceptance of these terms and conditions of the EULA, Apple will have the right (and will be deemed to have accepted the right) to enforce the EULA as a third party beneficiary thereof. 
+
+11. Developer Contact Information
+
+If you have any questions, complaints, or claims with respect to the PostMeFun app, please contact Shawn Hong at: 2414 Worthing Drive, Naperville, IL 60565,  acesetmatch@gmail.com, 630-728-3452.
+
+
+</string>
+                                                <attributes>
+                                                    <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <font key="NSFont" size="15" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Ozp-ja-DMW" secondAttribute="trailing" constant="8" id="8Z0-2l-Ids"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ozp-ja-DMW" secondAttribute="bottom" constant="8" id="HfU-CW-qtg"/>
+                                    <constraint firstItem="Ozp-ja-DMW" firstAttribute="top" secondItem="9cc-yS-5pN" secondAttribute="bottom" constant="8" id="HfX-iK-KVb"/>
+                                    <constraint firstAttribute="trailing" secondItem="9cc-yS-5pN" secondAttribute="trailing" constant="8" id="Oad-Xa-07j"/>
+                                    <constraint firstItem="9cc-yS-5pN" firstAttribute="leading" secondItem="6bO-v5-GL6" secondAttribute="leading" constant="8" id="SMN-3f-BQd"/>
+                                    <constraint firstItem="9cc-yS-5pN" firstAttribute="top" secondItem="6bO-v5-GL6" secondAttribute="top" constant="20" id="Tcs-Cg-bAh"/>
+                                    <constraint firstItem="9cc-yS-5pN" firstAttribute="centerX" secondItem="6bO-v5-GL6" secondAttribute="centerX" id="an1-YO-1l1"/>
+                                    <constraint firstItem="Ozp-ja-DMW" firstAttribute="leading" secondItem="6bO-v5-GL6" secondAttribute="leading" constant="8" id="fTd-qr-Gf6"/>
+                                    <constraint firstItem="9cc-yS-5pN" firstAttribute="top" secondItem="6bO-v5-GL6" secondAttribute="top" constant="18" id="hPw-RR-Sw4"/>
+                                    <constraint firstItem="Ozp-ja-DMW" firstAttribute="top" secondItem="9cc-yS-5pN" secondAttribute="bottom" constant="8" id="iAa-Tw-i9e"/>
+                                    <constraint firstItem="9cc-yS-5pN" firstAttribute="leading" secondItem="6bO-v5-GL6" secondAttribute="leading" constant="8" id="xoF-Iw-fBy"/>
+                                    <constraint firstAttribute="trailing" secondItem="9cc-yS-5pN" secondAttribute="trailing" constant="8" id="zsz-XZ-DPK"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Tcs-Cg-bAh"/>
+                                        <exclude reference="zsz-XZ-DPK"/>
+                                        <exclude reference="SMN-3f-BQd"/>
+                                        <exclude reference="HfX-iK-KVb"/>
+                                    </mask>
+                                </variation>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="tbb-xg-tbg" firstAttribute="top" secondItem="6bO-v5-GL6" secondAttribute="bottom" id="5Jv-PA-q3q"/>
+                            <constraint firstAttribute="trailing" secondItem="6bO-v5-GL6" secondAttribute="trailing" id="aLe-XC-6uW"/>
+                            <constraint firstItem="6bO-v5-GL6" firstAttribute="leading" secondItem="5vf-E2-NTd" secondAttribute="leading" id="ede-py-QgB"/>
+                            <constraint firstItem="6bO-v5-GL6" firstAttribute="top" secondItem="UgH-o3-CX2" secondAttribute="bottom" id="jn4-ys-aNa"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S7w-vp-sqy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3388" y="-1043"/>
+        </scene>
+    </scenes>
+</document>

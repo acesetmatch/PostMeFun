@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import Firebase
 import FirebaseStorage
-
+import NVActivityIndicatorView
 protocol PostCellTableViewDelegate {
     func returnTapped()
 }
@@ -25,7 +25,6 @@ class PostCellTableViewCell: UITableViewCell {
     @IBOutlet weak var usernameLbl: UILabel!
     @IBOutlet weak var returnImage: UIImageView!
     @IBOutlet weak var returnButton: UIButton!
-    
     var post: Post! //store post
     var request: Request? //Request is Firebase object
     var request2: Request?
@@ -45,6 +44,7 @@ class PostCellTableViewCell: UITableViewCell {
         showcaseImg.clipsToBounds = true
         showcaseImg.layer.cornerRadius = 10.0
         returnButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
+        //self.activityIndicatorView.startAnimating()
     }
     
 
@@ -66,7 +66,8 @@ class PostCellTableViewCell: UITableViewCell {
         downloadFromFirebaseStorage(imageUrl: post.imageUrl, outletImgView: self.showcaseImg, img: img)
         downloadFromFirebaseStorage(imageUrl: post.profileImageUrl, outletImgView: self.profileImg, img: ProfileImage)
         //}
-
+        //self.activityIndicatorView.stopAnimating()
+        
         likeRef.observeSingleEvent(of: .value, with: { snapshot in //check value only once
             if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
                 self.likeImage.image = UIImage(named: "heart-empty")

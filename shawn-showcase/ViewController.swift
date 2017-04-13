@@ -32,14 +32,7 @@ class ViewController: UIViewController {
             self.performSegue(withIdentifier: "returnToTerms", sender: nil)
         }
         
-        let memoryEmail = UserDefaults.standard.string(forKey: "storedEmail")
-        let memoryPassword = UserDefaults.standard.string(forKey: "storedPassword")
         
-        if memoryEmail != nil && memoryPassword != nil {
-            emailField.text = memoryEmail
-            passwordField.text = memoryPassword
-            pushToProfile()
-        }
 
     }
 

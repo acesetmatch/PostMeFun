@@ -39,6 +39,7 @@
 		19B82CD51D4EE5E500EBC746 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B82CD41D4EE5E500EBC746 /* Helper.swift */; };
 		19D6AA731C4A0C2100BF77C2 /* UsernameVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6AA721C4A0C2100BF77C2 /* UsernameVCViewController.swift */; };
 		19E3084F1C614DD3009B16E8 /* MaterialTextField2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E3084E1C614DD3009B16E8 /* MaterialTextField2.swift */; };
+		CABE3A3C1EA003F500E4F3D1 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CABE3A3B1EA003F500E4F3D1 /* Settings.storyboard */; };
 		CB5A1B65F6C949B3CBAA97DD /* Pods_shawn_showcase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF34D1B9D0E6BE7DF4641D65 /* Pods_shawn_showcase.framework */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,7 @@
 		19E3084E1C614DD3009B16E8 /* MaterialTextField2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTextField2.swift; sourceTree = "<group>"; };
 		A2DE0A4D7C6B4C21E1C4E256 /* Pods-shawn-showcase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shawn-showcase.debug.xcconfig"; path = "Pods/Target Support Files/Pods-shawn-showcase/Pods-shawn-showcase.debug.xcconfig"; sourceTree = "<group>"; };
 		BF34D1B9D0E6BE7DF4641D65 /* Pods_shawn_showcase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_shawn_showcase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CABE3A3B1EA003F500E4F3D1 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		FE5AE166AB890AF8A3E2AE14 /* Pods-shawn-showcase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shawn-showcase.release.xcconfig"; path = "Pods/Target Support Files/Pods-shawn-showcase/Pods-shawn-showcase.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,7 +129,6 @@
 				1981C0421C4722D0004F7F74 /* View */,
 				1981C0411C4722C7004F7F74 /* Controller */,
 				1981C02C1C4722B9004F7F74 /* AppDelegate.swift */,
-				1975DA791C4D052B0085F1FD /* Main.storyboard */,
 				1981C0361C4722B9004F7F74 /* Assets.xcassets */,
 				1981C0381C4722B9004F7F74 /* LaunchScreen.storyboard */,
 				1981C03B1C4722B9004F7F74 /* Info.plist */,
@@ -151,6 +152,7 @@
 		1981C0421C4722D0004F7F74 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CABE3A381EA0034D00E4F3D1 /* Storyboards */,
 				1981C0551C472751004F7F74 /* MaterialView.swift */,
 				1981C05A1C472B19004F7F74 /* MaterialButton.swift */,
 				1981C05C1C472FCC004F7F74 /* MaterialTextField.swift */,
@@ -228,6 +230,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CABE3A381EA0034D00E4F3D1 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				1975DA791C4D052B0085F1FD /* Main.storyboard */,
+				CABE3A3B1EA003F500E4F3D1 /* Settings.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -298,6 +309,7 @@
 				1981C04A1C472312004F7F74 /* NotoSans-BoldItalic.ttf in Resources */,
 				1981C04B1C472312004F7F74 /* NotoSans-Italic.ttf in Resources */,
 				1981C0371C4722B9004F7F74 /* Assets.xcassets in Resources */,
+				CABE3A3C1EA003F500E4F3D1 /* Settings.storyboard in Resources */,
 				1981C04C1C472312004F7F74 /* NotoSans-Regular.ttf in Resources */,
 				19B82CD31D4ECC2700EBC746 /* GoogleService-Info.plist in Resources */,
 			);
