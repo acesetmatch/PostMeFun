@@ -11,15 +11,18 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import FirebaseAuth
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var emailField: MaterialTextField!
     @IBOutlet weak var passwordField: MaterialTextField!
     @IBOutlet weak var errorLbl: UILabel!
     @IBOutlet weak var signUpBtn: UIButton!
+    @IBOutlet weak var materialView: MaterialView!
     
     var usernameVC: UsernameVCViewController!
     let borderAlpha: CGFloat = 1.0
+    
+    // MARK: - View Management
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: false)
@@ -32,8 +35,9 @@ class ViewController: UIViewController {
             self.performSegue(withIdentifier: "returnToTerms", sender: nil)
         }
         
-        
-
+        self.emailField.delegate = self
+        self.passwordField.delegate = self
+    
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
@@ -57,11 +61,16 @@ class ViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
+    
+    // MARK: - Keyboard Delegate Management
+    
     func keyboardWillHide(_ sender: Notification) {
         let userInfo: [AnyHashable: Any] = sender.userInfo!
         let animationDuration: Double = (userInfo[UIKeyboardAnimationDurationUserInfoKey]! as AnyObject).doubleValue
         UIView.animate(withDuration: animationDuration, animations: { () -> Void in
-            self.view.frame.origin.y = 0
+            //self.view.frame.origin.y = 0
+            self.materialView.frame.origin.y = 0
+
         })
 
     }
@@ -73,17 +82,34 @@ class ViewController: UIViewController {
         let animationDuration: Double = (userInfo[UIKeyboardAnimationDurationUserInfoKey]! as AnyObject).doubleValue
         
         UIView.animate(withDuration: animationDuration, animations: { () -> Void in
-            self.view.frame.origin.y = -endSize.height/2
+            self.materialView.frame.origin.y = -endSize.height/4
+            //self.view.frame.origin.y = -endSize.height/2
         })
     }
+    
+    // MARK: UITextField Delegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+//    {
+//        // Try to find next responder
+//        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
+//            nextField.becomeFirstResponder()
+//        } else {
+//            // Not found, so remove keyboard.
+//            textField.resignFirstResponder()
+//        }
+//        // Do not add a line break
+//        return false
+//    }
     
 
     @IBAction func attemptLogin(_ sender:UIButton!) {
         if let email = emailField.text, email != "", let pwd = passwordField.text, pwd != "" {
             FIRAuth.auth()?.signIn(withEmail: email, password: pwd, completion: { (user,error) in
                     if (error != nil) {
-                        print(error)
-                        
                           if error!._code == STATUS_ACCOUNT_NONEXIST {
                             self.errorLbl.isHidden = false
                             self.errorLbl.text = "User does not exist"

@@ -178,8 +178,11 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
             defaults.removeObject(forKey: "storedEmail")
             defaults.removeObject(forKey: "storedPassword")
         }
-        self.performSegue(withIdentifier: "loggingOutofUsername", sender: nil)
-        self.navigationController?.isNavigationBarHidden = true;
+        //self.performSegue(withIdentifier: "loggingOutofUsername", sender: nil)
+        self.navigationController?.isNavigationBarHidden = true
+        let loginVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ViewController")
+        self.navigationController?.setViewControllers([loginVC], animated: false)
+        
     }
     
 

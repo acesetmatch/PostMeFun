@@ -11,7 +11,7 @@ import CoreData
 import FBSDKLoginKit
 import FBSDKCoreKit
 import Firebase
-
+let appDelegate = UIApplication.shared.delegate as! AppDelegate
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

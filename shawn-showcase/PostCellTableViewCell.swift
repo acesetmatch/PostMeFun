@@ -69,7 +69,7 @@ class PostCellTableViewCell: UITableViewCell {
         //self.activityIndicatorView.stopAnimating()
         
         likeRef.observeSingleEvent(of: .value, with: { snapshot in //check value only once
-            if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
+            if (snapshot.value as? NSNull) != nil { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
                 self.likeImage.image = UIImage(named: "heart-empty")
             } else {
                 self.likeImage.image = UIImage(named: "heart-full")
@@ -110,7 +110,7 @@ class PostCellTableViewCell: UITableViewCell {
     
     func likeTapped(_ sender: UITapGestureRecognizer) {
         likeRef.observeSingleEvent(of: .value, with: { snapshot in //check value only once
-            if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
+            if (snapshot.value as? NSNull) != nil { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
                 self.likeImage.image = UIImage(named: "heart-full")
                 self.post.adjustLikes(true)
                 self.likeRef.setValue(true) //creates a like on life ref when set to true
