@@ -1383,7 +1383,7 @@ If you have any questions, complaints, or claims with respect to the PostMeFun a
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RnY-2S-Uq4" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="lGh-l3-0O5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="lGh-l3-0O5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.27450980390000002" green="0.35294117650000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

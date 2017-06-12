@@ -121,7 +121,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             var proImg: UIImage?
             
             if let url = post.imageUrl {
-                img = FeedVC.imageCache.object(forKey: url as AnyObject) as? UIImage //passing iamge from the cache if it exists. Returns value of the key(url).
+                img = FeedVC.imageCache.object(forKey: url as AnyObject) as? UIImage //passing image from the cache if it exists. Returns value of the key(url).
             }
             if let proUrl = post.profileImageUrl {
                 proImg = FeedVC.imageCache.object(forKey: proUrl as AnyObject) as? UIImage //FeedVC is publicly available
