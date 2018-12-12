@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FIRApp.configure()
         
         let memoryEmail = UserDefaults.standard.string(forKey: "storedEmail")
@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //navigation.navigationBar.barTintColor = UIColor.init(red: 70, green: 90, blue: 255, alpha: 1.0)
             navigation.navigationBar.barTintColor = UIColor(red: 70.0/255.0, green: 90/255.0, blue: 255.0/255.0, alpha: 1.0)
             navigation.navigationBar.tintColor = UIColor.white
-            navigation.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+            navigation.navigationBar.titleTextAttributes = convertToOptionalNSAttributedStringKeyDictionary([NSAttributedString.Key.foregroundColor.rawValue: UIColor.white])
             self.window?.rootViewController = navigation
         } else {
             if let rootVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController() {
@@ -138,3 +138,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}

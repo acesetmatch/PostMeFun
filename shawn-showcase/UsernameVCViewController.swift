@@ -42,7 +42,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         
         imagePickerUser = UIImagePickerController()
         imagePickerUser.delegate = self
-        let darkBlur = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let darkBlur = UIBlurEffect(style: UIBlurEffect.Style.dark)
         let blurView = UIVisualEffectView(effect: darkBlur)
         blurView.frame = backgroundImg.bounds
         blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -50,7 +50,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         
         addBtn.isHidden = false
         UINavigationBar.appearance().tintColor = UIColor.white
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
+        UINavigationBar.appearance().titleTextAttributes = convertToOptionalNSAttributedStringKeyDictionary([NSAttributedString.Key.foregroundColor.rawValue:UIColor.white])
         imagePickerUser.navigationBar.barTintColor = UIColor(red: 70/255.0, green: 90/255, blue: 255/255.0, alpha: 1.0)
     }
     
@@ -129,7 +129,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         }
         
         //Uploading image to Firebase Storage
-        if let imgData = UIImageJPEGRepresentation(img, 0.2) {
+        if let imgData = img.jpegData(compressionQuality: 0.2) {
             let imgUid = NSUUID().uuidString
             let metaData = FIRStorageMetadata()
             metaData.contentType = "image/jpeg"
@@ -205,3 +205,9 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}

@@ -38,7 +38,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 358
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -116,7 +116,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         if let cell = tableView.dequeueReusableCell(withIdentifier: "PostCellTableViewCell", for: indexPath) as? PostCellTableViewCell {
             cell.request?.cancel()
             cell.returnButton.tag = indexPath.row
-            cell.returnButton.addTarget(self, action: #selector(returnTapped), for: UIControlEvents.touchUpInside)
+            cell.returnButton.addTarget(self, action: #selector(returnTapped), for: UIControl.Event.touchUpInside)
             var img: UIImage? //making an empty image
             var proImg: UIImage?
             
@@ -159,7 +159,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         createPost()
     }
     
-    func returnTapped(_ sender:UIButton!) {
+    @objc func returnTapped(_ sender:UIButton!) {
         self.post = self.posts[sender.tag]
         self.Uid = self.post.Uid
         let alertController = UIAlertController(title: "Inappropriate Content", message: "Select an option", preferredStyle: .actionSheet)
@@ -233,7 +233,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         }
         
         //Uploading image to Firebase Storage
-        if let imgData = UIImageJPEGRepresentation(img, 0.2) {
+        if let imgData = img.jpegData(compressionQuality: 0.2) {
             let imgUid = NSUUID().uuidString
             let metaData = FIRStorageMetadata()
             metaData.contentType = "image/jpeg"
