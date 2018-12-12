@@ -9,9 +9,9 @@
 import Foundation
 import Firebase
 import FirebaseStorage
-let URL_BASE = FIRDatabase.database().reference()
+let URL_BASE = Database.database().reference()
 //"https://shawn-showcase.firebaseio.com/"
-let STORAGE_BASE = FIRStorage.storage().reference()
+let STORAGE_BASE = Storage.storage().reference()
 class DataService {
     
     static let ds = DataService() //static variable, one instance in memory so people don't destroy it.
@@ -21,35 +21,35 @@ class DataService {
     fileprivate var _REF_USERS = URL_BASE.child("users")
     fileprivate var _REF_POST_IMAGES = STORAGE_BASE.child("post-pics")
     fileprivate var _REF_PROFILE_IMAGES = STORAGE_BASE.child("profile-pics")
-    var REF_BASE: FIRDatabaseReference {
+    var REF_BASE: DatabaseReference {
         return _REF_BASE
     }
     
-    var REF_POSTS: FIRDatabaseReference {
+    var REF_POSTS: DatabaseReference {
         return _REF_POSTS
     }
     
-    var REF_USERS: FIRDatabaseReference {
+    var REF_USERS: DatabaseReference {
         return _REF_USERS
     }
     
-    var REF_USER_CURRENT: FIRDatabaseReference {
+    var REF_USER_CURRENT: DatabaseReference {
         let uid = UserDefaults.standard.value(forKey: KEY_UID) as! String
         let user = URL_BASE.child("users").child(uid)
         return user
     }
     
-    var REF_POST_CURRENT: FIRDatabaseReference {
+    var REF_POST_CURRENT: DatabaseReference {
         let uid = UserDefaults.standard.value(forKey: KEY_UID) as! String
         let user = URL_BASE.child("posts").child(uid)
         return user
     }
     
-    var REF_POST_IMAGES: FIRStorageReference {
+    var REF_POST_IMAGES: StorageReference {
         return _REF_POST_IMAGES
     }
     
-    var REF_PROFILE_IMAGES: FIRStorageReference {
+    var REF_PROFILE_IMAGES: StorageReference {
         return _REF_PROFILE_IMAGES
     }
     

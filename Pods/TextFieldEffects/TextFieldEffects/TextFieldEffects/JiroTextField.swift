@@ -12,7 +12,6 @@ import UIKit
  A JiroTextField is a subclass of the TextFieldEffects object, is a control that displays an UITextField with a customizable visual effect around the background of the control.
  */
 @IBDesignable open class JiroTextField: TextFieldEffects {
-    
     /**
      The color of the border.
      
@@ -64,7 +63,7 @@ import UIKit
     private let textFieldInsets = CGPoint(x: 8, y: 12)
     private let borderLayer = CALayer()
     
-    // MARK: - TextFieldsEffects
+    // MARK: - TextFieldEffects
     
     override open func drawViewsForRect(_ rect: CGRect) {
         let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: rect.size.width, height: rect.size.height))
@@ -75,7 +74,7 @@ import UIKit
         updateBorder()
         updatePlaceholder()
         
-        layer.addSublayer(borderLayer)
+		layer.insertSublayer(borderLayer, at: 0)
         addSubview(placeholderLabel)        
     }
     

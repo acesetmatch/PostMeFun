@@ -28,9 +28,9 @@ class PostCellTableViewCell: UITableViewCell {
     var post: Post! //store post
     var request: Request? //Request is Firebase object
     var request2: Request?
-    var likeRef:FIRDatabaseReference!
-    var flagRef:FIRDatabaseReference!
-    var blockRef: FIRDatabaseReference!
+    var likeRef:DatabaseReference!
+    var flagRef:DatabaseReference!
+    var blockRef: DatabaseReference!
     var user: User!
     
     override func awakeFromNib() {
@@ -85,8 +85,8 @@ class PostCellTableViewCell: UITableViewCell {
             } else {
                 //getting an image request then call the response
                 if let imageURL = imageUrl {
-                    let ref = FIRStorage.storage().reference(forURL: imageURL)
-                    ref.data(withMaxSize: 2 * 1024 * 1024, completion: { (data, error) in
+                    let ref = Storage.storage().reference(forURL: imageURL)
+                    ref.getData(maxSize: 2 * 1024 * 1024, completion: { (data, error) in
                         if error != nil {
                             print("unable to download image from Firebase Storage")
                         } else {

@@ -12,7 +12,6 @@ import UIKit
  A YokoTextField is a subclass of the TextFieldEffects object, is a control that displays an UITextField with a customizable 3D visual effect on the background of the control.
  */
 @IBDesignable open class YokoTextField: TextFieldEffects {
-    
     /**
      The color of the placeholder text.
      
@@ -65,15 +64,15 @@ import UIKit
     private let placeholderInsets = CGPoint(x: 6, y: 6)
     private let textFieldInsets = CGPoint(x: 6, y: 6)
     
-    // MARK: - TextFieldsEffects
+    // MARK: - TextFieldEffects
     
     override open func drawViewsForRect(_ rect: CGRect) {
         updateForeground()
         updatePlaceholder()
-        
-        addSubview(foregroundView)
+		
+		insertSubview(foregroundView, at: 0)
         addSubview(placeholderLabel)
-        layer.addSublayer(foregroundLayer)        
+		layer.insertSublayer(foregroundLayer, at: 0)
     }
     
     override open func animateViewsForTextEntry() {
@@ -200,7 +199,7 @@ import UIKit
         
         var rotationAndPerspectiveTransform = CATransform3DIdentity
         rotationAndPerspectiveTransform.m34 = 1.0/800
-        let radians = ((-90) / 180.0 * CGFloat(M_PI))
+        let radians = ((-90) / 180.0 * CGFloat.pi)
         rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, radians, 1.0, 0.0, 0.0)
         return rotationAndPerspectiveTransform
     }

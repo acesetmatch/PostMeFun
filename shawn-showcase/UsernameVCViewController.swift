@@ -14,8 +14,6 @@ import Alamofire
 import FirebaseStorage
 import NVActivityIndicatorView
 class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndicatorViewable {
-
-    
     @IBOutlet weak var ProfileImg: UIImageView!
     @IBOutlet weak var UserTextField: UITextField!
     @IBOutlet weak var addBtn: UIButton!
@@ -73,35 +71,33 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
                 self.lastNameTxtField.text = user.lastName
                 self.emailTxtField.text = user.email
                 self.usernameTxtField.text = user.username
-                if let proUrl = user.profileImageUrl {
-                    self.proImg = FeedVC.imageCache.object(forKey: proUrl as AnyObject) as? UIImage //passing image from the cache if it exists. Returns value of the key(url). FeedVC is single instance
-                    //if user.profileImageUrl != nil {
-                        if self.proImg != nil {
-                            self.ProfileImg.image = self.proImg
-                            self.backgroundImg.image = self.proImg
-                            self.stopAnimating()
-                        } else {
-                            //if let imageURL = self.user.profileImageUrl {
-                                let ref = FIRStorage.storage().reference(forURL: proUrl)
-                                ref.data(withMaxSize: 2 * 1024 * 1024, completion: { (data, error) in
-                                    if error != nil {
-                                        print("unable to download image from Firebase Storage")
-                                    } else {
-                                        print("image downloaded")
-                                        if let imgData = data {
-                                            if let img = UIImage(data: imgData) {
-                                                self.ProfileImg.image = img
-                                                self.backgroundImg.image = img
-                                                FeedVC.imageCache.setObject(img, forKey: proUrl as AnyObject)
-                                                self.stopAnimating()
-                                            }
-                                        }
-                                    }
-                                })
-                        }
-                    
+                guard let proUrl = user.profileImageUrl else {
+                    return
                 }
-                
+                //passing image from the cache if it exists. Returns value of the key(url). FeedVC is single instance
+                self.proImg = FeedVC.imageCache.object(forKey: proUrl as AnyObject) as? UIImage
+                    if self.proImg != nil {
+                        self.ProfileImg.image = self.proImg
+                        self.backgroundImg.image = self.proImg
+                        self.stopAnimating()
+                    } else {
+                        let ref = Storage.storage().reference(forURL: proUrl)
+                        ref.getData(maxSize: 2 * 1024 * 1024, completion: { (data, error) in
+                            if error != nil {
+                                print("unable to download image from Firebase Storage")
+                            } else {
+                                print("image downloaded")
+                                if let imgData = data {
+                                    if let img = UIImage(data: imgData) {
+                                        self.ProfileImg.image = img
+                                        self.backgroundImg.image = img
+                                        FeedVC.imageCache.setObject(img, forKey: proUrl as AnyObject)
+                                        self.stopAnimating()
+                                    }
+                                }
+                            }
+                        })
+                    }
             }
         })
 
@@ -131,22 +127,29 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
         //Uploading image to Firebase Storage
         if let imgData = img.jpegData(compressionQuality: 0.2) {
             let imgUid = NSUUID().uuidString
-            let metaData = FIRStorageMetadata()
+            let metaData = StorageMetadata()
             metaData.contentType = "image/jpeg"
-            DataService.ds.REF_PROFILE_IMAGES.child(imgUid).put(imgData, metadata: metaData) { (metdata, error) in
+            let storageRef = DataService.ds.REF_PROFILE_IMAGES.child(imgUid)
+            storageRef.putData(imgData, metadata: metaData) { (metdata, error) in
                 if error != nil {
                     print("Unable to load image to Firebase Storage")
                 } else {
                     print("Successfully uploaded")
-                    let downloadURL = metdata?.downloadURL()?.absoluteString
-                    if downloadURL != nil {
-                        self.UpdateUserImageToFirebase(downloadURL)
-                    }
-                }
+                    
+                    storageRef.downloadURL(completion: { (url, error) in
+                        guard let downloadURL = url else {
+                            print("Error downloading URL")
+                            return
+                        }
+                        
+                        self.updateUserImageToFirebase(downloadURL.absoluteString)
+                    
+                    })
             }
         }
-                   self.performSegue(withIdentifier: "usernameSet", sender: nil)
+        self.performSegue(withIdentifier: "usernameSet", sender: nil)
 
+        }
     }
     
     
@@ -171,7 +174,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
 
     
     func unAuthenticateUser(_ alert: UIAlertAction!) {
-        try! FIRAuth.auth()?.signOut()
+        try! Auth.auth().signOut()
        
         let defaults = UserDefaults.standard
         if defaults.string(forKey: "storedEmail") != "" && defaults.string(forKey: "storedPassword") != "" {
@@ -193,7 +196,7 @@ class UsernameVCViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
 
-    func UpdateUserImageToFirebase(_ profileimgUrl: String?) {
+    func updateUserImageToFirebase(_ profileimgUrl: String?) {
         let firebaseProfile = DataService.ds.REF_USER_CURRENT//creates new database entry of autoid
         if profileimgUrl != nil {
             let ProfileimgUrl: Dictionary < String, AnyObject > = ["profileUrl":profileimgUrl! as AnyObject]

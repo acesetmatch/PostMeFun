@@ -26,14 +26,9 @@ class ViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true;
         signUpBtn.layer.borderWidth = 1.0
         signUpBtn.layer.borderColor = UIColor(red: 70.0/255.0, green: 90.0/255.0, blue: 255.0, alpha: borderAlpha).cgColor
-        if UserDefaults.standard.bool(forKey: "TermsAccepted") {
-        
-        } else {
+        if !UserDefaults.standard.bool(forKey: "TermsAccepted") {
             self.performSegue(withIdentifier: "returnToTerms", sender: nil)
         }
-        
-        
-
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
@@ -80,7 +75,7 @@ class ViewController: UIViewController {
 
     @IBAction func attemptLogin(_ sender:UIButton!) {
         if let email = emailField.text, email != "", let pwd = passwordField.text, pwd != "" {
-            FIRAuth.auth()?.signIn(withEmail: email, password: pwd, completion: { (user,error) in
+            Auth.auth().signIn(withEmail: email, password: pwd, completion: { (user,error) in
                     if (error != nil) {
                         print(error)
                         
@@ -99,7 +94,7 @@ class ViewController: UIViewController {
                           }
                         
                     } else {
-                        UserDefaults.standard.setValue(user!.uid, forKey: KEY_UID)
+                        UserDefaults.standard.setValue(user?.user.uid, forKey: KEY_UID)
                         let storedEmail = self.emailField.text
                         let storedPassword = self.passwordField.text
                         UserDefaults.standard.setValue(storedEmail, forKey: "storedEmail")
@@ -122,6 +117,7 @@ class ViewController: UIViewController {
 
     }
     
+    // Unwind Segues
     @IBAction func returnToLogin(_ segue: UIStoryboardSegue) {
         
     }
@@ -133,7 +129,6 @@ class ViewController: UIViewController {
     @IBAction func returnToRootView(_ segue: UIStoryboardSegue) {
         
     }
-    
     
     func pushToProfile() {
         let usernameVCViewController = self.storyboard?.instantiateViewController(withIdentifier: "UsernameVCViewController") as? UsernameVCViewController

@@ -19,10 +19,10 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     
     var posts = [Post]()
     var users = [User]()
-    var flagRef:FIRDatabaseReference!
-    var blockRef: FIRDatabaseReference!
-    var blacklistRef: FIRDatabaseReference!
-    var postRef: FIRDatabaseReference!
+    var flagRef:DatabaseReference!
+    var blockRef: DatabaseReference!
+    var blacklistRef: DatabaseReference!
+    var postRef: DatabaseReference!
     var imageSelected = false
     var post: Post!
     var user: User!
@@ -57,7 +57,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                 self.user = user
                 self.users.append(user)
                 DataService.ds.REF_POSTS.observe(.value, with: { snapshot in
-                    if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
+                    if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
                         self.posts = []
                         for snap in snapshots.reversed() {
                             if let postDict = snap.value as? Dictionary<String, AnyObject> {
@@ -68,7 +68,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                                 self.posts.append(post)
                                 for post in self.posts {
                                     self.blacklistRef.observeSingleEvent(of: .value, with: { snapshot in //check value only once
-                                        if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
+                                        if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
                                             for snap in snapshots {
                                                 if let blacklistDict = snap.value as? String {
                                                     let blacklistPost = post.Uid
@@ -192,7 +192,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     func flagReference(_ alert: UIAlertAction!) {
         flagRef = DataService.ds.REF_POSTS.child(post.postKey).child("flags").child(user.userKey!)
         flagRef.observeSingleEvent(of: .value, with: { snapshot in //check value only once
-            if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
+            if (snapshot.value as? NSNull) != nil { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
                 self.flagRef.setValue(true)
             } else {
                 self.flagRef.removeValue()
@@ -235,17 +235,20 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         //Uploading image to Firebase Storage
         if let imgData = img.jpegData(compressionQuality: 0.2) {
             let imgUid = NSUUID().uuidString
-            let metaData = FIRStorageMetadata()
+            let metaData = StorageMetadata()
+            let storageRef = DataService.ds.REF_POST_IMAGES.child(imgUid)
             metaData.contentType = "image/jpeg"
-            DataService.ds.REF_POST_IMAGES.child(imgUid).put(imgData, metadata: metaData) { (metdata, error) in
+            storageRef.putData(imgData, metadata: metaData) { (metdata, error) in
                 if error != nil {
                     print("Unable to load image to Firebase Storage")
                 } else {
                     print("Successfully uploaded")
-                    let downloadURL = metdata?.downloadURL()?.absoluteString
-                    if downloadURL != nil {
-                        self.postToFirebase(downloadURL)
-                    }
+                    storageRef.downloadURL(completion: { (url, error) in
+                        guard let downloadURL = url else {
+                            return
+                        }
+                        self.postToFirebase(downloadURL.absoluteString)
+                    })
                 }
             }
         }

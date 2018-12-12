@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        FIRApp.configure()
+        FirebaseApp.configure()
         
         let memoryEmail = UserDefaults.standard.string(forKey: "storedEmail")
         let memoryPassword = UserDefaults.standard.string(forKey: "storedPassword")

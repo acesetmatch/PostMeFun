@@ -13,8 +13,8 @@ class User {
     fileprivate var _username: String!
     fileprivate var _userKey: String!
     fileprivate var _blacklistUserKey: String!
-    fileprivate var _userRef: FIRDatabaseReference!
-    fileprivate var _userblacklistRef: FIRDatabaseReference!
+    fileprivate var _userRef: DatabaseReference!
+    fileprivate var _userblacklistRef: DatabaseReference!
     fileprivate var _profileImageUrl: String?
     fileprivate var _firstName: String!
     fileprivate var _lastName: String!

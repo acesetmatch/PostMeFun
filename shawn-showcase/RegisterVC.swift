@@ -114,19 +114,19 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                         emailExistsAlertController.addAction(okay)
                         
                     } else {
-                        FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
+                        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
                             if error != nil {
                                 let alert = Helper.showErrorAlert("Could not create account", msg: "Problem relating account. Try something else")
                                 self.present(alert, animated: true, completion: nil)
                             } else {
-                                UserDefaults.standard.setValue(user?.uid, forKey: KEY_UID)
+                                UserDefaults.standard.setValue(user?.user.uid, forKey: KEY_UID)
                                 let userData = ["provider": "email", "First Name":firstName, "Last Name": lastName, "email": email, "username": username] //swift dictionary
                                 
                                 let registerAlertController = UIAlertController(title: "Registration", message: "You have successfully registered!", preferredStyle: .alert)
                                 let okay = UIAlertAction(title: "OK", style: .default, handler: self.okayPressed)
                                 self.present(registerAlertController, animated: true, completion: nil)
                                 registerAlertController.addAction(okay)
-                                DataService.ds.createFirebaseUser(user!.uid, user: userData)
+                                DataService.ds.createFirebaseUser(user!.user.uid, user: userData)
 //                                self.performSegueWithIdentifier("returnToLogin", sender: nil)
                                 _ = self.navigationController?.popToRootViewController(animated: true)
                             }

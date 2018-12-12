@@ -12,7 +12,7 @@ import Alamofire
 class Post {
     fileprivate var _postDescription: String! //exclamation is required
     fileprivate var _postKey: String!
-    fileprivate var _postRef: FIRDatabaseReference!
+    fileprivate var _postRef: DatabaseReference!
     fileprivate var _imageUrl: String?
     fileprivate var _likes: Int!
     fileprivate var _flags: Int!
@@ -44,7 +44,7 @@ class Post {
         return _profileImageUrl
     }
     
-    var postRef: FIRDatabaseReference! {
+    var postRef: DatabaseReference! {
         return _postRef
     }
     

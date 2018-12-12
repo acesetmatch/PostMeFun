@@ -12,7 +12,6 @@ import UIKit
  A KaedeTextField is a subclass of the TextFieldEffects object, is a control that displays an UITextField with a customizable visual effect around the foreground of the control.
  */
 @IBDesignable open class KaedeTextField: TextFieldEffects {
-    
     /**
      The color of the placeholder text.
      
@@ -62,10 +61,10 @@ import UIKit
     private let placeholderInsets = CGPoint(x: 10, y: 5)
     private let textFieldInsets = CGPoint(x: 10, y: 0)
         
-    // MARK: - TextFieldsEffects
+    // MARK: - TextFieldEffects
 
     override open func drawViewsForRect(_ rect: CGRect) {
-        let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: rect.size.width, height: rect.size.height))
+        let frame = CGRect(origin: .zero, size: CGSize(width: rect.size.width, height: rect.size.height))
         
         foregroundView.frame = frame
         foregroundView.isUserInteractionEnabled = false
