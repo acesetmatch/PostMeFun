@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 open class Helper {
-    open static func showErrorAlert(_ title: String, msg: String) -> UIAlertController {
+    public static func showErrorAlert(_ title: String, msg: String) -> UIAlertController {
         let alert = UIAlertController(title:title, message: msg, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(action)

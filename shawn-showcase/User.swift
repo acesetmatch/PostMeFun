@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-class User {
+struct User {
     fileprivate var _username: String!
     fileprivate var _userKey: String!
     fileprivate var _blacklistUserKey: String!
@@ -19,7 +19,7 @@ class User {
     fileprivate var _firstName: String!
     fileprivate var _lastName: String!
     fileprivate var _email: String!
-    fileprivate var _blacklist: Dictionary < Int, String >?
+    fileprivate var _blacklist: Dictionary<Int, String>?
     
     var username: String {
         return _username

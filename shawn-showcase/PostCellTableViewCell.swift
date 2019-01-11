@@ -62,14 +62,14 @@ class PostCellTableViewCell: UITableViewCell {
         self.likesLbl.text = "\(post.likes)"
         self.usernameLbl.text = post.username
         
-        //if let img = img, let ProfileImage = ProfileImage {
-        downloadFromFirebaseStorage(imageUrl: post.imageUrl, outletImgView: self.showcaseImg, img: img)
-        downloadFromFirebaseStorage(imageUrl: post.profileImageUrl, outletImgView: self.profileImg, img: ProfileImage)
-        //}
+        if let img = img, let ProfileImage = ProfileImage {
+            downloadFromFirebaseStorage(imageUrl: post.imageUrl, outletImgView: self.showcaseImg, img: img)
+            downloadFromFirebaseStorage(imageUrl: post.profileImageUrl, outletImgView: self.profileImg, img: ProfileImage)
+        }
         //self.activityIndicatorView.stopAnimating()
         
         likeRef.observeSingleEvent(of: .value, with: { snapshot in //check value only once
-            if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
+            if (snapshot.value as? NSNull) != nil { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
                 self.likeImage.image = UIImage(named: "heart-empty")
             } else {
                 self.likeImage.image = UIImage(named: "heart-full")
@@ -79,14 +79,12 @@ class PostCellTableViewCell: UITableViewCell {
     
     // Downloading images from Firebase Storage.
     func downloadFromFirebaseStorage(imageUrl: String?, outletImgView: UIImageView, img: UIImage?) {
-        //if imageUrl != nil {
             if img != nil {
                 outletImgView.image = img
             } else {
                 //getting an image request then call the response
                 if let imageURL = imageUrl {
-                    let ref = Storage.storage().reference(forURL: imageURL)
-                    ref.getData(maxSize: 2 * 1024 * 1024, completion: { (data, error) in
+                    Storage.storage().reference(forURL: imageURL).getData(maxSize: 2 * 1024 * 1024, completion: { (data, error) in
                         if error != nil {
                             print("unable to download image from Firebase Storage")
                         } else {
@@ -101,16 +99,11 @@ class PostCellTableViewCell: UITableViewCell {
                     })
                 }
             }
-        /*
-        } else {
-            outletImgView.isHidden = true
-        }
- */
     }
     
     @objc func likeTapped(_ sender: UITapGestureRecognizer) {
         likeRef.observeSingleEvent(of: .value, with: { snapshot in //check value only once
-            if let doesNotExist = snapshot.value as? NSNull { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
+            if (snapshot.value as? NSNull) != nil { //if there is no data in value, you need to check it agaisnt NSNULL. We have not liked this specific post.
                 self.likeImage.image = UIImage(named: "heart-full")
                 self.post.adjustLikes(true)
                 self.likeRef.setValue(true) //creates a like on life ref when set to true

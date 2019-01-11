@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (4.0.0)
+  - Alamofire (5.0.0.beta.1)
   - Firebase/Auth (5.14.0):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.1.0)
@@ -80,7 +80,7 @@ PODS:
   - TextFieldEffects (1.5.1)
 
 DEPENDENCIES:
-  - Alamofire (from `https://github.com/Alamofire/Alamofire.git`, tag `4.0.0`)
+  - Alamofire (~> 5.0.0.beta.1)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -90,6 +90,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Alamofire
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -106,18 +107,8 @@ SPEC REPOS:
     - NVActivityIndicatorView
     - TextFieldEffects
 
-EXTERNAL SOURCES:
-  Alamofire:
-    :git: https://github.com/Alamofire/Alamofire.git
-    :tag: 4.0.0
-
-CHECKOUT OPTIONS:
-  Alamofire:
-    :git: https://github.com/Alamofire/Alamofire.git
-    :tag: 4.0.0
-
 SPEC CHECKSUMS:
-  Alamofire: fef59f00388f267e52d9b432aa5d93dc97190f14
+  Alamofire: 2ef6d6c984c5d21c366e9b41a9ae7dfee2b67a44
   Firebase: 963d5685fae888a56d6d4d9cfce6b9c976958798
   FirebaseAnalytics: c06f9d70577d79074214700a71fd5d39de5550fb
   FirebaseAuth: 4a5cc5fc2d1721e509e24699b93ebc3d94b1e195
@@ -134,6 +125,6 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: ec7440a57af2450319d3a4181cca7da6fc127064
   TextFieldEffects: 7d372f58aeaf9acd9626bbf962680aef926b085d
 
-PODFILE CHECKSUM: 61f8700c3c5da2af656a401c1a5d581a9a0cf488
+PODFILE CHECKSUM: 2c472be921292d3a567d5ca4bd6926d34497671b
 
 COCOAPODS: 1.5.3

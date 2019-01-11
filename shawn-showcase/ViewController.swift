@@ -77,7 +77,7 @@ class ViewController: UIViewController {
         if let email = emailField.text, email != "", let pwd = passwordField.text, pwd != "" {
             Auth.auth().signIn(withEmail: email, password: pwd, completion: { (user,error) in
                     if (error != nil) {
-                        print(error)
+                        print(error as Any)
                         
                           if error!._code == STATUS_ACCOUNT_NONEXIST {
                             self.errorLbl.isHidden = false
@@ -118,28 +118,17 @@ class ViewController: UIViewController {
     }
     
     // Unwind Segues
-    @IBAction func returnToLogin(_ segue: UIStoryboardSegue) {
-        
-    }
+    @IBAction func returnToLogin(_ segue: UIStoryboardSegue) {}
     
-    @IBAction func loggingOutofUsername(_ segue: UIStoryboardSegue) {
-       
-    }
+    @IBAction func loggingOutofUsername(_ segue: UIStoryboardSegue) {}
     
-    @IBAction func returnToRootView(_ segue: UIStoryboardSegue) {
-        
-    }
+    @IBAction func returnToRootView(_ segue: UIStoryboardSegue) {}
     
     func pushToProfile() {
         let usernameVCViewController = self.storyboard?.instantiateViewController(withIdentifier: "UsernameVCViewController") as? UsernameVCViewController
         self.navigationController?.pushViewController(usernameVCViewController!, animated: true)
     }
-    
-    
 }
-
-
-
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {

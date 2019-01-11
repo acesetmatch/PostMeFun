@@ -8,7 +8,7 @@ target 'shawn-showcase' do
     pod 'Firebase/Auth'
     pod 'Firebase/Database'
     pod 'Firebase/Storage'
-    pod 'Alamofire',:git => 'https://github.com/Alamofire/Alamofire.git', :tag => '4.0.0'
+    pod 'Alamofire', '~> 5.0.0.beta.1'
     pod 'NVActivityIndicatorView'
     pod 'TextFieldEffects'
 end

@@ -9,7 +9,8 @@
 import Foundation
 import Firebase
 import Alamofire
-class Post {
+
+struct Post {
     fileprivate var _postDescription: String! //exclamation is required
     fileprivate var _postKey: String!
     fileprivate var _postRef: DatabaseReference!
@@ -99,7 +100,7 @@ class Post {
     
     }
     
-    func adjustLikes(_ addLike: Bool) {
+    mutating func adjustLikes(_ addLike: Bool) {
         
         if addLike {
             _likes = _likes + 1
@@ -110,7 +111,7 @@ class Post {
         _postRef.child("likes").setValue(_likes)
     }
     
-    func adjustFlags(_ addFlag: Bool) {
+    mutating func adjustFlags(_ addFlag: Bool) {
         
         if addFlag {
             _flags = _flags + 1
